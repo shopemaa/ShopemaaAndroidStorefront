@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.HomeActivity">
+
+    <RelativeLayout
+        android:id="@+id/shop_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/product_search_menu"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_baseline_menu_24" />
+
+        <EditText
+            android:id="@+id/input_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toStartOf="@id/product_search_cart"
+            android:layout_toEndOf="@+id/product_search_menu"
+            android:drawableStart="@drawable/ic_baseline_search_24"
+            android:hint="@string/search_products_hint"
+            android:lines="1"
+            android:maxLines="1"
+            android:minLines="1"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/product_search_cart"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_baseline_shopping_cart_24" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/shop_tab_viewer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/shop_layout_top"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="80dp" />
+
+    <github.com.st235.lib_expandablebottombar.ExpandableBottomBar
+        android:id="@+id/shop_home_expandable_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        app:exb_backgroundColor="@color/primary"
+        app:exb_backgroundCornerRadius="25dp"
+        app:exb_itemInactiveColor="#fff"
+        app:exb_items="@menu/home_nav_menu"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</RelativeLayout>

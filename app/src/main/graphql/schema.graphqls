@@ -1,0 +1,2585 @@
+input AddAttributeParams {
+    name: String!
+
+    values: [String!]!
+
+    isRequired: Boolean!
+}
+
+type AddAttributeResponse {
+    attribute: ProductAttribute!
+}
+
+input AddAttributeToProductParams {
+    productId: String!
+
+    attribute: AddAttributeParams!
+}
+
+input AddBlogPostComment {
+    content: String!
+}
+
+type AddBlogPostCommentResponse {
+    comment: BlogPostComment!
+}
+
+type AddCouponCodeResponse {
+    coupon: CouponCode!
+}
+
+input AddDigitalContentParams {
+    title: String!
+
+    contentType: DigitalContentType!
+
+    isTrialAllowed: Boolean!
+
+    contentText: String
+
+    contentFile: Upload
+
+    position: Int
+}
+
+input AddDigitalItemParams {
+    title: String!
+
+    description: String
+
+    position: Int
+}
+
+input AddFeedbackParams {
+    rating: Int!
+
+    comment: String
+}
+
+input AddProductsToCollectionParams {
+    collectionId: String!
+
+    productIds: [String!]!
+}
+
+input AddVariationParams {
+    name: String!
+
+    price: Int!
+
+    cost: Int!
+
+    sku: String
+
+    stock: Int
+
+    weight: Float
+
+    weightUnit: WeightUnit
+}
+
+type AddVariationResponse {
+    variation: ProductVariation!
+}
+
+input AddVariationToProductParams {
+    productId: String!
+
+    variation: AddVariationParams!
+}
+
+type Address {
+    id: String!
+
+    street: String!
+
+    streetTwo: String
+
+    city: String!
+
+    state: String
+
+    postcode: String!
+
+    email: String
+
+    phone: String
+
+    location: Location!
+}
+
+input AddressParams {
+    street: String!
+
+    streetTwo: String
+
+    city: String!
+
+    state: String
+
+    postcode: String!
+
+    email: String
+
+    phone: String
+
+    locationId: String!
+}
+
+type BlogPost {
+    id: String!
+
+    title: String!
+
+    slug: String
+
+    bannerImage: String
+
+    content: String!
+
+    tags: [String!]
+
+    isPublished: Boolean!
+
+    isFeatured: Boolean!
+
+    views: Int!
+
+    favourites: Int!
+
+    comments("" page: Int, "" limit: Int): [BlogPostComment!]!
+
+    createdAt: String!
+
+    updatedAt: String
+}
+
+type BlogPostComment {
+    id: String!
+
+    content: String!
+
+    customer: Customer!
+
+    createdAt: String!
+
+    updatedAt: String
+}
+
+type Cart {
+    id: String!
+
+    isShippingRequired: Boolean!
+
+    cartItems: [CartItem!]!
+}
+
+type CartItem {
+    id: Int!
+
+    product: Product!
+
+    quantity: Int!
+
+    purchasePrice: Int!
+
+    purchaseTimeCost: Int!
+
+    attributes: [CartProductAttribute!]!
+
+    variation: ProductVariation
+}
+
+input CartItemAttributeParams {
+    Id: String!
+
+    attributeSelectedValue: String!
+}
+
+input CartItemParams {
+    productId: String!
+
+    productAttributes: [CartItemAttributeParams!]
+
+    productVariationId: String
+
+    quantity: Int!
+}
+
+type CartProductAttribute {
+    name: String!
+
+    selectedValue: String!
+}
+
+type Category {
+    id: String!
+
+    name: String!
+
+    slug: String!
+
+    isPublished: Boolean!
+
+    description: String
+
+    image: String
+
+    fullImage: String
+
+    createdAt: String!
+
+    updatedAt: String
+
+    productCount: Int!
+
+    position: Int!
+}
+
+type Collection {
+    id: String!
+
+    name: String!
+
+    slug: String!
+
+    isPublished: Boolean!
+
+    description: String
+
+    image: String
+
+    fullImage: String
+
+    createdAt: String!
+
+    updatedAt: String
+
+    products("" search: Search, "" sort: Sort!, "" pagination: Pagination!): [Product!]
+
+    productCount: Int!
+
+    position: Int!
+}
+
+type CouponCode {
+    id: String!
+
+    code: String!
+
+    amount: Int!
+
+    minOrderAmount: Int
+
+    maxDiscountAmount: Int
+
+    isActive: Boolean!
+
+    isFlatDiscount: Boolean!
+
+    isForNewUsersOnly: Boolean!
+
+    isUserSpecific: Boolean!
+
+    maxUsage: Int
+
+    maxUsagePerUser: Int
+
+    discountType: DiscountType!
+
+    description: String
+
+    image: String
+
+    startAt: String
+
+    endAt: String
+
+    createdAt: String!
+
+    updatedAt: String
+
+    customers: [Customer!]
+}
+
+type CreateBlogPostResponse {
+    post: BlogPost!
+}
+
+type CreateCartResponse {
+    cart: Cart!
+}
+
+type CreateCategoryResponse {
+    category: Category!
+}
+
+type CreateCollectionResponse {
+    collection: Collection!
+}
+
+type CreateProductResponse {
+    product: Product!
+}
+
+type CreateShippingMethodResponse {
+    method: ShippingMethod!
+}
+
+type CreateShopResponse {
+    shop: Store!
+}
+
+enum Currency {
+    USD
+
+    BDT
+
+    EUR
+}
+
+type Customer {
+    email: String!
+
+    phone: String
+
+    firstName: String!
+
+    lastName: String!
+
+    profilePicture: String
+}
+
+input CustomerChangePasswordParams {
+    oldPassword: String!
+
+    newPassword: String!
+}
+
+input CustomerResetPasswordParams {
+    email: String!
+
+    resetToken: String!
+
+    newPassword: String!
+}
+
+input CustomerResetPasswordRequestParams {
+    email: String!
+}
+
+type DigitalContent {
+    id: String!
+
+    title: String!
+
+    contentType: DigitalContentType!
+
+    isTrialAllowed: Boolean!
+
+    contentText: String
+
+    contentUrl: String
+
+    updatedAt: String!
+
+    position: Int!
+}
+
+enum DigitalContentType {
+    File
+
+    Text
+
+    Video
+}
+
+type DigitalItem {
+    id: String!
+
+    title: String!
+
+    description: String
+
+    position: Int!
+
+    contents: [DigitalContent!]!
+}
+
+enum DiscountType {
+    Product
+
+    Shipping
+
+    Overall
+}
+
+type Feedback {
+    rating: Int!
+
+    comment: String
+
+    createdAt: String!
+}
+
+enum FilterKey {
+    collection
+
+    category
+
+    email
+}
+
+input FilterQuery {
+    key: FilterKey!
+
+    value: String!
+}
+
+type GeneratePaymentNoneResponse {
+    PaymentGatewayName: String!
+
+    Nonce: String!
+
+    StripePublishableKey: String
+}
+
+type GenerateShopSecretResponse {
+    secret: StoreSecret!
+}
+
+type GetAdminBlogPostResponse {
+    post: BlogPost!
+}
+
+type GetAdminCategoryByIdResponse {
+    category: Category!
+}
+
+type GetAdminCollectionByIdResponse {
+    collection: Collection!
+}
+
+type GetAdminProductByIDResponse {
+    product: Product!
+}
+
+type GetBlogPostResponse {
+    post: PBlogPost!
+}
+
+type GetCartByIDResponse {
+    cart: Cart!
+}
+
+type GetCategoryByIdResponse {
+    category: PCategory!
+}
+
+type GetCollectionByIdResponse {
+    collection: PCollection!
+}
+
+type GetCouponCodeByCodeResponse {
+    coupon: CouponCode!
+}
+
+type GetCouponCodeByIdResponse {
+    coupon: CouponCode!
+}
+
+type GetCustomerOrderByHashResponse {
+    order: Order!
+}
+
+type GetCustomerOrderByIdResponse {
+    order: Order!
+}
+
+type GetProductByIDResponse {
+    product: PProduct!
+}
+
+type GetShippingMethodByIdResponse {
+    method: ShippingMethod!
+}
+
+input GuestCheckoutPlaceOrderParams {
+    cartId: String!
+
+    billingAddress: AddressParams!
+
+    shippingAddress: AddressParams
+
+    paymentMethodId: String
+
+    shippingMethodId: String
+
+    couponCode: String
+
+    firstName: String!
+
+    lastName: String!
+
+    email: String!
+}
+
+type ListAdminBlogPostResponse {
+    posts: [BlogPost!]!
+}
+
+type ListAdminCategoryResponse {
+    categories: [Category!]!
+}
+
+type ListAdminCollectionResponse {
+    collections: [Collection!]!
+}
+
+type ListAdminProductAttributeResponse {
+    attributes: [ProductAttribute!]!
+}
+
+type ListAdminProductResponse {
+    products: [Product!]!
+}
+
+type ListAdminProductVariationResponse {
+    variations: [ProductVariation!]!
+}
+
+type ListBlogPostResponse {
+    posts: [PBlogPost!]!
+}
+
+type ListCategoryResponse {
+    categories: [PCategory!]!
+}
+
+type ListCollectionResponse {
+    collections: [PCollection!]!
+}
+
+type ListCouponCodesResponse {
+    coupons: [CouponCode!]!
+}
+
+type ListCustomerOrdersResponse {
+    orders: [Order!]!
+}
+
+type ListPaymentMethodResponse {
+    methods: [PaymentMethod!]!
+}
+
+type ListProductAttributeResponse {
+    attributes: [ProductAttribute!]!
+}
+
+type ListProductResponse {
+    products: [PProduct!]!
+}
+
+type ListProductVariationResponse {
+    variations: [PProductVariation!]!
+}
+
+type ListShippingMethodResponse {
+    methods: [ShippingMethod!]!
+}
+
+type ListShopMediaResponse {
+    items: [ShopMedia!]!
+}
+
+type Location {
+    id: String!
+
+    name: String!
+
+    shortCode: String!
+}
+
+input LoginCustomerParams {
+    email: String!
+
+    password: String!
+}
+
+type LoginCustomerResponse {
+    accessToken: String!
+
+    refreshToken: String
+}
+
+input LoginUserParams {
+    email: String!
+
+    password: String!
+}
+
+type LoginUserResponse {
+    accessToken: String!
+
+    refreshToken: String!
+}
+
+type Mutation {
+    newCart("" params: NewCartParams!): PCart!
+
+    updateCart("" id: String!, "" params: UpdateCartParams!): PCart!
+
+    newBlogPost("" params: NewBlogPostParams!): BlogPost!
+
+    updateBlogPost("" postId: String!, "" params: UpdateBlogPostParams!): BlogPost!
+
+    deleteBlogPost("" postId: String!): Boolean!
+
+    blogPostAddComment("" postId: String!, "" params: AddBlogPostComment): BlogPostComment!
+
+    blogPostUpdateComment("" postId: String!, "" commentId: String!, "" params: UpdateBlogPostComment): BlogPostComment!
+
+    blogPostDeleteComment("" postId: String!, "" commentId: String!): Boolean!
+
+    newCategory("" params: NewCategoryParams!): Category!
+
+    updateCategory("" id: String!, "" params: UpdateCategoryParams!): Category!
+
+    deleteCategory("" id: String!): Boolean!
+
+    newCollection("" params: NewCollectionParams!): Collection!
+
+    updateCollection("" id: String!, "" params: UpdateCollectionParams!): Collection!
+
+    deleteCollection("" id: String!): Boolean!
+
+    collectionAddProducts("" collectionId: String!, "" productIds: [String!]!): Boolean!
+
+    collectionRemoveProducts("" collectionId: String!, "" productIds: [String!]!): Boolean!
+
+    newCouponCode("" params: NewCouponCodeParams!): CouponCode!
+
+    updateCouponCode("" id: String!, "" params: UpdateCouponCodeParams!): CouponCode!
+
+    deleteCouponCode("" id: String!): Boolean!
+
+    customerRegister("" params: RegisterCustomerParams): RegisterCustomerResponse!
+
+    customerLogin("" params: LoginCustomerParams): LoginCustomerResponse!
+
+    customerResetPasswordRequest("" params: CustomerResetPasswordRequestParams!): Boolean!
+
+    customerResetPassword("" params: CustomerResetPasswordParams!): Boolean!
+
+    customerChangePassword("" params: CustomerChangePasswordParams!): Boolean!
+
+    customerUpdateProfile("" params: UpdateCustomerParams!): Customer!
+
+    newMedia("" bucket: String!, "" contentFile: Upload!): String!
+
+    deleteMedia("" path: String!): Boolean!
+
+    orderGuestCheckout("" params: GuestCheckoutPlaceOrderParams): POrder!
+
+    orderCheckout("" params: PlaceOrderParams): POrder!
+
+    orderCheckoutByAdmin("" params: PlaceOrderByAdminParams): Order!
+
+    orderGeneratePaymentNonce("" orderId: String!, "" overrides: PaymentRequestOverrides): GeneratePaymentNoneResponse!
+
+    orderGeneratePaymentNonceForGuest("" orderId: String!, "" customerEmail: String!, "" overrides: PaymentRequestOverrides): GeneratePaymentNoneResponse!
+
+    orderGenerateDigitalContent("" hash: String!, "" productId: String!, "" itemId: String!, "" contentId: String!): OrderGenerateDigitalContent!
+
+    orderAddFeedback("" hash: String!, "" params: AddFeedbackParams!): Feedback!
+
+    orderUpdateByAdmin("" id: String!, "" params: OrderUpdateParams!): Order!
+
+    userRegister("" params: RegisterUserParams!): RegisterUserResponse
+
+    userLogin("" params: LoginUserParams!): LoginUserResponse
+
+    newProduct("" params: NewProduct!): Product!
+
+    updateProduct("" productId: String!, "" params: UpdateProduct!): Product!
+
+    deleteProduct("" productId: String!): Boolean!
+
+    productAddVariation("" productId: String!, "" params: AddVariationParams!): ProductVariation!
+
+    productUpdateVariation("" productId: String!, "" variationId: String!, "" params: UpdateVariationParams!): ProductVariation!
+
+    productRemoveVariation("" productId: String!, "" variationId: String!): Boolean!
+
+    productAddAttribute("" productId: String!, "" params: AddAttributeParams!): ProductAttribute!
+
+    productUpdateAttribute("" productId: String!, "" attributeId: String!, "" params: UpdateAttributeParams!): ProductAttribute!
+
+    productRemoveAttribute("" productId: String!, "" attributeId: String!): Boolean!
+
+    productAddDigitalItem("" productId: String!, "" params: AddDigitalItemParams!): DigitalItem!
+
+    productUpdateDigitalItem("" productId: String!, "" itemId: String!, "" params: UpdateDigitalItemParams!): DigitalItem!
+
+    productRemoveDigitalItem("" productId: String!, "" itemId: String!): Boolean!
+
+    productAddDigitalContent("" productId: String!, "" itemId: String!, "" params: AddDigitalContentParams!): DigitalContent!
+
+    productUpdateDigitalContent("" productId: String!, "" itemId: String!, "" contentId: String!, "" params: UpdateDigitalContentParams!): DigitalContent!
+
+    productRemoveDigitalContent("" productId: String!, "" itemId: String!, "" contentId: String!): Boolean!
+
+    newShippingMethod("" params: NewShippingMethodParams!): ShippingMethod!
+
+    updateShippingMethod("" id: String!, "" params: UpdateShippingMethodParams!): ShippingMethod!
+
+    deleteShippingMethod("" id: String!): Boolean!
+
+    newStore("" params: NewStoreParams!): Store!
+
+    updateStore("" id: String!, "" params: UpdateStoreParams!): Boolean!
+
+    updateStoreBySecret("" params: UpdateStoreParams!): Boolean!
+
+    deleteStore("" id: String!): Boolean!
+
+    newStoreSecret("" storeId: String!, "" params: NewStoreSecretParams): StoreSecret!
+
+    deleteStoreSecret("" secretId: String!): Boolean!
+
+    newStoreBanner("" params: NewStoreBanner!): StoreBanner!
+
+    updateStoreBanner("" id: String!, "" params: UpdateStoreBanner!): StoreBanner!
+
+    deleteStoreBanner("" id: String!): Boolean!
+
+    newStoreMenu("" params: NewStoreMenu!): StoreMenu!
+
+    updateStoreMenu("" id: String!, "" params: UpdateStoreMenu!): StoreMenu!
+
+    deleteStoreMenu("" id: String!): Boolean!
+
+    newStorePage("" params: NewStorePageParams!): StorePage!
+
+    updateStorePage("" pageId: String!, "" params: UpdateStorePageParams!): StorePage!
+
+    deleteStorePage("" pageId: String!): Boolean!
+}
+
+input NewBlogPostParams {
+    title: String!
+
+    slug: String
+
+    bannerImage: String
+
+    content: String!
+
+    tags: [String!]
+
+    isPublished: Boolean!
+
+    isFeatured: Boolean!
+}
+
+input NewCartParams {
+    cartItems: [CartItemParams!]!
+}
+
+input NewCategoryParams {
+    name: String!
+
+    slug: String
+
+    isPublished: Boolean! = False
+
+    description: String
+
+    image: String
+
+    position: Int
+}
+
+input NewCollectionParams {
+    name: String!
+
+    slug: String
+
+    isPublished: Boolean! = False
+
+    description: String
+
+    image: String
+
+    position: Int
+}
+
+input NewCouponCodeParams {
+    code: String!
+
+    amount: Int!
+
+    minOrderAmount: Int
+
+    maxDiscountAmount: Int
+
+    isActive: Boolean!
+
+    isFlatDiscount: Boolean!
+
+    isForNewUsersOnly: Boolean!
+
+    isUserSpecific: Boolean!
+
+    maxUsage: Int
+
+    maxUsagePerUser: Int
+
+    discountType: DiscountType!
+
+    description: String
+
+    image: String
+
+    startAt: String
+
+    endAt: String
+
+    customers: [String!]
+}
+
+input NewProduct {
+    name: String!
+
+    slug: String
+
+    description: String!
+
+    isPublished: Boolean!
+
+    sku: String
+
+    stock: Int
+
+    maxItemPerOrder: Int
+
+    price: Int!
+
+    cost: Int!
+
+    weight: Float
+
+    weightUnit: WeightUnit
+
+    productUnit: ProductUnit
+
+    images: [String!]!
+
+    isDigitalProduct: Boolean!
+
+    categoryId: String
+
+    productSpecificDiscount: Int
+}
+
+input NewShippingMethodParams {
+    displayName: String!
+
+    deliveryCharge: Int!
+
+    deliveryTimeInDays: Int!
+
+    WeightUnit: WeightUnit!
+
+    isFlat: Boolean!
+
+    isActive: Boolean!
+}
+
+input NewStoreBanner {
+    image: String!
+
+    title: String
+
+    description: String
+
+    btnValue: String
+
+    btnUrl: String
+
+    tag: String
+
+    isPublished: Boolean!
+
+    position: Int!
+}
+
+input NewStoreMenu {
+    name: String!
+
+    url: String!
+
+    tag: String
+
+    isPublished: Boolean!
+
+    position: Int!
+
+    parentMenuId: String
+}
+
+input NewStorePageParams {
+    title: String!
+
+    slug: String
+
+    content: String!
+
+    isPublished: Boolean!
+}
+
+input NewStoreParams {
+    name: String!
+
+    title: String
+
+    description: String
+
+    tags: [String!]
+
+    metaName: String
+
+    metaDescription: String
+
+    metaTags: [String!]
+
+    logo: Upload
+
+    favicon: Upload
+
+    bannerImage: Upload
+
+    isOpen: Boolean
+
+    isCustomerLoyaltyEnabled: Boolean
+
+    currency: Currency
+
+    website: String
+
+    supportEmail: String
+
+    supportPhone: String
+
+    street: String
+
+    streetOptional: String
+
+    city: String
+
+    state: String
+
+    postcode: String
+
+    locationID: String
+}
+
+input NewStoreSecretParams {
+    secretType: SecretType!
+}
+
+type Order {
+    id: String!
+
+    hash: String!
+
+    shippingCharge: Int!
+
+    paymentProcessingFee: Int!
+
+    subtotal: Int!
+
+    grandTotal: Int!
+
+    discountedAmount: Int!
+
+    status: OrderStatus!
+
+    paymentStatus: OrderPaymentStatus!
+
+    createdAt: String!
+
+    updatedAt: String
+
+    billingAddress: Address!
+
+    shippingAddress: Address
+
+    cart: Cart!
+
+    customer: Customer!
+
+    shop: PStore!
+
+    paymentMethod: PaymentMethod
+
+    shippingMethod: ShippingMethod
+
+    couponCode: UserCouponCode
+
+    payments: [Payment!]!
+
+    feedback: Feedback
+}
+
+enum OrderBy {
+    ID
+
+    CreatedAt
+
+    UpdatedAt
+
+    Price
+
+    View
+}
+
+enum OrderDirection {
+    Asc
+
+    Desc
+}
+
+type OrderGenerateDigitalContent {
+    type: DigitalContentType!
+
+    content: String
+
+    contentUrl: String
+}
+
+input OrderPaymentParams {
+    payableAmount: Int!
+}
+
+enum OrderPaymentStatus {
+    Pending
+
+    Paid
+
+    Failed
+
+    Refunded
+
+    Lending
+}
+
+input OrderSearchParams {
+    customerEmail: String
+
+    orderHash: String
+}
+
+enum OrderStatus {
+    Pending
+
+    Processing
+
+    Shipping
+
+    Delivered
+
+    Completed
+
+    Cancelled
+
+    Returned
+}
+
+input OrderUpdateParams {
+    status: OrderStatus
+
+    paymentStatus: OrderPaymentStatus
+
+    payments: [OrderPaymentParams!]
+}
+
+type PBlogPost {
+    id: String!
+
+    title: String!
+
+    slug: String
+
+    bannerImage: String
+
+    content: String!
+
+    tags: [String!]
+
+    isPublished: Boolean!
+
+    isFeatured: Boolean!
+
+    views: Int!
+
+    favourites: Int!
+
+    comments("" page: Int, "" limit: Int): [BlogPostComment!]!
+
+    createdAt: String!
+
+    updatedAt: String
+}
+
+type PCart {
+    id: String!
+
+    isShippingRequired: Boolean!
+
+    cartItems: [PCartItem!]!
+}
+
+type PCartItem {
+    id: Int!
+
+    product: PProduct!
+
+    quantity: Int!
+
+    purchasePrice: Int!
+
+    attributes: [CartProductAttribute!]!
+
+    variation: PProductVariation
+}
+
+type PCategory {
+    id: String!
+
+    name: String!
+
+    slug: String!
+
+    description: String
+
+    image: String
+
+    fullImage: String
+
+    productCount: Int!
+
+    position: Int!
+}
+
+type PCollection {
+    id: String!
+
+    name: String!
+
+    slug: String!
+
+    description: String
+
+    image: String
+
+    fullImage: String
+
+    products("" search: Search, "" sort: Sort!, "" pagination: Pagination!): [Product!]
+
+    productCount: Int!
+
+    position: Int!
+}
+
+type PDigitalItem {
+    id: String!
+
+    title: String!
+
+    description: String
+
+    position: Int!
+
+    contents: [DigitalContent!]!
+}
+
+type POrder {
+    id: String!
+
+    hash: String!
+
+    shippingCharge: Int!
+
+    paymentProcessingFee: Int!
+
+    subtotal: Int!
+
+    grandTotal: Int!
+
+    discountedAmount: Int!
+
+    status: OrderStatus!
+
+    paymentStatus: OrderPaymentStatus!
+
+    createdAt: String!
+
+    updatedAt: String
+
+    billingAddress: Address!
+
+    shippingAddress: Address
+
+    cart: PCart!
+
+    customer: Customer!
+
+    shop: PStore!
+
+    paymentMethod: PaymentMethod
+
+    shippingMethod: ShippingMethod
+
+    couponCode: UserCouponCode
+
+    payments: [Payment!]!
+
+    feedback: Feedback
+}
+
+input POrderSearchParams {
+    shopName: String
+
+    orderHash: String
+}
+
+type PProduct {
+    id: String!
+
+    name: String!
+
+    slug: String!
+
+    description: String!
+
+    sku: String
+
+    stock: Int
+
+    maxItemPerOrder: Int
+
+    price: Int!
+
+    images: [String!]!
+
+    fullImages: [String!]!
+
+    isDigitalProduct: Boolean!
+
+    views: Int!
+
+    productUnit: ProductUnit
+
+    createdAt: String!
+
+    updatedAt: String
+
+    category: PCategory
+
+    attributes: [ProductAttribute!]!
+
+    variations: [PProductVariation!]!
+
+    digitalItems: [PDigitalItem!]!
+
+    feedbacks: [Feedback!]
+
+    productSpecificDiscount: Int!
+}
+
+type PProductVariation {
+    id: String!
+
+    name: String!
+
+    price: Int!
+
+    sku: String
+
+    stock: Int
+}
+
+type PStore {
+    name: String!
+
+    title: String
+
+    description: String
+
+    tags: [String!]
+
+    metaName: String
+
+    metaDescription: String
+
+    metaTags: [String!]
+
+    logo: String
+
+    favicon: String
+
+    bannerImage: String
+
+    isOpen: Boolean!
+
+    currency: Currency!
+
+    website: String
+
+    supportEmail: String
+
+    supportPhone: String
+
+    createdAt: String!
+
+    updatedAt: String
+
+    street: String
+
+    streetOptional: String
+
+    city: String
+
+    state: String
+
+    postcode: String
+
+    location: Location
+}
+
+type PStoreBanner {
+    imagePath: String!
+
+    imageUrl: String!
+
+    title: String
+
+    description: String
+
+    btnValue: String
+
+    btnUrl: String
+
+    tag: String
+
+    position: Int!
+}
+
+type PStoreMenu {
+    id: String!
+
+    name: String!
+
+    url: String!
+
+    tag: String
+
+    position: Int!
+
+    parentMenu: StoreMenu
+
+    subMenus: [PStoreMenu!]
+}
+
+type PStorePage {
+    title: String!
+
+    slug: String
+
+    content: String!
+
+    isPublished: Boolean!
+
+    views: Int!
+
+    createdAt: String!
+
+    updatedAt: String
+}
+
+input Pagination {
+    perPage: Int!
+
+    page: Int!
+}
+
+type Payment {
+    isPaid: Boolean!
+
+    payableAmount: Int!
+
+    gatewayName: String!
+}
+
+enum PaymentGateway {
+    Stripe
+
+    SSLCommerz
+}
+
+type PaymentMethod {
+    id: String!
+
+    displayName: String!
+
+    currencyName: String!
+
+    currencySymbol: String!
+
+    isDigitalPayment: Boolean!
+}
+
+input PaymentRequestOverrides {
+    SuccessCallback: String
+
+    FailureCallback: String
+}
+
+input PlaceOrderByAdminParams {
+    cartId: String!
+
+    billingAddress: AddressParams!
+
+    shippingAddress: AddressParams
+
+    paymentMethodId: String
+
+    shippingMethodId: String
+
+    couponCode: String
+
+    customerId: String!
+}
+
+input PlaceOrderParams {
+    cartId: String!
+
+    billingAddress: AddressParams!
+
+    shippingAddress: AddressParams
+
+    paymentMethodId: String
+
+    shippingMethodId: String
+
+    couponCode: String
+}
+
+type PlaceOrderResponse {
+    order: Order!
+}
+
+type Product {
+    id: String!
+
+    name: String!
+
+    slug: String!
+
+    description: String!
+
+    isPublished: Boolean!
+
+    sku: String
+
+    stock: Int
+
+    maxItemPerOrder: Int
+
+    price: Int!
+
+    cost: Int!
+
+    images: [String!]!
+
+    fullImages: [String!]!
+
+    isDigitalProduct: Boolean!
+
+    views: Int!
+
+    createdAt: String!
+
+    weight: Float
+
+    weightUnit: WeightUnit
+
+    productUnit: ProductUnit
+
+    updatedAt: String
+
+    category: Category
+
+    attributes: [ProductAttribute!]!
+
+    variations: [ProductVariation!]!
+
+    digitalItems: [DigitalItem!]!
+
+    feedbacks: [Feedback!]
+
+    productSpecificDiscount: Int!
+}
+
+type ProductAttribute {
+    id: String!
+
+    name: String!
+
+    values: [String!]!
+
+    isRequired: Boolean!
+
+    createdAt: String!
+
+    updateAt: String
+}
+
+enum ProductUnit {
+    Piece
+
+    KG
+
+    Liter
+}
+
+type ProductVariation {
+    id: String!
+
+    name: String!
+
+    price: Int!
+
+    cost: Int!
+
+    sku: String
+
+    stock: Int
+}
+
+type Query {
+    cart("" cartId: String!): PCart!
+
+    paymentMethods: [PaymentMethod!]!
+
+    checkPaymentProcessingFee("" paymentMethodId: String!, "" cartId: String!, "" shippingMethodId: String): Int!
+
+    abandonedCarts("" pagination: Pagination = {
+        perPage: 20
+        page: 1
+    }
+    ): [Cart!]!
+
+    blogPostsByAdmin("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [BlogPost!]!
+
+    blogPostByAdmin("" id: String!): BlogPost!
+
+    blogPosts("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [PBlogPost!]!
+
+    blogPost("" id: String!): PBlogPost!
+
+    blogPostBySlug("" slug: String!): PBlogPost!
+
+    categoriesByAdmin("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [Category!]!
+
+    categoryByAdmin("" id: String!): Category!
+
+    categories("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [PCategory!]!
+
+    category("" id: String!): PCategory!
+
+    collectionsByAdmin("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [Collection!]!
+
+    collectionByAdmin("" id: String!): Collection!
+
+    collections("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [PCollection!]!
+
+    collection("" id: String!): PCollection!
+
+    couponCode("" id: String!): CouponCode!
+
+    couponCodes("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [CouponCode!]!
+
+    checkDiscount("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String): Int!
+
+    checkDiscountForGuests("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String): Int!
+
+    checkDiscountByAdmin("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String, "" customerId: String): Int!
+
+    customerProfile: Customer!
+
+    customersByAdmin("" params: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [SCustomer!]!
+
+    mediaByAdmin("" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [ShopMedia!]!
+
+    orderByAdmin("" id: String!): Order!
+
+    order("" hash: String!): POrder!
+
+    orderByCustomerEmail("" hash: String!, "" email: String!): POrder!
+
+    ordersByAdmin("" params: OrderSearchParams, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [Order!]!
+
+    orders("" params: POrderSearchParams, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [POrder!]!
+
+    locations: [Location!]!
+
+    locationById("" id: String!): Location!
+
+    productSearch("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [PProduct!]!
+
+    productSearchByAdmin("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [Product!]!
+
+    productsByAdmin("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [Product!]!
+
+    productByAdmin("" productId: String!): Product!
+
+    products("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [PProduct!]!
+
+    product("" productId: String!): PProduct!
+
+    productBySlug("" productSlug: String!): PProduct!
+
+    productDigitalContentsForPreview("" productId: String!, "" itemId: String!): [DigitalContent!]!
+
+    productDigitalContents("" productId: String!, "" itemId: String!): [DigitalContent!]!
+
+    productDigitalContentsByCustomer("" orderHash: String!, "" productId: String!, "" itemId: String!): [DigitalContent!]!
+
+    productDigitalContentByAdmin("" productId: String!, "" itemId: String!, "" contentId: String!): DigitalContent!
+
+    productDigitalItemsByCustomer("" orderHash: String!, "" productId: String!): [DigitalItem!]!
+
+    report("" params: ReportParams): Report!
+
+    shippingMethodsByAdmin("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [ShippingMethod!]!
+
+    shippingMethodByAdmin("" id: String!): ShippingMethod!
+
+    shippingMethods("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [ShippingMethod!]!
+
+    shippingMethod("" id: String!): ShippingMethod!
+
+    checkShippingCharge("" shippingMethodId: String!, "" cartId: String!): Int!
+
+    stores("" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [Store!]!
+
+    storeSecrets("" storeId: String!, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [StoreSecret!]!
+
+    storeById("" storeId: String!): Store!
+
+    storeBySecret: PStore!
+
+    storeBanners("" tag: String, "" sort: Sort = {
+        by: Position
+        direction: Desc
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [PStoreBanner!]!
+
+    storeBannersByAdmin("" tag: String, "" sort: Sort = {
+        by: Position
+        direction: Desc
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [StoreBanner!]!
+
+    storeBannerByAdmin("" id: String!): StoreBanner!
+
+    storeMenus("" tag: String, "" sort: Sort = {
+        by: Position
+        direction: Desc
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [PStoreMenu!]!
+
+    storeMenusByAdmin("" tag: String, "" sort: Sort = {
+        by: Position
+        direction: Desc
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [StoreMenu!]!
+
+    storeMenuByAdmin("" id: String!): StoreMenu!
+
+    storePagesByAdmin("" search: Search, "" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [StorePage!]!
+
+    storePageByAdmin("" id: String!): StorePage!
+
+    storePages("" sort: Sort = {
+        by: "CreatedAt"
+        direction: "Desc"
+    }
+        , "" pagination: Pagination = {
+            perPage: 20
+            page: 1
+        }
+    ): [PStorePage!]!
+
+    storePage("" id: String!): PStorePage!
+
+    storePageBySlug("" slug: String!): PStorePage!
+}
+
+input RegisterCustomerParams {
+    email: String!
+
+    password: String!
+
+    phone: String
+
+    firstName: String!
+
+    lastName: String!
+
+    profilePicture: String
+}
+
+type RegisterCustomerResponse {
+    customer: Customer!
+
+    accessToken: String!
+}
+
+input RegisterUserParams {
+    firstName: String!
+
+    lastName: String!
+
+    email: String!
+
+    password: String!
+}
+
+type RegisterUserResponse {
+    user: User!
+}
+
+input RemoveAttributeFromProductParams {
+    productId: String!
+
+    attributeId: String!
+}
+
+input RemoveProductsFromCollectionParams {
+    collectionId: String!
+
+    productIds: [String!]!
+}
+
+input RemoveVariationFromProductParams {
+    productId: String!
+
+    variationId: String!
+}
+
+type Report {
+    totalSale: Int!
+
+    totalSalePending: Int!
+
+    totalCost: Int!
+
+    totalOrders: Int!
+
+    totalOrdersPending: Int!
+
+    totalCustomers: Int!
+
+    totalDiscount: Int!
+
+    totalDue: Int!
+}
+
+input ReportParams {
+    startDate: String
+
+    endDate: String
+}
+
+type SCustomer {
+    id: String!
+
+    email: String!
+
+    phone: String
+
+    firstName: String!
+
+    lastName: String!
+
+    profilePicture: String
+
+    due: Int!
+}
+
+input Search {
+    query: String
+
+    filters: [FilterQuery!]!
+}
+
+enum SecretType {
+    App
+
+    Admin
+
+    TelegramBot
+}
+
+type ShippingMethod {
+    id: String!
+
+    displayName: String!
+
+    deliveryCharge: Int!
+
+    deliveryTimeInDays: Int!
+
+    WeightUnit: WeightUnit!
+
+    isFlat: Boolean!
+
+    isActive: Boolean!
+}
+
+type ShopMedia {
+    path: String!
+
+    url: String!
+
+    permanentUrl: String!
+}
+
+type ShopSecretsResponse {
+    secrets: [StoreSecret!]!
+}
+
+type ShopsResponse {
+    shops: [Store!]!
+}
+
+input Sort {
+    by: SortBy
+
+    direction: SortDirection
+}
+
+enum SortBy {
+    Id
+
+    CreatedAt
+
+    Price
+
+    Total
+
+    GrandTotal
+
+    Quantity
+
+    Stock
+
+    Position
+}
+
+enum SortDirection {
+    Asc
+
+    Desc
+}
+
+type Store {
+    id: String!
+
+    name: String!
+
+    title: String
+
+    description: String
+
+    tags: [String!]
+
+    metaName: String
+
+    metaDescription: String
+
+    metaTags: [String!]
+
+    logo: String
+
+    favicon: String
+
+    bannerImage: String
+
+    isOpen: Boolean!
+
+    isCustomerLoyaltyEnabled: Boolean!
+
+    currency: Currency!
+
+    website: String
+
+    supportEmail: String
+
+    supportPhone: String
+
+    createdAt: String!
+
+    updatedAt: String
+
+    street: String
+
+    streetOptional: String
+
+    city: String
+
+    state: String
+
+    postcode: String
+
+    location: Location
+}
+
+type StoreBanner {
+    id: String!
+
+    imagePath: String!
+
+    imageUrl: String!
+
+    title: String
+
+    description: String
+
+    btnValue: String
+
+    btnUrl: String
+
+    tag: String
+
+    isPublished: Boolean!
+
+    position: Int!
+}
+
+type StoreMenu {
+    id: String!
+
+    name: String!
+
+    url: String!
+
+    tag: String
+
+    isPublished: Boolean!
+
+    position: Int!
+
+    parentMenu: StoreMenu
+
+    subMenus: [StoreMenu!]
+}
+
+type StorePage {
+    id: String!
+
+    title: String!
+
+    slug: String
+
+    content: String!
+
+    isPublished: Boolean!
+
+    views: Int!
+
+    createdAt: String!
+
+    updatedAt: String
+}
+
+type StoreSecret {
+    id: String!
+
+    key: String!
+
+    secret: String!
+
+    secretType: SecretType!
+}
+
+type Subscription {
+    productCreated("" key: String!, "" secret: String!): Product!
+
+    productUpdated("" key: String!, "" secret: String!): Product!
+
+    cartCreated("" key: String!, "" secret: String!): Cart!
+
+    cartUpdated("" key: String!, "" secret: String!): Cart!
+
+    orderCreated("" key: String!, "" secret: String!): Order!
+
+    orderUpdated("" key: String!, "" secret: String!): Order!
+}
+
+input UpdateAttributeParams {
+    name: String!
+
+    values: [String!]!
+
+    isRequired: Boolean!
+}
+
+type UpdateAttributeResponse {
+    attribute: ProductAttribute!
+}
+
+input UpdateBlogPostComment {
+    content: String!
+}
+
+type UpdateBlogPostCommentResponse {
+    comment: BlogPostComment!
+}
+
+input UpdateBlogPostParams {
+    title: String!
+
+    slug: String
+
+    bannerImage: String
+
+    content: String!
+
+    tags: [String!]
+
+    isPublished: Boolean!
+
+    isFeatured: Boolean!
+}
+
+type UpdateBlogPostResponse {
+    post: BlogPost!
+}
+
+input UpdateCartParams {
+    cartItems: [CartItemParams!]!
+}
+
+type UpdateCartResponse {
+    cart: Cart!
+}
+
+input UpdateCategoryParams {
+    name: String!
+
+    slug: String
+
+    isPublished: Boolean! = False
+
+    description: String
+
+    image: String
+
+    position: Int
+}
+
+type UpdateCategoryResponse {
+    category: Category!
+}
+
+input UpdateCollectionParams {
+    name: String!
+
+    slug: String
+
+    isPublished: Boolean! = False
+
+    description: String
+
+    image: String
+
+    position: Int
+}
+
+type UpdateCollectionResponse {
+    collection: Collection!
+}
+
+input UpdateCouponCodeParams {
+    code: String!
+
+    amount: Int!
+
+    minOrderAmount: Int
+
+    maxDiscountAmount: Int
+
+    isActive: Boolean!
+
+    isFlatDiscount: Boolean!
+
+    isForNewUsersOnly: Boolean!
+
+    isUserSpecific: Boolean!
+
+    maxUsage: Int
+
+    maxUsagePerUser: Int
+
+    discountType: DiscountType!
+
+    description: String
+
+    image: String
+
+    startAt: String
+
+    endAt: String
+
+    customers: [String!]
+}
+
+type UpdateCouponCodeResponse {
+    coupon: CouponCode!
+}
+
+input UpdateCustomerParams {
+    phone: String
+
+    firstName: String!
+
+    lastName: String!
+
+    profilePicture: String
+}
+
+input UpdateDigitalContentParams {
+    title: String!
+
+    contentType: DigitalContentType!
+
+    isTrialAllowed: Boolean!
+
+    contentText: String
+
+    contentFile: Upload
+
+    position: Int
+}
+
+input UpdateDigitalItemParams {
+    title: String!
+
+    description: String
+
+    position: Int
+}
+
+input UpdateProduct {
+    name: String!
+
+    slug: String
+
+    description: String!
+
+    isPublished: Boolean!
+
+    sku: String
+
+    stock: Int
+
+    maxItemPerOrder: Int
+
+    price: Int!
+
+    cost: Int!
+
+    weight: Float
+
+    weightUnit: WeightUnit
+
+    productUnit: ProductUnit
+
+    images: [String!]!
+
+    isDigitalProduct: Boolean!
+
+    categoryId: String
+
+    productSpecificDiscount: Int
+}
+
+type UpdateProductResponse {
+    product: Product!
+}
+
+input UpdateShippingMethodParams {
+    displayName: String!
+
+    deliveryCharge: Int!
+
+    deliveryTimeInDays: Int!
+
+    WeightUnit: WeightUnit!
+
+    isFlat: Boolean!
+
+    isActive: Boolean!
+}
+
+type UpdateShippingMethodResponse {
+    method: ShippingMethod!
+}
+
+input UpdateStoreBanner {
+    image: String!
+
+    title: String
+
+    description: String
+
+    btnValue: String
+
+    btnUrl: String
+
+    tag: String
+
+    isPublished: Boolean!
+
+    position: Int!
+}
+
+input UpdateStoreMenu {
+    name: String!
+
+    url: String!
+
+    tag: String
+
+    isPublished: Boolean!
+
+    position: Int!
+
+    parentMenuId: String
+}
+
+input UpdateStorePageParams {
+    title: String!
+
+    slug: String
+
+    content: String!
+
+    isPublished: Boolean!
+}
+
+input UpdateStoreParams {
+    name: String!
+
+    title: String
+
+    description: String
+
+    tags: [String!]
+
+    metaName: String
+
+    metaDescription: String
+
+    metaTags: [String!]
+
+    logo: String
+
+    favicon: String
+
+    bannerImage: String
+
+    isOpen: Boolean
+
+    isCustomerLoyaltyEnabled: Boolean
+
+    currency: Currency
+
+    website: String
+
+    supportEmail: String
+
+    supportPhone: String
+
+    street: String
+
+    streetOptional: String
+
+    city: String
+
+    state: String
+
+    postcode: String
+
+    locationID: String
+}
+
+input UpdateVariationParams {
+    name: String!
+
+    price: Int!
+
+    cost: Int!
+
+    sku: String
+
+    stock: Int
+
+    weight: Float
+
+    weightUnit: WeightUnit
+}
+
+type UpdateVariationResponse {
+    variation: ProductVariation!
+}
+
+scalar Upload
+
+type User {
+    firstName: String!
+
+    lastName: String!
+
+    email: String!
+
+    createdAt: String!
+
+    updatedAt: String
+}
+
+type UserCouponCode {
+    code: String!
+
+    amount: Int!
+
+    minOrderAmount: Int
+
+    maxDiscountAmount: Int
+
+    isFlatDiscount: Boolean!
+
+    isForNewUsersOnly: Boolean!
+
+    maxUsagePerUser: Int
+
+    discountType: DiscountType!
+
+    description: String
+
+    image: String
+
+    startAt: String
+
+    endAt: String
+}
+
+enum UserStatus {
+    Registered
+
+    Active
+
+    Banned
+
+    Suspended
+}
+
+enum WeightUnit {
+    Gram
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+    subscription: Subscription
+}

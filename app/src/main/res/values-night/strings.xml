@@ -1,9 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ShopemaaAndroidStorefront</string>
     <string name="home_hint">Home</string>
     <string name="orders_hint">Orders</string>
     <string name="customer_profile_hint">Profile</string>
     <string name="search_products_hint">Search Products</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

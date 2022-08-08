@@ -1,0 +1,46 @@
+query Products($query: String, $page: Int!, $limit: Int!){
+    productSearchByAdmin(search: {
+        query: $query
+        filters: []
+    }, sort: {
+        by: CreatedAt
+        direction: Desc
+    }, pagination: {
+        perPage: $limit
+        page: $page
+    }) {
+        id
+        name
+        slug
+        description
+        isPublished
+        sku
+        stock
+        maxItemPerOrder
+        price
+        cost
+        fullImages
+        isDigitalProduct
+        views
+        createdAt
+        weight
+        weightUnit
+        productUnit
+        updatedAt
+        category {
+            id
+            name
+            slug
+            isPublished
+            description
+            fullImage
+        }
+        attributes {
+            id
+            name
+            values
+            isRequired
+        }
+        productSpecificDiscount
+    }
+}
