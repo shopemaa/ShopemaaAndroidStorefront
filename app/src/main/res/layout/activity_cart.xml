@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
     tools:context=".ui.activities.CartActivity">
 
     <RelativeLayout
@@ -81,6 +82,7 @@
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/checkout_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_below="@+id/cart_calculation_layout"

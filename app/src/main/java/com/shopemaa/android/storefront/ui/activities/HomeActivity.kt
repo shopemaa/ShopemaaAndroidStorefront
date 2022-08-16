@@ -72,6 +72,7 @@ class HomeActivity : BaseActivity(), TextWatcher {
         }
         cartIcon.setOnClickListener {
             startActivity(Intent(applicationContext, CartActivity::class.java))
+            finish()
         }
 
         updateCartCounter()

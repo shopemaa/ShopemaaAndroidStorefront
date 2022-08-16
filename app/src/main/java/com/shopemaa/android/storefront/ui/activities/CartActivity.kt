@@ -1,6 +1,7 @@
 package com.shopemaa.android.storefront.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.android.material.button.MaterialButton
 import com.shopemaa.android.storefront.R
 import com.shopemaa.android.storefront.api.graphql.CartQuery
 import com.shopemaa.android.storefront.errors.ApiError
@@ -33,6 +35,7 @@ class CartActivity : BaseActivity(), CartItemQuantityListener, CartView {
 
     private lateinit var itemCounter: TextView
     private lateinit var total: TextView
+    private lateinit var checkoutBtn: MaterialButton
 
     @InjectPresenter
     lateinit var presenter: CartPresenter
@@ -43,9 +46,15 @@ class CartActivity : BaseActivity(), CartItemQuantityListener, CartView {
 
         itemCounter = findViewById(R.id.cart_total_items)
         total = findViewById(R.id.cart_total)
+        checkoutBtn = findViewById(R.id.checkout_btn)
+        checkoutBtn.setOnClickListener {
+            startActivity(Intent(applicationContext, CheckoutActivity::class.java))
+            finish()
+        }
 
         cartViewBack = findViewById(R.id.cart_view_back)
         cartViewBack.setOnClickListener {
+            startActivity(Intent(applicationContext, HomeActivity::class.java))
             finish()
         }
 
@@ -103,8 +112,7 @@ class CartActivity : BaseActivity(), CartItemQuantityListener, CartView {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
-
+        startActivity(Intent(applicationContext, HomeActivity::class.java))
         finish()
     }
 }

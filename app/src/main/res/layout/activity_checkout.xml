@@ -1,9 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
     tools:context=".ui.activities.CheckoutActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/checkout_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/checkout_view_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/checkout_view_back"
+            android:gravity="center"
+            android:paddingRight="25dp"
+            android:text="Checkout"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/checkout_overview"
+        android:layout_below="@id/checkout_layout_top"
+        android:layout_marginTop="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/checkout_naming_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_first_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:hint="First name"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_last_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:hint="Last name"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/checkout_contact_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/checkout_naming_box"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:hint="Email"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_phone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:hint="Phone"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/checkout_street_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/checkout_contact_box"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_street"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:hint="Street"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_street2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:hint="Street2"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/checkout_state_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/checkout_street_box"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_state"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:hint="State"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_postcode"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:hint="Postcode"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/checkout_city_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/checkout_state_box"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_city"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:hint="City"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_country"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:hint="Country"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/checkout_payment_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/checkout_city_box"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_payment_method"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_weight="1"
+                    android:hint="Payment Method"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/checkout_shipping_method"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:hint="Shipping Method"
+                    android:textSize="18sp"
+                    app:met_floatingLabel="highlight" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/checkout_overview"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="bottom">
+
+        <LinearLayout
+            android:id="@+id/checkout_coupon_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/checkout_coupon_code"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:hint="Coupon Code"
+                android:textSize="18sp"
+                app:met_floatingLabel="highlight" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/checkout_coupon_code_check_btn"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="Apply"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkout_calculation_layout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/checkout_coupon_layout"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/checkout_total_items"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Items: 15"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/checkout_total"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Subtotal: 100.00 BDT"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkout_shipping_fee_layout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/checkout_calculation_layout"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/checkout_shipping_fee"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Shipping: 0.00 BDT"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/checkout_payment_fee"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Payment fee: 100.00 BDT"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkout_grand_total_layout"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/checkout_shipping_fee_layout"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/checkout_discount"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Discount: 0.00 BDT"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/checkout_grand_total"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Grand total: 100.00 BDT"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/checkout_grand_total_layout"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Place Order"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+    </RelativeLayout>
+</RelativeLayout>
