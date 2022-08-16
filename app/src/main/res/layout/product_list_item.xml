@@ -58,7 +58,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="BDT 100"
-                android:textColor="@color/primary"
+                android:textColor="@color/black"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 

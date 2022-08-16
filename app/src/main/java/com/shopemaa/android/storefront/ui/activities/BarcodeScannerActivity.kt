@@ -128,10 +128,10 @@ class BarcodeScannerActivity : BaseActivity(), PermissionListener {
 
     override fun onPause() {
         super.onPause()
-        cameraSource.release()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+        try {
+            cameraSource.release()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
