@@ -1,0 +1,30 @@
+query StoreBySecret {
+    storeBySecret {
+        name
+        title
+        description
+        tags
+        metaName
+        metaDescription
+        metaTags
+        logo
+        favicon
+        bannerImage
+        isOpen
+        currency
+        website
+        supportEmail
+        supportPhone
+        createdAt
+        street
+        streetOptional
+        city
+        state
+        postcode
+        location {
+            id
+            name
+            shortCode
+        }
+    }
+}

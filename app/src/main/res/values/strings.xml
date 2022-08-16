@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ShopemaaAndroidStorefront</string>
+    <string name="app_name">Shopemaa Storefront</string>
     <string name="home_hint">Home</string>
     <string name="orders_hint">Orders</string>
     <string name="customer_profile_hint">Profile</string>
