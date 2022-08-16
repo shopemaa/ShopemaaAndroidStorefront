@@ -14,7 +14,7 @@
         android:layout_marginTop="20dp">
 
         <ImageView
-            android:id="@+id/product_search_menu"
+            android:id="@+id/cart_view_back"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_centerVertical="true"
@@ -28,7 +28,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toStartOf="@id/product_search_cart"
-            android:layout_toEndOf="@+id/product_search_menu"
+            android:layout_toEndOf="@+id/cart_view_back"
             android:drawableStart="@drawable/ic_baseline_search_24"
             android:hint="@string/search_products_hint"
             android:lines="1"
@@ -44,6 +44,19 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_baseline_shopping_cart_24" />
+
+        <TextView
+            android:id="@+id/cart_item_counter"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="right"
+            android:text="1"
+            android:textColor="@color/highlighted"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout

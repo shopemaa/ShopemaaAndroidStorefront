@@ -9,5 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary">#E77444</color>
+    <color name="secondary">#A4A4A4</color>
+    <color name="highlighted">#F44336</color>
     <color name="menu_background">#FFFFFFFF</color>
+    <color name="app_background">#F6F6F6</color>
 </resources>

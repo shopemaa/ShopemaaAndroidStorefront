@@ -3,15 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shopemaa.android.storefront">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/shopemaa"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/shopemaa"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopemaaAndroidStorefront"
         tools:replace="android:icon">
 
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
+
+        <activity
+            android:name=".ui.activities.BarcodeScannerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.OrderDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.CheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.CartActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activities.HomeActivity"
             android:exported="false" />

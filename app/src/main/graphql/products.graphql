@@ -1,5 +1,5 @@
 query Products($query: String, $page: Int!, $limit: Int!){
-    productSearchByAdmin(search: {
+    productSearch(search: {
         query: $query
         filters: []
     }, sort: {
@@ -13,25 +13,20 @@ query Products($query: String, $page: Int!, $limit: Int!){
         name
         slug
         description
-        isPublished
         sku
         stock
         maxItemPerOrder
         price
-        cost
         fullImages
         isDigitalProduct
         views
         createdAt
-        weight
-        weightUnit
         productUnit
         updatedAt
         category {
             id
             name
             slug
-            isPublished
             description
             fullImage
         }

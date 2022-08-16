@@ -1,0 +1,38 @@
+query Cart($id: String!){
+    cart(cartId: $id) {
+        id
+        isShippingRequired
+        cartItems {
+            id
+            product {
+                id
+                name
+                slug
+                description
+                sku
+                price
+                stock
+                images
+                fullImages
+                isDigitalProduct
+                views
+                productUnit
+                createdAt
+                updatedAt
+            }
+            quantity
+            purchasePrice
+            attributes {
+                name
+                selectedValue
+            }
+            variation {
+                id
+                name
+                price
+                sku
+                stock
+            }
+        }
+    }
+}

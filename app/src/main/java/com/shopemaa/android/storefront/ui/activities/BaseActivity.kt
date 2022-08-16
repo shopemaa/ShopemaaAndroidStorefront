@@ -57,6 +57,10 @@ open class BaseActivity : MvpAppCompatActivity() {
         Toast.makeText(ctx, message, Toast.LENGTH_LONG).show()
     }
 
+    fun getCacheStorage(ctx: Context): ICacheStorage {
+        return cacheStorage
+    }
+
     fun createLoader(ctx: Activity, title: String): SweetAlertDialog {
         val alert = SweetAlertDialog(ctx, SweetAlertDialog.PROGRESS_TYPE)
         alert.progressHelper.barColor = ContextCompat.getColor(ctx, R.color.primary)
