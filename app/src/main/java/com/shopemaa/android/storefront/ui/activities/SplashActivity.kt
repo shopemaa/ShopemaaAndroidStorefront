@@ -3,6 +3,7 @@ package com.shopemaa.android.storefront.ui.activities
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.shopemaa.android.storefront.R
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.storage.CacheStorage
@@ -17,7 +18,17 @@ class SplashActivity : BaseActivity() {
         val key = c.get(Constants.storeKeyLabel)
         val secret = c.get(Constants.storeSecretLabel)
         if (key.isEmpty() || secret.isEmpty()) {
-            startActivity(Intent(this, BarcodeScannerActivity::class.java))
+            val alert = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            alert.titleText = "Attention"
+            alert.contentText = "No store connected. Scan QR code to connect to your desired store."
+            alert.confirmText = "Scan"
+            alert.cancelText = "Cancel"
+            alert.setCancelable(false)
+            alert.showCancelButton(true)
+            alert.setConfirmClickListener {
+                startActivity(Intent(this, BarcodeScannerActivity::class.java))
+            }
+            alert.show()
             return
         }
 
