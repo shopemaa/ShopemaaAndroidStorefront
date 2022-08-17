@@ -1,0 +1,7 @@
+query Countries {
+    locations {
+        id
+        name
+        shortCode
+    }
+}

@@ -15,6 +15,9 @@
         android:theme="@style/Theme.ShopemaaAndroidStorefront"
         tools:replace="android:icon">
         <activity
+            android:name=".ui.activities.CheckoutCompleteActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activities.StoreActivity"
             android:exported="false" />
 

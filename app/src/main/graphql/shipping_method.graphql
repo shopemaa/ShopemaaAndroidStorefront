@@ -1,0 +1,11 @@
+query ShippingMethods {
+    shippingMethods {
+        id
+        displayName
+        deliveryCharge
+        deliveryTimeInDays
+        WeightUnit
+        isFlat
+        isActive
+    }
+}

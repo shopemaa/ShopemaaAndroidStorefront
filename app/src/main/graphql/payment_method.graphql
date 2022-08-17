@@ -1,0 +1,9 @@
+query PaymentMethods {
+    paymentMethods {
+        id
+        displayName
+        currencyName
+        currencySymbol
+        isDigitalPayment
+    }
+}
