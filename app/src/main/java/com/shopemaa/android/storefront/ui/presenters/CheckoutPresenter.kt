@@ -1,12 +1,11 @@
 package com.shopemaa.android.storefront.ui.presenters
 
 import android.content.Context
+import com.apollographql.apollo3.api.Optional
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.shopemaa.android.storefront.api.ApiHelper
-import com.shopemaa.android.storefront.api.graphql.CountriesQuery
-import com.shopemaa.android.storefront.api.graphql.PaymentMethodsQuery
-import com.shopemaa.android.storefront.api.graphql.ShippingMethodsQuery
+import com.shopemaa.android.storefront.api.graphql.*
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
 import com.shopemaa.android.storefront.storage.CacheStorage
@@ -79,5 +78,97 @@ class CheckoutPresenter : MvpPresenter<CheckoutView>() {
         }
 
         viewState.onShippingMethodListSuccess(resp.data!!.shippingMethods)
+    }
+
+    suspend fun checkPaymentFee(
+        ctx: Context,
+        cartId: String,
+        paymentMethodId: String,
+        shippingMethodId: String
+    ) {
+        val c = CacheStorage(ctx)
+        val storeKey = c.get(Constants.storeKeyLabel)
+        val storeSecret = c.get(Constants.storeSecretLabel)
+
+        val resp = ApiHelper
+            .apolloClient(
+                mutableMapOf(
+                    "store-key" to storeKey,
+                    "store-secret" to storeSecret
+                )
+            )
+            .query(
+                CheckPaymentProcessingFeeQuery(
+                    cartId,
+                    paymentMethodId,
+                    Optional.presentIfNotNull(shippingMethodId)
+                )
+            )
+            .execute()
+        if (resp.hasErrors()) {
+            viewState.onCheckPaymentFeeFailure(ApiError())
+            return
+        }
+
+        viewState.onCheckPaymentFeeSuccess(resp.data!!.checkPaymentProcessingFee)
+    }
+
+    suspend fun checkShippingFee(
+        ctx: Context,
+        cartId: String,
+        shippingMethodId: String
+    ) {
+        val c = CacheStorage(ctx)
+        val storeKey = c.get(Constants.storeKeyLabel)
+        val storeSecret = c.get(Constants.storeSecretLabel)
+
+        val resp = ApiHelper
+            .apolloClient(
+                mutableMapOf(
+                    "store-key" to storeKey,
+                    "store-secret" to storeSecret
+                )
+            )
+            .query(CheckShippingChargeQuery(cartId, shippingMethodId))
+            .execute()
+        if (resp.hasErrors()) {
+            viewState.onCheckShippingFeeFailure(ApiError())
+            return
+        }
+
+        viewState.onCheckShippingFeeSuccess(resp.data!!.checkShippingCharge)
+    }
+
+    suspend fun checkDiscount(
+        ctx: Context,
+        cartId: String,
+        couponCode: String,
+        shippingMethodId: String
+    ) {
+        val c = CacheStorage(ctx)
+        val storeKey = c.get(Constants.storeKeyLabel)
+        val storeSecret = c.get(Constants.storeSecretLabel)
+
+        val resp = ApiHelper
+            .apolloClient(
+                mutableMapOf(
+                    "store-key" to storeKey,
+                    "store-secret" to storeSecret
+                )
+            )
+            .query(
+                CheckDiscountForGuestsQuery(
+                    cartId,
+                    couponCode,
+                    Optional.presentIfNotNull(shippingMethodId)
+                )
+            )
+            .execute()
+        if (resp.hasErrors()) {
+            viewState.onCheckDiscountFailure(ApiError())
+            return
+        }
+
+        viewState.onCheckDiscountSuccess(resp.data!!.checkDiscountForGuests)
     }
 }

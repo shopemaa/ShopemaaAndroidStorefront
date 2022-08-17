@@ -1,0 +1,3 @@
+query CheckPaymentProcessingFee($cartId: String!, $paymentMethodId: String!, $shippingMethodId: String) {
+    checkPaymentProcessingFee(cartId: $cartId, paymentMethodId: $paymentMethodId, shippingMethodId: $shippingMethodId)
+}

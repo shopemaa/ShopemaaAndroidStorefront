@@ -1,0 +1,108 @@
+mutation OrderGuestCheckout($params: GuestCheckoutPlaceOrderParams!) {
+    orderGuestCheckout(params: $params) {
+        id
+        hash
+        shippingCharge
+        paymentProcessingFee
+        subtotal
+        grandTotal
+        discountedAmount
+        status
+        paymentStatus
+        createdAt
+        updatedAt
+        billingAddress {
+            id
+            street
+            streetTwo
+            city
+            state
+            postcode
+            email
+            phone
+            location {
+                id
+                name
+                shortCode
+            }
+        }
+        shippingAddress {
+            id
+            street
+            streetTwo
+            city
+            state
+            postcode
+            email
+            phone
+            location {
+                id
+                name
+                shortCode
+            }
+        }
+        cart {
+            id
+            isShippingRequired
+            cartItems {
+                id
+                product {
+                    id
+                    name
+                    slug
+                    fullImages
+                }
+                quantity
+                purchasePrice
+                attributes {
+                    name
+                    selectedValue
+                }
+                variation {
+                    id
+                    name
+                    price
+                    sku
+                    stock
+                }
+            }
+        }
+        customer {
+            email
+            phone
+            firstName
+            lastName
+            profilePicture
+        }
+        paymentMethod {
+            id
+            displayName
+            currencyName
+            currencySymbol
+            isDigitalPayment
+        }
+        shippingMethod {
+            id
+            displayName
+            deliveryCharge
+            deliveryTimeInDays
+            WeightUnit
+            isFlat
+            isActive
+        }
+        couponCode {
+            code
+            discountType
+        }
+        payments {
+            isPaid
+            payableAmount
+            gatewayName
+        }
+        feedback {
+            rating
+            comment
+            createdAt
+        }
+    }
+}

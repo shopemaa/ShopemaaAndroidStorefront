@@ -1,15 +1,18 @@
 package com.shopemaa.android.storefront.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.button.MaterialButton
+import com.google.gson.Gson
 import com.rengwuxian.materialedittext.MaterialEditText
 import com.shopemaa.android.storefront.R
 import com.shopemaa.android.storefront.api.graphql.CountriesQuery
 import com.shopemaa.android.storefront.api.graphql.PaymentMethodsQuery
 import com.shopemaa.android.storefront.api.graphql.ShippingMethodsQuery
+import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
 import com.shopemaa.android.storefront.models.PowerSpinnerModel
 import com.shopemaa.android.storefront.ui.adapters.TwoFieldDropdownAdapter
@@ -27,6 +30,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
     private lateinit var phone: MaterialEditText
     private lateinit var street: MaterialEditText
     private lateinit var street2: MaterialEditText
+    private lateinit var state: MaterialEditText
     private lateinit var city: MaterialEditText
     private lateinit var postcode: MaterialEditText
     private lateinit var country: PowerSpinnerView
@@ -42,9 +46,15 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
     lateinit var presenter: CheckoutPresenter
     lateinit var alertDialog: SweetAlertDialog
 
-    private var selectedCountry: String? = null
-    private var selectedShippingMethod: String? = null
-    private var selectedPaymentMethod: String? = null
+    private var selectedCountry: CountriesQuery.Location? = null
+    private var selectedShippingMethod: ShippingMethodsQuery.ShippingMethod? = null
+    private var selectedPaymentMethod: PaymentMethodsQuery.PaymentMethod? = null
+
+    private var fetchedCountries: MutableList<CountriesQuery.Location> = mutableListOf()
+    private var fetchedShippingMethods: MutableList<ShippingMethodsQuery.ShippingMethod> =
+        mutableListOf()
+    private var fetchedPaymentMethods: MutableList<PaymentMethodsQuery.PaymentMethod> =
+        mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +66,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
         phone = findViewById(R.id.checkout_phone)
         street = findViewById(R.id.checkout_street)
         street2 = findViewById(R.id.checkout_street2)
+        state = findViewById(R.id.checkout_state)
         city = findViewById(R.id.checkout_city)
         postcode = findViewById(R.id.checkout_postcode)
         continueBtn = findViewById(R.id.checkout_continue_btn)
@@ -76,7 +87,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
         country.spinnerPopupHeight = 500
         countriesAdapter.setListener(object : TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
             override fun onSelected(index: Int, item: PowerSpinnerModel) {
-                selectedCountry = item.id
+                selectedCountry = fetchedCountries[index]
                 country.notifyItemSelected(index, item.title)
                 country.dismiss()
             }
@@ -93,7 +104,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
         paymentMethodsAdapter.setListener(object :
             TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
             override fun onSelected(index: Int, item: PowerSpinnerModel) {
-                selectedPaymentMethod = item.id
+                selectedPaymentMethod = fetchedPaymentMethods[index]
                 paymentMethods.notifyItemSelected(index, item.title)
                 paymentMethods.dismiss()
             }
@@ -110,7 +121,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
         shippingMethodsAdapter.setListener(object :
             TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
             override fun onSelected(index: Int, item: PowerSpinnerModel) {
-                selectedShippingMethod = item.id
+                selectedShippingMethod = fetchedShippingMethods[index]
                 shippingMethods.notifyItemSelected(index, item.title)
                 shippingMethods.dismiss()
             }
@@ -123,11 +134,67 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
 
     private fun onContinueToCompleteCheckout() {
         if (isFieldsValid()) {
-
+            startActivity(Intent(applicationContext, CheckoutCompleteActivity::class.java))
+            finish()
         }
     }
 
     private fun isFieldsValid(): Boolean {
+        val c = getCacheStorage(applicationContext)
+
+        if (firstName.text?.trim()!!.isEmpty()) {
+            showMessage(applicationContext, "First name is required")
+            return false
+        }
+        if (lastName.text?.trim()!!.isEmpty()) {
+            showMessage(applicationContext, "Last name is required")
+            return false
+        }
+        if (email.text?.trim()!!.isEmpty()) {
+            showMessage(applicationContext, "Email is required")
+            return false
+        }
+        if (phone.text?.trim()!!.isEmpty()) {
+            showMessage(applicationContext, "Phone is required")
+            return false
+        }
+        if (street.text?.trim()!!.isEmpty()) {
+            showMessage(applicationContext, "Street is required")
+            return false
+        }
+        if (postcode.text?.trim()!!.isEmpty()) {
+            showMessage(applicationContext, "Postcode is required")
+            return false
+        }
+        if (city.text?.trim()!!.isEmpty()) {
+            showMessage(applicationContext, "City is required")
+            return false
+        }
+        if (selectedCountry == null) {
+            showMessage(applicationContext, "Country is required")
+            return false
+        }
+        if (selectedPaymentMethod == null) {
+            showMessage(applicationContext, "Payment method is required")
+            return false
+        }
+        if (selectedShippingMethod == null) {
+            showMessage(applicationContext, "Shipping method is required")
+            return false
+        }
+
+        c.save(Constants.firstNameLabel, firstName.text?.trim().toString())
+        c.save(Constants.lastNameLabel, lastName.text?.trim().toString())
+        c.save(Constants.emailLabel, email.text?.trim().toString())
+        c.save(Constants.phoneLabel, phone.text?.trim().toString())
+        c.save(Constants.streetLabel, street.text?.trim().toString())
+        c.save(Constants.street2Label, street2.text?.trim().toString())
+        c.save(Constants.stateLabel, state.text?.trim().toString())
+        c.save(Constants.postcodeLabel, postcode.text?.trim().toString())
+        c.save(Constants.cityLabel, city.text?.trim().toString())
+        c.save(Constants.countryLabel, Gson().toJson(selectedCountry))
+        c.save(Constants.shippingMethodLabel, Gson().toJson(selectedShippingMethod))
+        c.save(Constants.paymentMethodLabel, Gson().toJson(selectedPaymentMethod))
 
         return true
     }
@@ -137,6 +204,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
             PowerSpinnerModel(it.id, it.name, it.shortCode)
         }
         countriesAdapter.setItems(items)
+        fetchedCountries.addAll(countries)
 
         lifecycleScope.launch {
             presenter.requestPaymentMethods(applicationContext)
@@ -164,6 +232,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
             )
         }
         paymentMethodsAdapter.setItems(items)
+        fetchedPaymentMethods.addAll(methods)
 
         lifecycleScope.launch {
             presenter.requestShippingMethods(applicationContext)
@@ -187,6 +256,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
             )
         }
         shippingMethodsAdapter.setItems(items)
+        fetchedShippingMethods.addAll(methods)
     }
 
     override fun onShippingMethodListFailure(err: ApiError) {
@@ -195,4 +265,27 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
         }
     }
 
+    override fun onCheckShippingFeeSuccess(amount: Int) {
+
+    }
+
+    override fun onCheckShippingFeeFailure(err: ApiError) {
+
+    }
+
+    override fun onCheckPaymentFeeSuccess(amount: Int) {
+
+    }
+
+    override fun onCheckPaymentFeeFailure(err: ApiError) {
+
+    }
+
+    override fun onCheckDiscountSuccess(amount: Int) {
+
+    }
+
+    override fun onCheckDiscountFailure(err: ApiError) {
+
+    }
 }

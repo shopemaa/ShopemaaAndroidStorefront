@@ -8,4 +8,17 @@ object Constants {
     const val indexProfile: Int = 3
     const val cartLabel = "customerCart"
     const val cartIdLabel = "customerCartId"
+
+    const val firstNameLabel = "firstName"
+    const val lastNameLabel = "lastName"
+    const val emailLabel = "email"
+    const val phoneLabel = "phone"
+    const val streetLabel = "street"
+    const val street2Label = "street2"
+    const val stateLabel = "state"
+    const val postcodeLabel = "postcode"
+    const val cityLabel = "city"
+    const val countryLabel = "country"
+    const val shippingMethodLabel = "shippingMethod"
+    const val paymentMethodLabel = "paymentMethod"
 }

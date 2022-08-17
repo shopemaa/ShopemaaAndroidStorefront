@@ -15,4 +15,13 @@ interface CheckoutView : MvpView {
 
     fun onShippingMethodListSuccess(methods: List<ShippingMethodsQuery.ShippingMethod>)
     fun onShippingMethodListFailure(err: ApiError)
+
+    fun onCheckShippingFeeSuccess(amount: Int)
+    fun onCheckShippingFeeFailure(err: ApiError)
+
+    fun onCheckPaymentFeeSuccess(amount: Int)
+    fun onCheckPaymentFeeFailure(err: ApiError)
+
+    fun onCheckDiscountSuccess(amount: Int)
+    fun onCheckDiscountFailure(err: ApiError)
 }

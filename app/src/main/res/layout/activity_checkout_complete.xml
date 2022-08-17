@@ -1,9 +1,361 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="10dp"
     tools:context=".ui.activities.CheckoutCompleteActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/checkout_complete_layout_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp">
+
+        <ImageView
+            android:id="@+id/checkout_complete_view_back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/ic_baseline_arrow_back_24" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@id/checkout_complete_view_back"
+            android:gravity="center"
+            android:paddingRight="25dp"
+            android:text="Overview"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/shipping_overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkout_complete_layout_top"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <RelativeLayout
+            android:id="@+id/shipping_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/checkout_complete_name_box"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <EditText
+                    android:id="@+id/checkout_complete_first_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/checkout_complete_last_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:editable="false"
+                    android:lines="1"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/checkout_complete_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/checkout_complete_name_box"
+                android:editable="false"
+                android:inputType="textEmailAddress"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/checkout_complete_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkout_complete_email"
+                android:editable="false"
+                android:inputType="phone"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/checkout_complete_shipping_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/checkout_complete_phone"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/shipping_method_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkout_complete_shipping_address"
+                android:layout_marginTop="20dp"
+                android:text="Shipping Method"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/shipping_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shipping_method_hint"
+                android:text="Shipping Method"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/payment_method_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shipping_method"
+                android:layout_marginTop="10dp"
+                android:text="Payment Method"
+                android:textColor="@color/primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/payment_method"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/payment_method_hint"
+                android:text="Payment Method"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/checkout_overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:paddingTop="20dp">
+
+        <LinearLayout
+            android:id="@+id/coupon_code_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.rengwuxian.materialedittext.MaterialEditText
+                android:id="@+id/coupon_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Coupon Code"
+                android:lines="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textSize="14sp"
+                app:met_floatingLabel="highlight" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/apply_coupon_btn"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:text="Apply"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/subtotal_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/coupon_code_box"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/subtotal_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Subtotal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/subtotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="00.00 BDT"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shipping_fee_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/subtotal_box"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/shipping_fee_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Shipping Fee"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/shipping_fee"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="00.00 BDT"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/payment_fee_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shipping_fee_box"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/payment_fee_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Payment Processing Fee"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/payment_fee"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="00.00 BDT"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/discount_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/payment_fee_box"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/discount_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Discount"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/discount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="00.00 BDT"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/grand_total_box"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/discount_box"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/grand_total_hint"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:text="Grand Total"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/grand_total"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="end"
+                android:text="00.00 BDT"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/place_order_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/grand_total_box"
+            android:text="Place Order"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

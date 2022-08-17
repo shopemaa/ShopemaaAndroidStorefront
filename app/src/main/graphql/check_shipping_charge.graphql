@@ -1,0 +1,3 @@
+query CheckShippingCharge($cartId: String!, $shippingMethodId: String!) {
+    checkShippingCharge(cartId: $cartId, shippingMethodId: $shippingMethodId)
+}
