@@ -2,6 +2,7 @@ package com.shopemaa.android.storefront.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -42,6 +43,8 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
     private lateinit var paymentMethodsAdapter: TwoFieldDropdownAdapter
     private lateinit var shippingMethodsAdapter: TwoFieldDropdownAdapter
 
+    private lateinit var backBtn: ImageView
+
     @InjectPresenter
     lateinit var presenter: CheckoutPresenter
     lateinit var alertDialog: SweetAlertDialog
@@ -72,6 +75,11 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
         continueBtn = findViewById(R.id.checkout_continue_btn)
         continueBtn.setOnClickListener {
             onContinueToCompleteCheckout()
+        }
+
+        backBtn = findViewById(R.id.checkout_view_back)
+        backBtn.setOnClickListener {
+            onBackPressed()
         }
 
         alertDialog = createLoader(this, "Loading...")
@@ -287,5 +295,10 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
 
     override fun onCheckDiscountFailure(err: ApiError) {
 
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(applicationContext, CartActivity::class.java))
+        finish()
     }
 }

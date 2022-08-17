@@ -1,8 +1,10 @@
 package com.shopemaa.android.storefront.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -40,6 +42,8 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     private lateinit var couponCode: MaterialEditText
     private lateinit var applyCouponBtn: MaterialButton
     private lateinit var placeOrderBtn: MaterialButton
+
+    private lateinit var backBtn: ImageView
 
     private lateinit var country: CountriesQuery.Location
     private lateinit var shippingMethodV: ShippingMethodsQuery.ShippingMethod
@@ -81,6 +85,11 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
         paymentFee = findViewById(R.id.payment_fee)
         discount = findViewById(R.id.discount)
         grandTotal = findViewById(R.id.grand_total)
+
+        backBtn = findViewById(R.id.checkout_complete_view_back)
+        backBtn.setOnClickListener {
+            onBackPressed()
+        }
 
         couponCode = findViewById(R.id.coupon_code)
         applyCouponBtn = findViewById(R.id.apply_coupon_btn)
@@ -264,5 +273,10 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
         )
 
         alertDialog.dismiss()
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(applicationContext, CheckoutActivity::class.java))
+        finish()
     }
 }
