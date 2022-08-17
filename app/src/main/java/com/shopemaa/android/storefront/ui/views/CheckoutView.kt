@@ -2,6 +2,7 @@ package com.shopemaa.android.storefront.ui.views
 
 import com.arellomobile.mvp.MvpView
 import com.shopemaa.android.storefront.api.graphql.CountriesQuery
+import com.shopemaa.android.storefront.api.graphql.OrderGuestCheckoutMutation
 import com.shopemaa.android.storefront.api.graphql.PaymentMethodsQuery
 import com.shopemaa.android.storefront.api.graphql.ShippingMethodsQuery
 import com.shopemaa.android.storefront.errors.ApiError
@@ -24,4 +25,7 @@ interface CheckoutView : MvpView {
 
     fun onCheckDiscountSuccess(amount: Int)
     fun onCheckDiscountFailure(err: ApiError)
+
+    fun onPlaceOrderSuccess(order: OrderGuestCheckoutMutation.OrderGuestCheckout)
+    fun onPlaceOrderFailure(err: ApiError)
 }

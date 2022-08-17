@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import com.rengwuxian.materialedittext.MaterialEditText
 import com.shopemaa.android.storefront.R
 import com.shopemaa.android.storefront.api.graphql.CountriesQuery
+import com.shopemaa.android.storefront.api.graphql.OrderGuestCheckoutMutation
 import com.shopemaa.android.storefront.api.graphql.PaymentMethodsQuery
 import com.shopemaa.android.storefront.api.graphql.ShippingMethodsQuery
 import com.shopemaa.android.storefront.contants.Constants
@@ -294,6 +295,14 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
     }
 
     override fun onCheckDiscountFailure(err: ApiError) {
+
+    }
+
+    override fun onPlaceOrderSuccess(order: OrderGuestCheckoutMutation.OrderGuestCheckout) {
+
+    }
+
+    override fun onPlaceOrderFailure(err: ApiError) {
 
     }
 

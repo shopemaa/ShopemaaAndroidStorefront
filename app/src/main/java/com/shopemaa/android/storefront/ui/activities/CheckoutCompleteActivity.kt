@@ -8,15 +8,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.apollographql.apollo3.api.Optional
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.google.android.material.button.MaterialButton
 import com.google.gson.Gson
 import com.rengwuxian.materialedittext.MaterialEditText
 import com.shopemaa.android.storefront.R
-import com.shopemaa.android.storefront.api.graphql.CartQuery
-import com.shopemaa.android.storefront.api.graphql.CountriesQuery
-import com.shopemaa.android.storefront.api.graphql.PaymentMethodsQuery
-import com.shopemaa.android.storefront.api.graphql.ShippingMethodsQuery
+import com.shopemaa.android.storefront.api.graphql.*
+import com.shopemaa.android.storefront.api.graphql.type.AddressParams
+import com.shopemaa.android.storefront.api.graphql.type.GuestCheckoutPlaceOrderParams
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
 import com.shopemaa.android.storefront.ui.presenters.CheckoutPresenter
@@ -187,7 +187,54 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     }
 
     private fun placeOrder() {
+        alertDialog = createLoader(this, "Creating order...")
+        alertDialog.show()
 
+        val c = getCacheStorage(applicationContext)
+
+        val params = GuestCheckoutPlaceOrderParams(
+            cartId = cart.id,
+            billingAddress = AddressParams(
+                street = c.get(Constants.streetLabel),
+                streetTwo = Optional.presentIfNotNull(
+                    c.get(Constants.street2Label),
+                ),
+                state = Optional.presentIfNotNull(
+                    c.get(Constants.stateLabel)
+                ),
+                postcode = c.get(Constants.postcodeLabel),
+                city = c.get(Constants.cityLabel),
+                locationId = country.id,
+                email = Optional.presentIfNotNull(c.get(Constants.emailLabel)),
+                phone = Optional.presentIfNotNull(c.get(Constants.phoneLabel))
+            ),
+            shippingAddress = Optional.presentIfNotNull(
+                AddressParams(
+                    street = c.get(Constants.streetLabel),
+                    streetTwo = Optional.presentIfNotNull(
+                        c.get(Constants.street2Label),
+                    ),
+                    state = Optional.presentIfNotNull(
+                        c.get(Constants.stateLabel)
+                    ),
+                    postcode = c.get(Constants.postcodeLabel),
+                    city = c.get(Constants.cityLabel),
+                    locationId = country.id,
+                    email = Optional.presentIfNotNull(c.get(Constants.emailLabel)),
+                    phone = Optional.presentIfNotNull(c.get(Constants.phoneLabel))
+                )
+            ),
+            paymentMethodId = Optional.presentIfNotNull(paymentMethodV.id),
+            shippingMethodId = Optional.presentIfNotNull(shippingMethodV.id),
+            couponCode = Optional.presentIfNotNull(couponCode.text.toString()),
+            firstName = c.get(Constants.firstNameLabel),
+            lastName = c.get(Constants.lastNameLabel),
+            email = c.get(Constants.emailLabel)
+        )
+
+        lifecycleScope.launch {
+            presenter.placeOrder(applicationContext, params)
+        }
     }
 
     override fun onShippingMethodListSuccess(methods: List<ShippingMethodsQuery.ShippingMethod>) {
@@ -273,6 +320,20 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
         )
 
         alertDialog.dismiss()
+    }
+
+    override fun onPlaceOrderSuccess(order: OrderGuestCheckoutMutation.OrderGuestCheckout) {
+        showMessage(applicationContext, "Order created")
+        val i = Intent(applicationContext, OrderDetailsActivity::class.java)
+        i.putExtra(Constants.orderHashLabel, order.hash)
+        i.putExtra(Constants.orderCustomerEmailLabel, order.customer.email)
+        startActivity(i)
+        finish()
+    }
+
+    override fun onPlaceOrderFailure(err: ApiError) {
+        alertDialog.dismiss()
+        showMessage(applicationContext, "Failed to create order")
     }
 
     override fun onBackPressed() {

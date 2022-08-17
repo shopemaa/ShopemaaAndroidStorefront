@@ -21,4 +21,7 @@ object Constants {
     const val countryLabel = "country"
     const val shippingMethodLabel = "shippingMethod"
     const val paymentMethodLabel = "paymentMethod"
+
+    const val orderHashLabel = "orderHash"
+    const val orderCustomerEmailLabel = "orderCustomerEmail"
 }

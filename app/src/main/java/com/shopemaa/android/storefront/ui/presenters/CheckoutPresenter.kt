@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.shopemaa.android.storefront.api.ApiHelper
 import com.shopemaa.android.storefront.api.graphql.*
+import com.shopemaa.android.storefront.api.graphql.type.GuestCheckoutPlaceOrderParams
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
 import com.shopemaa.android.storefront.storage.CacheStorage
@@ -170,5 +171,32 @@ class CheckoutPresenter : MvpPresenter<CheckoutView>() {
         }
 
         viewState.onCheckDiscountSuccess(resp.data!!.checkDiscountForGuests)
+    }
+
+    suspend fun placeOrder(
+        ctx: Context,
+        params: GuestCheckoutPlaceOrderParams
+    ) {
+        val c = CacheStorage(ctx)
+        val storeKey = c.get(Constants.storeKeyLabel)
+        val storeSecret = c.get(Constants.storeSecretLabel)
+
+        val resp = ApiHelper
+            .apolloClient(
+                mutableMapOf(
+                    "store-key" to storeKey,
+                    "store-secret" to storeSecret
+                )
+            )
+            .mutation(
+                OrderGuestCheckoutMutation(params)
+            )
+            .execute()
+        if (resp.hasErrors()) {
+            viewState.onPlaceOrderFailure(ApiError())
+            return
+        }
+
+        viewState.onPlaceOrderSuccess(resp.data!!.orderGuestCheckout)
     }
 }
