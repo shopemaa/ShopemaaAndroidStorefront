@@ -1,8 +1,5 @@
-query Products($query: String, $page: Int!, $limit: Int!){
-    productSearch(search: {
-        query: $query
-        filters: []
-    }, sort: {
+query Products($search: Search!, $page: Int!, $limit: Int!){
+    productSearch(search: $search, sort: {
         by: CreatedAt
         direction: Desc
     }, pagination: {

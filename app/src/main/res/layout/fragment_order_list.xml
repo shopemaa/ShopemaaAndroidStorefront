@@ -1,14 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:paddingLeft="20dp"
+    android:paddingTop="20dp"
+    android:paddingRight="20dp"
     tools:context=".ui.fragments.OrderListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/order_hash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:hint="Order Hash"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp"
+        app:met_floatingLabel="highlight" />
 
-</FrameLayout>
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/customer_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/order_hash"
+        android:hint="Customer email"
+        android:lines="1"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="14sp"
+        app:met_floatingLabel="highlight" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/order_details_btn"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/customer_email"
+        android:text="Order Details"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
+</RelativeLayout>

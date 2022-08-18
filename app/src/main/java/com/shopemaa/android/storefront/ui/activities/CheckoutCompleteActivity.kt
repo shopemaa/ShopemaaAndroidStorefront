@@ -61,7 +61,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     private var calDiscount: Int = 0
 
     /**
-     * Order
+     * Execution Order
      * 0. Subtotal
      * 1. Shipping Fee
      * 2. Payment Fee
@@ -324,11 +324,19 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
 
     override fun onPlaceOrderSuccess(order: OrderGuestCheckoutMutation.OrderGuestCheckout) {
         showMessage(applicationContext, "Order created")
-        val i = Intent(applicationContext, OrderDetailsActivity::class.java)
-        i.putExtra(Constants.orderHashLabel, order.hash)
-        i.putExtra(Constants.orderCustomerEmailLabel, order.customer.email)
-        startActivity(i)
-        finish()
+
+        // Handle Offline payment
+        if (!paymentMethodV.isDigitalPayment) {
+            val i = Intent(applicationContext, OrderDetailsActivity::class.java)
+            i.putExtra(Constants.orderHashLabel, order.hash)
+            i.putExtra(Constants.orderCustomerEmailLabel, order.customer.email)
+            startActivity(i)
+            finish()
+            return
+        }
+
+        // Handle Online payment
+
     }
 
     override fun onPlaceOrderFailure(err: ApiError) {

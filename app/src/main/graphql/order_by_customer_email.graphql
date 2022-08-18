@@ -99,10 +99,5 @@ query OrderByCustomerEmail($hash: String!, $email: String!) {
             payableAmount
             gatewayName
         }
-        feedback {
-            rating
-            comment
-            createdAt
-        }
     }
 }

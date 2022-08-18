@@ -17,4 +17,18 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="shipping_and_payment_hint">Shipping &amp; Payment</string>
+    <string name="order_details">Order Details</string>
+    <string name="dummy_000000">#000000</string>
+    <string name="dummy_order_is_pending">Order is Pending</string>
+    <string name="dummy_date">27 May 2022 12:40PM</string>
+    <string name="dummy_payment_is_paid">Payment is Paid</string>
+    <string name="dummy_shipping_to">Shipping to</string>
+    <string name="dummy_name">Sakib Sami</string>
+    <string name="dummy_email">s4kibs4mi@gmail.com</string>
+    <string name="dummy_phone">+8801710339938</string>
+    <string name="dummy_address">A. Lauteri 8, Apt 44, Tallinn, 10114, Harjumaa, Estonia</string>
+    <string name="shipping_method">Shipping Method</string>
+    <string name="dummy_shipping_method">DHL</string>
+
+    <string name="dummy_txt">~~~~~~~</string>
 </resources>

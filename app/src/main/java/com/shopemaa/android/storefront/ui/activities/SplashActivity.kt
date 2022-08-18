@@ -32,8 +32,7 @@ class SplashActivity : BaseActivity() {
             return
         }
 
-        startActivity(Intent(this, CheckoutCompleteActivity::class.java))
-//        startActivity(Intent(this, StoreActivity::class.java))
+        startActivity(Intent(this, StoreActivity::class.java))
         finish()
     }
 }

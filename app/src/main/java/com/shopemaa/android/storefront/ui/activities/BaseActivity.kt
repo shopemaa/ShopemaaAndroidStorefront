@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -65,6 +67,32 @@ open class BaseActivity : MvpAppCompatActivity() {
         val alert = SweetAlertDialog(ctx, SweetAlertDialog.PROGRESS_TYPE)
         alert.progressHelper.barColor = ContextCompat.getColor(ctx, R.color.primary)
         alert.titleText = title
+        alert.setCancelable(false)
+        return alert
+    }
+
+    fun createCustomPopup(
+        ctx: Activity,
+        v: View,
+        listener: SweetAlertDialog.OnSweetClickListener
+    ): SweetAlertDialog {
+        val alert = SweetAlertDialog(ctx, SweetAlertDialog.NORMAL_TYPE)
+        alert.setCustomView(v)
+        alert.setCancelable(false)
+        alert.confirmText = "Filter"
+        alert.setConfirmClickListener(listener)
+        return alert
+    }
+
+    fun createOverlayLoader(activity: Activity, ctx: Context, title: String): SweetAlertDialog {
+        val alert = SweetAlertDialog(activity, SweetAlertDialog.NORMAL_TYPE)
+//        alert.progressHelper.barColor = ContextCompat.getColor(activity, R.color.primary)
+//        alert.titleText = title
+
+        alert.hideConfirmButton()
+        val v = LayoutInflater.from(ctx).inflate(R.layout.loading_overlay, null)
+        alert.setCustomView(v)
+
         alert.setCancelable(false)
         return alert
     }

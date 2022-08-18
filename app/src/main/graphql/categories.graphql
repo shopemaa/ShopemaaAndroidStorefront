@@ -1,0 +1,21 @@
+query Categories($query: String, $page: Int!, $limit: Int!) {
+    categories(search: {
+        query: $query
+        filters: []
+    }, sort: {
+        by: Position
+        direction: Desc
+    }, pagination: {
+        perPage: $limit
+        page: $page
+    }) {
+        id
+        name
+        slug
+        description
+        image
+        fullImage
+        productCount
+        position
+    }
+}

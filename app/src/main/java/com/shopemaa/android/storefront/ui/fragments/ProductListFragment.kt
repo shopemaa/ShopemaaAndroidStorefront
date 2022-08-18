@@ -15,11 +15,15 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.shopemaa.android.storefront.R
 import com.shopemaa.android.storefront.api.graphql.CartQuery
+import com.shopemaa.android.storefront.api.graphql.CategoriesQuery
 import com.shopemaa.android.storefront.api.graphql.ProductsQuery
+import com.shopemaa.android.storefront.api.graphql.type.FilterKey
+import com.shopemaa.android.storefront.api.graphql.type.FilterQuery
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
 import com.shopemaa.android.storefront.ui.adapters.ProductListAdapter
 import com.shopemaa.android.storefront.ui.events.CartUpdateEvent
+import com.shopemaa.android.storefront.ui.events.CategoryFilterEvent
 import com.shopemaa.android.storefront.ui.events.ProductSearchEvent
 import com.shopemaa.android.storefront.ui.listeners.AddToCartListener
 import com.shopemaa.android.storefront.ui.presenters.CartPresenter
@@ -56,6 +60,8 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
 
     lateinit var alertDialog: SweetAlertDialog
 
+    private var filterCategory: CategoriesQuery.Category? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -66,6 +72,8 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
         swipeLayout.setOnRefreshListener {
             swipeLayout.isRefreshing = false
             page = 1
+            filterCategory = null
+            this.productList.clear()
             onLoadProducts()
         }
 
@@ -103,11 +111,16 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
             job!!.cancel()
         }
 
+        val filters = mutableListOf<FilterQuery>()
+        if (filterCategory != null) {
+            filters.add(FilterQuery(FilterKey.category, filterCategory!!.id))
+        }
+
         job = lifecycleScope.launch {
             if (query != null && query!!.isNotEmpty()) {
-                presenter.requestProducts(requireContext(), query!!, page, perPage)
+                presenter.requestProducts(requireContext(), query!!, page, perPage, filters)
             } else {
-                presenter.requestProducts(requireContext(), page, perPage)
+                presenter.requestProducts(requireContext(), page, perPage, filters)
             }
             page++
         }
@@ -133,6 +146,17 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
         this.productListAdapter.notifyDataSetChanged()
         this.query = event.searchQuery
         this.page = 1
+
+        onLoadProducts()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
+    fun onProductFilterByCategory(event: CategoryFilterEvent) {
+        this.productList.clear()
+        this.productListAdapter.notifyDataSetChanged()
+        this.page = 1
+        this.filterCategory = event.category
 
         onLoadProducts()
     }

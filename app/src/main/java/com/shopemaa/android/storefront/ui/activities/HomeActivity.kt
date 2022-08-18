@@ -4,25 +4,37 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.shopemaa.android.storefront.R
+import com.shopemaa.android.storefront.api.graphql.CategoriesQuery
 import com.shopemaa.android.storefront.contants.Constants
+import com.shopemaa.android.storefront.errors.ApiError
+import com.shopemaa.android.storefront.models.PowerSpinnerModel
+import com.shopemaa.android.storefront.ui.adapters.TwoFieldDropdownAdapter
 import com.shopemaa.android.storefront.ui.events.CartUpdateEvent
+import com.shopemaa.android.storefront.ui.events.CategoryFilterEvent
 import com.shopemaa.android.storefront.ui.events.ProductSearchEvent
 import com.shopemaa.android.storefront.ui.fragments.CustomerProfileFragment
 import com.shopemaa.android.storefront.ui.fragments.OrderListFragment
 import com.shopemaa.android.storefront.ui.fragments.ProductListFragment
+import com.shopemaa.android.storefront.ui.presenters.CategoryPresenter
+import com.shopemaa.android.storefront.ui.views.CategoryView
 import com.shopemaa.android.storefront.utils.CartUtil
+import com.skydoves.powerspinner.PowerSpinnerView
 import github.com.st235.lib_expandablebottombar.ExpandableBottomBar
+import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class HomeActivity : BaseActivity(), TextWatcher {
+class HomeActivity : BaseActivity(), TextWatcher, CategoryView {
     private lateinit var homeFragmentViewer: RelativeLayout
     private lateinit var inputSearch: EditText
 
@@ -33,6 +45,12 @@ class HomeActivity : BaseActivity(), TextWatcher {
     private lateinit var cartIcon: ImageView
 
     private var selectedIndex = Constants.indexHome
+
+    private lateinit var selectedCategory: CategoriesQuery.Category
+    private lateinit var categories: List<CategoriesQuery.Category>
+
+    @InjectPresenter
+    lateinit var presenter: CategoryPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,11 +86,15 @@ class HomeActivity : BaseActivity(), TextWatcher {
         }
 
         homeMenu.setOnClickListener {
-
+            showCategories()
         }
         cartIcon.setOnClickListener {
             startActivity(Intent(applicationContext, CartActivity::class.java))
             finish()
+        }
+
+        lifecycleScope.launch {
+            presenter.requestCategories(applicationContext, null, 1, 1000)
         }
 
         updateCartCounter()
@@ -110,7 +132,7 @@ class HomeActivity : BaseActivity(), TextWatcher {
             Constants.indexOrder -> {
                 tx.replace(R.id.shop_tab_viewer, OrderListFragment()).commitNow()
                 inputSearch.hint = "Search Orders by Hash"
-                inputSearch.visibility = View.VISIBLE
+                inputSearch.visibility = View.INVISIBLE
             }
             Constants.indexProfile -> {
                 tx.replace(R.id.shop_tab_viewer, CustomerProfileFragment()).commitNow()
@@ -137,6 +159,60 @@ class HomeActivity : BaseActivity(), TextWatcher {
         runOnUiThread {
             cartCounter.text = cartItems.toString()
         }
+    }
+
+    private fun showCategories() {
+        if (::categories.isInitialized.not()) {
+            return
+        }
+
+        val v =
+            LayoutInflater.from(applicationContext).inflate(R.layout.category_selection_view, null)
+        val categoriesPowerMenu = v.findViewById<PowerSpinnerView>(R.id.home_categories)
+        val categoriesAdapter = TwoFieldDropdownAdapter(
+            0,
+            null,
+            categoriesPowerMenu
+        )
+        categoriesPowerMenu.setSpinnerAdapter(categoriesAdapter)
+        categoriesPowerMenu.spinnerPopupHeight = 700
+        categoriesAdapter.setListener(object :
+            TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
+            override fun onSelected(index: Int, item: PowerSpinnerModel) {
+                selectedCategory = categories[index]
+                categoriesPowerMenu.notifyItemSelected(index, item.title)
+                categoriesPowerMenu.dismiss()
+            }
+        })
+        categoriesAdapter.setItems(categories.map {
+            PowerSpinnerModel(it.id, it.name, "")
+        })
+
+        if (::selectedCategory.isInitialized) {
+            val index = categories.indexOf(selectedCategory)
+            if (index < 0) {
+                return
+            }
+            categoriesPowerMenu.notifyItemSelected(index, categories[index].name)
+        }
+
+        val alert = createCustomPopup(
+            this, v
+        ) {
+            if (::selectedCategory.isInitialized) {
+                EventBus.getDefault().post(CategoryFilterEvent(selectedCategory))
+            }
+            it.dismiss()
+        }
+        alert.show()
+    }
+
+    override fun onCategoriesSuccess(categories: List<CategoriesQuery.Category>) {
+        this.categories = categories
+    }
+
+    override fun onCategoriesFailure(err: ApiError) {
+
     }
 
     override fun onDestroy() {
