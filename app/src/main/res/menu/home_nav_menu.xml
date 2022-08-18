@@ -14,10 +14,4 @@
         android:title="@string/orders_hint"
         app:exb_color="@color/menu_background" />
 
-    <item
-        android:id="@+id/customer_profile"
-        android:icon="@drawable/ic_baseline_person_24"
-        android:title="@string/customer_profile_hint"
-        app:exb_color="@color/menu_background" />
-
 </menu>

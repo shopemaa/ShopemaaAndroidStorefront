@@ -48,6 +48,12 @@ class CartActivity : BaseActivity(), CartItemQuantityListener, CartView {
         total = findViewById(R.id.cart_total)
         checkoutBtn = findViewById(R.id.checkout_btn)
         checkoutBtn.setOnClickListener {
+            val cart = CartUtil.cartFromCache(getCacheStorage(applicationContext))
+            if (cart.cartItems.isEmpty()) {
+                showMessage(applicationContext, "Cart is empty")
+                return@setOnClickListener
+            }
+
             startActivity(Intent(applicationContext, CheckoutActivity::class.java))
             finish()
         }

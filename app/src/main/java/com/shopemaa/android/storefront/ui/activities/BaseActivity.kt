@@ -78,7 +78,7 @@ open class BaseActivity : MvpAppCompatActivity() {
     ): SweetAlertDialog {
         val alert = SweetAlertDialog(ctx, SweetAlertDialog.NORMAL_TYPE)
         alert.setCustomView(v)
-        alert.setCancelable(false)
+        alert.setCancelable(true)
         alert.confirmText = "Filter"
         alert.setConfirmClickListener(listener)
         return alert

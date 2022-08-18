@@ -86,7 +86,9 @@ class HomeActivity : BaseActivity(), TextWatcher, CategoryView {
         }
 
         homeMenu.setOnClickListener {
-            showCategories()
+            if (selectedIndex == Constants.indexHome) {
+                showCategories()
+            }
         }
         cartIcon.setOnClickListener {
             startActivity(Intent(applicationContext, CartActivity::class.java))
