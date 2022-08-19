@@ -90,7 +90,7 @@ class ProductListAdapter(
         }
 
         holder.addToCartBtn.setOnClickListener {
-            if (p.stock != null && p.stock <= 0) {
+            if (p.stock == null || p.stock <= 0) {
                 addToCartListener.onOutOfStock("${p.name} is out of stock")
                 return@setOnClickListener
             }

@@ -195,7 +195,9 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
     }
 
     override fun onOutOfStock(msg: String) {
-        alertDialog.dismiss()
+        if (::alertDialog.isInitialized) {
+            alertDialog.dismiss()
+        }
         showMessage(requireContext(), msg)
     }
 
