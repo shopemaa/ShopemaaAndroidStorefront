@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Base64
+import android.util.Log
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
 import com.shopemaa.android.storefront.R
@@ -44,8 +45,13 @@ class SplashActivity : BaseActivity() {
     }
 
     private fun parseAndSaveStoreCredential(c: ICacheStorage) {
+        if (intent.data == null || intent.data.toString().trim().isEmpty()) {
+            return
+        }
+
         val encodedKey = intent.data.toString().replace("shopemaastorefront://", "")
         val decoded = Base64.decode(encodedKey, 0)
+
         val secret = Gson().fromJson(String(decoded), StoreSecret::class.java)
         if (secret?.key != null && secret.secret != null
             && secret.key!!.isNotEmpty() && secret.secret!!.isNotEmpty()
