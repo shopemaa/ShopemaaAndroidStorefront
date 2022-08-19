@@ -59,6 +59,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     private var calShippingFee: Int = 0
     private var calPaymentFee: Int = 0
     private var calDiscount: Int = 0
+    private var calProductSpecificDiscount = 0
 
     /**
      * Execution Order
@@ -157,11 +158,23 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
         }
 
         var st = 0
+        calProductSpecificDiscount = 0
         cart.cartItems.forEach {
-            st += it.purchasePrice * it.quantity
+            st += if (it.product.productSpecificDiscount > 0) {
+                val discountedPrice = Utils.discountedPrice(
+                    it.product.productSpecificDiscount,
+                    it.purchasePrice
+                ) * it.quantity
+                calProductSpecificDiscount += it.purchasePrice - discountedPrice
+                discountedPrice
+            } else {
+                it.purchasePrice * it.quantity
+            }
         }
         subtotal.text = Utils.formatAmount(st, true)
         calSubtotal = st
+        calDiscount += calProductSpecificDiscount
+        discount.text = Utils.formatAmount(calDiscount, true)
 
         lifecycleScope.launch {
             presenter.checkShippingFee(applicationContext, cart.id, shippingMethodV.id)
@@ -301,21 +314,22 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     override fun onCheckDiscountSuccess(amount: Int) {
         calDiscount = amount
         discount.text = Utils.formatAmount(amount, true)
-
+        showMessage(applicationContext, "Coupon code applied")
+        
         calculateOverview()
     }
 
     override fun onCheckDiscountFailure(err: ApiError) {
         showMessage(applicationContext, "Failed to apply coupon")
         calDiscount = 0
-        discount.text = Utils.formatAmount(0, true)
+        discount.text = Utils.formatAmount(calDiscount, true)
 
         calculateOverview()
     }
 
     private fun calculateGrandTotal() {
         grandTotal.text = Utils.formatAmount(
-            calSubtotal + calPaymentFee + calShippingFee - calDiscount,
+            calSubtotal + calPaymentFee + calShippingFee + calProductSpecificDiscount - calDiscount,
             true
         )
 

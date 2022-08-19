@@ -15,6 +15,7 @@ mutation updateCart($id: String!, $params: UpdateCartParams!){
                 images
                 fullImages
                 isDigitalProduct
+                productSpecificDiscount
                 views
                 productUnit
                 createdAt

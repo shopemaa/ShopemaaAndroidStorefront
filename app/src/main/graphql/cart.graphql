@@ -15,6 +15,7 @@ query Cart($id: String!){
                 images
                 fullImages
                 isDigitalProduct
+                productSpecificDiscount
                 views
                 productUnit
                 createdAt

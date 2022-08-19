@@ -110,7 +110,14 @@ class CartActivity : BaseActivity(), CartItemQuantityListener, CartView {
         var total = 0
         cart.cartItems.forEach {
             count += it.quantity
-            total += it.quantity * it.purchasePrice
+            total += if (it.product.productSpecificDiscount > 0) {
+                it.quantity * Utils.discountedPrice(
+                    it.product.productSpecificDiscount,
+                    it.purchasePrice
+                )
+            } else {
+                it.quantity * it.purchasePrice
+            }
         }
 
         itemCounter.text = "Items: $count"

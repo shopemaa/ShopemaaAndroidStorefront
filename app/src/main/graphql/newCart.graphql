@@ -15,6 +15,7 @@ mutation newCart($params: NewCartParams!){
                 images
                 fullImages
                 isDigitalProduct
+                productSpecificDiscount
                 views
                 productUnit
                 createdAt

@@ -30,7 +30,8 @@ object CartUtil {
                         views = it.product.views,
                         productUnit = it.product.productUnit,
                         createdAt = it.product.createdAt,
-                        updatedAt = it.product.updatedAt
+                        updatedAt = it.product.updatedAt,
+                        productSpecificDiscount = it.product.productSpecificDiscount
                     ),
                     attributes = it.attributes.map { a ->
                         CartQuery.Attribute(
@@ -77,7 +78,8 @@ object CartUtil {
                         views = it.product.views,
                         productUnit = it.product.productUnit,
                         createdAt = it.product.createdAt,
-                        updatedAt = it.product.updatedAt
+                        updatedAt = it.product.updatedAt,
+                        productSpecificDiscount = it.product.productSpecificDiscount
                     ),
                     attributes = it.attributes.map { a ->
                         CartQuery.Attribute(
