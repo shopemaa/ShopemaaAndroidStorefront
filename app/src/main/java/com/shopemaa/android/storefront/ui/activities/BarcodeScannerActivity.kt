@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
@@ -85,9 +86,11 @@ class BarcodeScannerActivity : BaseActivity(), PermissionListener {
                 val barcodes = p0.detectedItems
                 if (barcodes.size() > 0) {
                     barcodes.forEach { key, value ->
-                        val secret = Gson().fromJson(value.displayValue, StoreSecret::class.java)
+                        val encodedKey = value.displayValue.replace("shopemaastorefront://", "")
+                        val decoded = Base64.decode(encodedKey, 0)
+                        val secret = Gson().fromJson(String(decoded), StoreSecret::class.java)
 
-                        if (secret != null && secret.key != null && secret.secret != null
+                        if (secret?.key != null && secret.secret != null
                             && secret.key!!.isNotEmpty() && secret.secret!!.isNotEmpty()
                         ) {
                             val c = getCacheStorage(applicationContext)
