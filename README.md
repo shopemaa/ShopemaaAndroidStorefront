@@ -13,7 +13,7 @@ Android eCommerce storefront app based on [Shopemaa eCommerce Platform](https://
 ## How it looks
 
 * Home
-  ![](./screens/home.png | width=250)
+  ![](./screens/home.png)
 * Cart
   ![](./screens/cart.png)
 * Order Details
