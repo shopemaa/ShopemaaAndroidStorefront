@@ -55,6 +55,24 @@ class CartItemListAdapter(
             }
         }
         holder.productStock.text = "${item.product.stock} left"
+
+        if (item.attributes.isEmpty()) {
+            holder.attributes.visibility = View.GONE
+        } else {
+            holder.attributes.visibility = View.VISIBLE
+            var t = ""
+            var isFirst = false
+            item.attributes.forEach { at ->
+                if (isFirst) {
+                    t += ", "
+                }
+                t += "${at.name}: ${at.selectedValue}"
+                isFirst = true
+            }
+
+            holder.attributes.text = t
+        }
+
     }
 
     override fun getItemCount(): Int {
@@ -69,5 +87,6 @@ class CartItemListAdapter(
         var productQty: TextView = view.findViewById(R.id.product_qty)
         var productQtyDown: ImageView = view.findViewById(R.id.product_qty_down)
         var productStock: TextView = view.findViewById(R.id.product_stock)
+        var attributes: TextView = view.findViewById(R.id.attributes)
     }
 }

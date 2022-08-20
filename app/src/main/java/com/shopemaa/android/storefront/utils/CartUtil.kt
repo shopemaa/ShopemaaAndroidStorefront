@@ -31,10 +31,13 @@ object CartUtil {
                         productUnit = it.product.productUnit,
                         createdAt = it.product.createdAt,
                         updatedAt = it.product.updatedAt,
-                        productSpecificDiscount = it.product.productSpecificDiscount
+                        productSpecificDiscount = it.product.productSpecificDiscount,
+                        attributes = it.product.attributes.map { at ->
+                            CartQuery.Attribute(at.id, at.name, at.values, at.isRequired)
+                        }
                     ),
                     attributes = it.attributes.map { a ->
-                        CartQuery.Attribute(
+                        CartQuery.Attribute1(
                             a.name,
                             a.selectedValue
                         )
@@ -79,10 +82,13 @@ object CartUtil {
                         productUnit = it.product.productUnit,
                         createdAt = it.product.createdAt,
                         updatedAt = it.product.updatedAt,
-                        productSpecificDiscount = it.product.productSpecificDiscount
+                        productSpecificDiscount = it.product.productSpecificDiscount,
+                        attributes = it.product.attributes.map { at ->
+                            CartQuery.Attribute(at.id, at.name, at.values, at.isRequired)
+                        }
                     ),
                     attributes = it.attributes.map { a ->
-                        CartQuery.Attribute(
+                        CartQuery.Attribute1(
                             a.name,
                             a.selectedValue
                         )

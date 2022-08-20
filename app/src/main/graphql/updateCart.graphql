@@ -20,6 +20,12 @@ mutation updateCart($id: String!, $params: UpdateCartParams!){
                 productUnit
                 createdAt
                 updatedAt
+                attributes {
+                    id
+                    name
+                    values
+                    isRequired
+                }
             }
             quantity
             purchasePrice

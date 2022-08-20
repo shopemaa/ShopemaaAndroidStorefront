@@ -91,4 +91,11 @@
         android:layout_toRightOf="@id/product_image"
         android:text="1"
         android:textSize="14dp" />
+
+    <TextView
+        android:id="@+id/attributes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/product_stock"
+        android:textSize="18sp" />
 </RelativeLayout>

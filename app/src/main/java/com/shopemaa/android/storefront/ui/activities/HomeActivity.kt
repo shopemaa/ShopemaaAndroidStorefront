@@ -180,7 +180,7 @@ class HomeActivity : BaseActivity(), TextWatcher, CategoryView {
         categoriesPowerMenu.spinnerPopupHeight = 700
         categoriesAdapter.setListener(object :
             TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
-            override fun onSelected(index: Int, item: PowerSpinnerModel) {
+            override fun onSelected(index: Int, item: PowerSpinnerModel, view: PowerSpinnerView) {
                 selectedCategory = categories[index]
                 categoriesPowerMenu.notifyItemSelected(index, item.title)
                 categoriesPowerMenu.dismiss()

@@ -4,17 +4,19 @@ import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.util.AttributeSet
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.shopemaa.android.storefront.R
+import com.shopemaa.android.storefront.models.PowerSpinnerModel
 import com.shopemaa.android.storefront.storage.CacheStorage
 import com.shopemaa.android.storefront.storage.ICacheStorage
+import com.shopemaa.android.storefront.ui.adapters.TwoFieldDropdownAdapter
+import com.shopemaa.android.storefront.utils.Utils
+import com.skydoves.powerspinner.OnSpinnerItemSelectedListener
+import com.skydoves.powerspinner.PowerSpinnerView
 
 open class BaseActivity : MvpAppCompatActivity() {
     private val accessTokenKey = "accessToken"
@@ -95,5 +97,24 @@ open class BaseActivity : MvpAppCompatActivity() {
 
         alert.setCancelable(false)
         return alert
+    }
+
+    fun createSpinner(
+        ctx: Context,
+        name: String,
+        listener: TwoFieldDropdownAdapter.OnHolderItemSelectedListener,
+        values: List<PowerSpinnerModel>
+    ): PowerSpinnerView {
+        val spinner = PowerSpinnerView(ctx)
+        spinner.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 30)
+        spinner.hint = name
+        spinner.textSize = 18f
+        spinner.gravity = Gravity.CENTER
+        val adapter = TwoFieldDropdownAdapter(0, null, spinner)
+        spinner.setSpinnerAdapter(adapter)
+        spinner.spinnerPopupHeight = Utils.getScreenHeightDp(ctx) / 2
+        adapter.setListener(listener)
+        adapter.setItems(values)
+        return spinner
     }
 }

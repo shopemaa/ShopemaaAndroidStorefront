@@ -20,6 +20,12 @@ query Cart($id: String!){
                 productUnit
                 createdAt
                 updatedAt
+                attributes {
+                    id
+                    name
+                    values
+                    isRequired
+                }
             }
             quantity
             purchasePrice

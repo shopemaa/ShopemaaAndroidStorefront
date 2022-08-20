@@ -2,6 +2,7 @@ package com.shopemaa.android.storefront.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Window
 import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -93,9 +94,9 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
             country
         )
         country.setSpinnerAdapter(countriesAdapter)
-        country.spinnerPopupHeight = 500
+        country.spinnerPopupHeight = Utils.getScreenHeightDp(applicationContext) / 2
         countriesAdapter.setListener(object : TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
-            override fun onSelected(index: Int, item: PowerSpinnerModel) {
+            override fun onSelected(index: Int, item: PowerSpinnerModel, view: PowerSpinnerView) {
                 selectedCountry = fetchedCountries[index]
                 country.notifyItemSelected(index, item.title)
                 country.dismiss()
@@ -109,10 +110,10 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
             paymentMethods
         )
         paymentMethods.setSpinnerAdapter(paymentMethodsAdapter)
-        paymentMethods.spinnerPopupHeight = 500
+        paymentMethods.spinnerPopupHeight = Utils.getScreenHeightDp(applicationContext) / 2
         paymentMethodsAdapter.setListener(object :
             TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
-            override fun onSelected(index: Int, item: PowerSpinnerModel) {
+            override fun onSelected(index: Int, item: PowerSpinnerModel, view: PowerSpinnerView) {
                 selectedPaymentMethod = fetchedPaymentMethods[index]
                 paymentMethods.notifyItemSelected(index, item.title)
                 paymentMethods.dismiss()
@@ -126,10 +127,10 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
             shippingMethods
         )
         shippingMethods.setSpinnerAdapter(shippingMethodsAdapter)
-        shippingMethods.spinnerPopupHeight = 500
+        shippingMethods.spinnerPopupHeight = Utils.getScreenHeightDp(applicationContext) / 2
         shippingMethodsAdapter.setListener(object :
             TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
-            override fun onSelected(index: Int, item: PowerSpinnerModel) {
+            override fun onSelected(index: Int, item: PowerSpinnerModel, view: PowerSpinnerView) {
                 selectedShippingMethod = fetchedShippingMethods[index]
                 shippingMethods.notifyItemSelected(index, item.title)
                 shippingMethods.dismiss()

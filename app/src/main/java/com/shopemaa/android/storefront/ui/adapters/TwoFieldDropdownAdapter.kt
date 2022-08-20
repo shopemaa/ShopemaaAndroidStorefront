@@ -43,7 +43,7 @@ class TwoFieldDropdownAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TwoFieldDropdownViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.two_field_dropdown_list_item, parent, false)
-        return TwoFieldDropdownViewHolder(view)
+        return TwoFieldDropdownViewHolder(view, spinnerView)
     }
 
     override fun onBindViewHolder(holder: TwoFieldDropdownViewHolder, position: Int) {
@@ -59,7 +59,8 @@ class TwoFieldDropdownAdapter(
         return items[index]
     }
 
-    class TwoFieldDropdownViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class TwoFieldDropdownViewHolder(v: View, spinnerView: PowerSpinnerView) :
+        RecyclerView.ViewHolder(v) {
         var title: TextView = v.findViewById(R.id.two_field_title)
         var subtitle: TextView = v.findViewById(R.id.two_field_subtitle)
         var clickListener: OnHolderItemSelectedListener? = null
@@ -68,12 +69,12 @@ class TwoFieldDropdownAdapter(
 
         init {
             v.setOnClickListener {
-                clickListener?.onSelected(itemIndex, item!!)
+                clickListener?.onSelected(itemIndex, item!!, spinnerView)
             }
         }
     }
 
     interface OnHolderItemSelectedListener {
-        fun onSelected(index: Int, item: PowerSpinnerModel)
+        fun onSelected(index: Int, item: PowerSpinnerModel, view: PowerSpinnerView)
     }
 }

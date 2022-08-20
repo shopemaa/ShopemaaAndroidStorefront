@@ -2,10 +2,10 @@ package com.shopemaa.android.storefront.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +21,9 @@ import com.shopemaa.android.storefront.api.graphql.type.FilterKey
 import com.shopemaa.android.storefront.api.graphql.type.FilterQuery
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
+import com.shopemaa.android.storefront.models.PowerSpinnerModel
 import com.shopemaa.android.storefront.ui.adapters.ProductListAdapter
+import com.shopemaa.android.storefront.ui.adapters.TwoFieldDropdownAdapter
 import com.shopemaa.android.storefront.ui.events.CartUpdateEvent
 import com.shopemaa.android.storefront.ui.events.CategoryFilterEvent
 import com.shopemaa.android.storefront.ui.events.ProductSearchEvent
@@ -31,6 +33,7 @@ import com.shopemaa.android.storefront.ui.presenters.ProductListPresenter
 import com.shopemaa.android.storefront.ui.views.CartView
 import com.shopemaa.android.storefront.ui.views.ProductListView
 import com.shopemaa.android.storefront.utils.CartUtil
+import com.skydoves.powerspinner.PowerSpinnerView
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.greenrobot.eventbus.EventBus
@@ -172,6 +175,57 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
     }
 
     override fun onAdd(productId: String) {
+        val prod = productList.find { it.id == productId }
+        val selectedAttributes: MutableMap<String, String> = mutableMapOf()
+
+        if (prod?.attributes.isNullOrEmpty().not()) {
+            val layout = LinearLayout(requireContext())
+            layout.orientation = LinearLayout.VERTICAL
+            layout.layoutParams = ViewGroup.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+
+            prod?.attributes?.forEach { at ->
+                layout.addView(
+                    createSpinner(requireContext(), "${at.name}${
+                        if (at.isRequired) {
+                            "*"
+                        } else {
+                            ""
+                        }
+                    }",
+                        object : TwoFieldDropdownAdapter.OnHolderItemSelectedListener {
+                            override fun onSelected(
+                                index: Int,
+                                item: PowerSpinnerModel,
+                                view: PowerSpinnerView
+                            ) {
+                                selectedAttributes[item.id] = item.title
+                                view.notifyItemSelected(index, item.title)
+                                view.dismiss()
+                            }
+                        }, at.values.map { PowerSpinnerModel(at.id, it, "") })
+                )
+            }
+
+            val alert = createCustomPopup(
+                requireActivity(),
+                "Please select attributes",
+                layout, "Done", false,
+            ) {
+                if (prod?.attributes?.any { at -> at.isRequired && selectedAttributes[at.id] == null } == false) {
+                    it.dismiss()
+                    createOrUpdateCart(productId, selectedAttributes)
+                }
+            }
+            alert.show()
+        } else {
+            createOrUpdateCart(productId, selectedAttributes)
+        }
+    }
+
+    private fun createOrUpdateCart(productId: String, attributes: MutableMap<String, String>) {
         val c = getCacheStorage(requireContext())
         val cartId = c.get(Constants.cartIdLabel)
 
@@ -179,18 +233,15 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
         alertDialog.show()
 
         if (cartId.isEmpty()) {
-            Log.d("onAdd", "Cart is empty")
             lifecycleScope.launch {
-                cartPresenter.requestCreateCart(requireContext(), productId)
+                cartPresenter.requestCreateCart(requireContext(), productId, attributes)
             }
             return
         }
 
-        Log.d("onAdd", "Cart is not empty")
-
         val cart = CartUtil.cartFromCache(c)
         lifecycleScope.launch {
-            cartPresenter.requestUpdateCart(requireContext(), cart, productId)
+            cartPresenter.requestUpdateCart(requireContext(), cart, productId, attributes)
         }
     }
 

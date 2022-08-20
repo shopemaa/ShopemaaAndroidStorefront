@@ -3,14 +3,18 @@ package com.shopemaa.android.storefront.ui.activities
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.shopemaa.android.storefront.R
 import com.shopemaa.android.storefront.api.graphql.OrderByCustomerEmailQuery
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
+import com.shopemaa.android.storefront.ui.adapters.OrderItemListAdapter
 import com.shopemaa.android.storefront.ui.presenters.OrderPresenter
 import com.shopemaa.android.storefront.ui.views.OrderView
 import com.shopemaa.android.storefront.utils.Utils
@@ -20,24 +24,30 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
 
     @InjectPresenter
     lateinit var presenter: OrderPresenter
-    lateinit var alertDialog: SweetAlertDialog
+    private lateinit var alertDialog: SweetAlertDialog
 
-    lateinit var orderHash: TextView
-    lateinit var orderStatus: TextView
-    lateinit var orderDate: TextView
-    lateinit var orderPaymentStatus: TextView
-    lateinit var customerName: TextView
-    lateinit var customerEmail: TextView
-    lateinit var customerPhone: TextView
-    lateinit var customerAddress: TextView
-    lateinit var shippingMethod: TextView
-    lateinit var paymentMethod: TextView
-    lateinit var coupon: TextView
-    lateinit var subtotal: TextView
-    lateinit var shippingFee: TextView
-    lateinit var paymentFee: TextView
-    lateinit var discount: TextView
-    lateinit var grandTotal: TextView
+    private lateinit var orderHash: TextView
+    private lateinit var orderStatus: TextView
+    private lateinit var orderDate: TextView
+    private lateinit var orderPaymentStatus: TextView
+    private lateinit var customerName: TextView
+    private lateinit var customerEmail: TextView
+    private lateinit var customerPhone: TextView
+    private lateinit var customerAddress: TextView
+    private lateinit var shippingMethod: TextView
+    private lateinit var paymentMethod: TextView
+    private lateinit var coupon: TextView
+    private lateinit var subtotal: TextView
+    private lateinit var shippingFee: TextView
+    private lateinit var paymentFee: TextView
+    private lateinit var discount: TextView
+    private lateinit var grandTotal: TextView
+
+    private lateinit var back: ImageView
+
+    private lateinit var orderItems: RecyclerView
+    private lateinit var orderItemsList: MutableList<OrderByCustomerEmailQuery.CartItem>
+    private lateinit var orderItemsAdapter: OrderItemListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +73,13 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
         discount = findViewById(R.id.discount)
         grandTotal = findViewById(R.id.grand_total)
 
+        orderItems = findViewById(R.id.order_items)
+        orderItemsList = mutableListOf()
+        orderItemsAdapter = OrderItemListAdapter(applicationContext, orderItemsList)
+        val layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+        orderItems.layoutManager = layoutManager
+        orderItems.adapter = orderItemsAdapter
+
         val extras = intent.extras
         if (extras != null) {
             val h = extras.getString(Constants.orderHashLabel, "")
@@ -74,9 +91,14 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
                 }
             }
         }
+
+        back = findViewById(R.id.order_details_view_back)
+        back.setOnClickListener {
+            finish()
+        }
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onOrderDetailsSuccess(order: OrderByCustomerEmailQuery.OrderByCustomerEmail) {
         orderHash.text = "#${order.hash}"
         orderStatus.text = "Order is ${order.status}"
@@ -103,6 +125,9 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
         paymentFee.text = Utils.formatAmount(order.paymentProcessingFee, true)
         discount.text = Utils.formatAmount(order.discountedAmount, true)
         grandTotal.text = Utils.formatAmount(order.grandTotal, true)
+
+        orderItemsList.addAll(order.cart.cartItems)
+        orderItemsAdapter.notifyDataSetChanged()
 
         alertDialog.dismiss()
     }

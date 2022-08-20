@@ -315,7 +315,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
         calDiscount = amount
         discount.text = Utils.formatAmount(amount, true)
         showMessage(applicationContext, "Coupon code applied")
-        
+
         calculateOverview()
     }
 
@@ -338,6 +338,10 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
 
     override fun onPlaceOrderSuccess(order: OrderGuestCheckoutMutation.OrderGuestCheckout) {
         showMessage(applicationContext, "Order created")
+
+        val c = getCacheStorage(applicationContext)
+        c.delete(Constants.cartIdLabel)
+        c.delete(Constants.cartLabel)
 
         // Handle Offline payment
         if (!paymentMethodV.isDigitalPayment) {
