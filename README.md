@@ -2,6 +2,10 @@
 
 Android eCommerce storefront app based on [Shopemaa eCommerce Platform](https://shopemaa.com).
 
+## Platform [shopemaa.com](https://shopemaa.com)
+
+Shopemaa provides On-demand online store with headless API.
+
 ## How it works
 
 1. Create a store in [Shopemaa](https://shopemaa.com)
@@ -18,6 +22,15 @@ Android eCommerce storefront app based on [Shopemaa eCommerce Platform](https://
   ![](./screens/cart.png)
 * Order Details
   ![](./screens/order_details.png)
+
+* Shopemaa Dashbord
+  ![](./screens/shopemaa_dashboard.png)
+* Shopemaa Store Dashbord
+  ![](./screens/shopemaa_store_dashboard.png)
+
+# Contact
+
+Shopemaa Support: support@shopemaa.com
 
 # License
 
