@@ -1,9 +1,11 @@
 package com.shopemaa.android.storefront.ui.presenters
 
 import android.content.Context
+import android.util.Log
 import com.apollographql.apollo3.api.Optional
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.google.gson.Gson
 import com.shopemaa.android.storefront.api.ApiHelper
 import com.shopemaa.android.storefront.api.graphql.*
 import com.shopemaa.android.storefront.api.graphql.type.GuestCheckoutPlaceOrderParams
@@ -193,6 +195,7 @@ class CheckoutPresenter : MvpPresenter<CheckoutView>() {
             )
             .execute()
         if (resp.hasErrors()) {
+            Log.d("Error", Gson().toJson(resp.errors).toString())
             viewState.onPlaceOrderFailure(ApiError())
             return
         }

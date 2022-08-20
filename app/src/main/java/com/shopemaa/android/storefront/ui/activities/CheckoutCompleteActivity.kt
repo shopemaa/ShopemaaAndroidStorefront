@@ -53,6 +53,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
 
     @InjectPresenter
     lateinit var presenter: CheckoutPresenter
+
     lateinit var alertDialog: SweetAlertDialog
 
     private var calSubtotal: Int = 0

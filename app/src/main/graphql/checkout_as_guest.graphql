@@ -99,10 +99,5 @@ mutation OrderGuestCheckout($params: GuestCheckoutPlaceOrderParams!) {
             payableAmount
             gatewayName
         }
-        feedback {
-            rating
-            comment
-            createdAt
-        }
     }
 }
