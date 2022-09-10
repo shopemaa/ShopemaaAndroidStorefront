@@ -1,3 +1,5 @@
+<img src="https://shopemaa.com/assets/homev2/images/shopemaa/shopemaa.png" alt="" height="150" /> 
+
 # Shopemaa Android Storefront
 
 Android eCommerce storefront app based on [Shopemaa eCommerce Platform](https://shopemaa.com).
@@ -17,16 +19,24 @@ Shopemaa provides On-demand online store with headless API.
 ## How it looks
 
 * Home
-  ![](./screens/home.png)
+
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/home.png" alt="" width="200" />
+
 * Cart
-  ![](./screens/cart.png)
+
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/cart.png" alt="" width="200" />
+
 * Order Details
-  ![](./screens/order_details.png)
+
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/order_details.png" alt="" width="200" />
 
 * Shopemaa Dashbord
-  ![](./screens/shopemaa_dashboard.png)
+
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/shopemaa_dashboard.png" alt="" width="500" />
+
 * Shopemaa Store Dashbord
-  ![](./screens/shopemaa_store_dashboard.png)
+
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/shopemaa_store_dashboard.png" alt="" width="500" />
 
 # Contact
 
@@ -34,4 +44,4 @@ Shopemaa Support: support@shopemaa.com
 
 # License
 
-Licensed under the [MIT License](./license.tx)
+Licensed under the [MIT License](./license.txt)
