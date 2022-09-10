@@ -20,23 +20,23 @@ Shopemaa provides On-demand online store with headless API.
 
 * Home
 
-<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/home.png" alt="" width="300" />
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/home.png" alt="" width="500" />
 
 * Cart
 
-<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/cart.png" alt="" width="300" />
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/cart.png" alt="" width="500" />
 
 * Order Details
 
-<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/order_details.png" alt="" width="300" />
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/order_details.png" alt="" width="500" />
 
 * Shopemaa Dashbord
 
-<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/shopemaa_dashboard.png" alt="" width="800" />
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/shopemaa_dashboard.png" alt="" width="1000" />
 
 * Shopemaa Store Dashbord
 
-<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/shopemaa_store_dashboard.png" alt="" width="800" />
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/shopemaa_store_dashboard.png" alt="" width="1000" />
 
 # Contact
 
