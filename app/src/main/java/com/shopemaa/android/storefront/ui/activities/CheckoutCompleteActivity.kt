@@ -277,7 +277,11 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
 
     override fun onCheckShippingFeeSuccess(amount: Int) {
         calShippingFee = amount
-        shippingFee.text = Utils.formatAmount(amount, true)
+        shippingFee.text = if (amount != 0) {
+            Utils.formatAmount(amount, true)
+        } else {
+            "Free"
+        }
 
         lifecycleScope.launch {
             presenter.checkPaymentFee(
@@ -297,7 +301,11 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
 
     override fun onCheckPaymentFeeSuccess(amount: Int) {
         calPaymentFee = amount
-        paymentFee.text = Utils.formatAmount(amount, true)
+        paymentFee.text = if (amount != 0) {
+            Utils.formatAmount(amount, true)
+        } else {
+            "Free"
+        }
         calculateGrandTotal()
     }
 
@@ -344,8 +352,9 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
         c.delete(Constants.cartIdLabel)
         c.delete(Constants.cartLabel)
 
-        // Handle Offline payment
-        if (!paymentMethodV.isDigitalPayment) {
+        // TODO: Save to local order history (store specific)
+
+        if (!paymentMethodV.isDigitalPayment) { // Handle Offline payment
             val i = Intent(applicationContext, OrderDetailsActivity::class.java)
             i.putExtra(Constants.orderHashLabel, order.hash)
             i.putExtra(Constants.orderCustomerEmailLabel, order.customer.email)
@@ -354,7 +363,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
             return
         }
 
-        // Handle Online payment
+        // TODO: Handle Online payment
 
     }
 

@@ -236,7 +236,7 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
                     if (it.isDigitalPayment) {
                         "Online Payment"
                     } else {
-                        "Cash on Delivery"
+                        "Cash Payment"
                     }
                 }"
             )
