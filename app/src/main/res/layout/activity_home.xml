@@ -42,21 +42,22 @@
             android:layout_height="25dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="30dp"
             android:src="@drawable/ic_baseline_shopping_cart_24" />
 
         <TextView
             android:id="@+id/cart_item_counter"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="30dp"
-            android:gravity="right"
-            android:text="1"
-            android:textColor="@color/highlighted"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/circular_textview"
+            android:gravity="center"
+            android:paddingBottom="3dp"
+            android:text="5"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <RelativeLayout
