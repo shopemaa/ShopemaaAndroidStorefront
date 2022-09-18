@@ -22,15 +22,19 @@ import com.shopemaa.android.storefront.api.graphql.type.FilterQuery
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
 import com.shopemaa.android.storefront.models.PowerSpinnerModel
+import com.shopemaa.android.storefront.ui.adapters.CategoryListAdapter
 import com.shopemaa.android.storefront.ui.adapters.ProductListAdapter
 import com.shopemaa.android.storefront.ui.adapters.TwoFieldDropdownAdapter
 import com.shopemaa.android.storefront.ui.events.CartUpdateEvent
 import com.shopemaa.android.storefront.ui.events.CategoryFilterEvent
 import com.shopemaa.android.storefront.ui.events.ProductSearchEvent
 import com.shopemaa.android.storefront.ui.listeners.AddToCartListener
+import com.shopemaa.android.storefront.ui.listeners.CategorySelectedListener
 import com.shopemaa.android.storefront.ui.presenters.CartPresenter
+import com.shopemaa.android.storefront.ui.presenters.CategoryPresenter
 import com.shopemaa.android.storefront.ui.presenters.ProductListPresenter
 import com.shopemaa.android.storefront.ui.views.CartView
+import com.shopemaa.android.storefront.ui.views.CategoryView
 import com.shopemaa.android.storefront.ui.views.ProductListView
 import com.shopemaa.android.storefront.utils.CartUtil
 import com.skydoves.powerspinner.PowerSpinnerView
@@ -40,10 +44,16 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCartListener {
+class ProductListFragment : BaseFragment(), ProductListView, CartView, CategoryView,
+    AddToCartListener,
+    CategorySelectedListener {
     private lateinit var productListView: RecyclerView
     private lateinit var productListAdapter: ProductListAdapter
     private lateinit var productList: MutableList<ProductsQuery.ProductSearch>
+
+    private lateinit var categoryListView: RecyclerView
+    private lateinit var categoryListAdapter: CategoryListAdapter
+    private lateinit var categoryList: MutableList<CategoriesQuery.Category>
 
     private lateinit var swipeLayout: SwipeRefreshLayout
 
@@ -57,6 +67,9 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
 
     @InjectPresenter
     lateinit var presenter: ProductListPresenter
+
+    @InjectPresenter
+    lateinit var categoryPresenter: CategoryPresenter
 
     @InjectPresenter
     lateinit var cartPresenter: CartPresenter
@@ -83,12 +96,23 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
         productProgressBar = v.findViewById(R.id.product_listing_loader)
         toggleProgressBar(false)
 
+        categoryList = mutableListOf()
+        categoryListAdapter = CategoryListAdapter(requireContext(), categoryList, this)
+        categoryListView = v.findViewById(R.id.category_list)
+        val categoryLayoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        categoryListView.layoutManager = categoryLayoutManager
+        categoryListView.adapter = categoryListAdapter
+
         productList = mutableListOf()
         productListAdapter = ProductListAdapter(requireContext(), productList, this)
         productListView = v.findViewById(R.id.product_list)
         val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         productListView.layoutManager = layoutManager
         productListView.adapter = productListAdapter
+
+        lifecycleScope.launch {
+            categoryPresenter.requestCategories(requireContext(), null, 1, 100)
+        }
 
         onLoadProducts()
 
@@ -154,14 +178,16 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    @Subscribe(threadMode = ThreadMode.MAIN_ORDERED)
-    fun onProductFilterByCategory(event: CategoryFilterEvent) {
-        this.productList.clear()
-        this.productListAdapter.notifyDataSetChanged()
-        this.page = 1
-        this.filterCategory = event.category
+    override fun onCategoriesSuccess(categories: List<CategoriesQuery.Category>) {
+        activity?.runOnUiThread {
+            this.categoryList.add(CategoriesQuery.Category("All", "All", "all", "", "", "", 0, 0))
+            this.categoryList.addAll(categories)
+            this.categoryListAdapter.notifyDataSetChanged()
+        }
+    }
 
-        onLoadProducts()
+    override fun onCategoriesFailure(err: ApiError) {
+        showMessage(requireContext(), "Category listing failed")
     }
 
     private fun toggleProgressBar(visible: Boolean) {
@@ -250,6 +276,20 @@ class ProductListFragment : BaseFragment(), ProductListView, CartView, AddToCart
             alertDialog.dismiss()
         }
         showMessage(requireContext(), msg)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun onSelected(c: CategoriesQuery.Category) {
+        this.productList.clear()
+        this.productListAdapter.notifyDataSetChanged()
+        this.page = 1
+        this.filterCategory = if (c.id.equals("All")) {
+            null
+        } else {
+            c
+        }
+
+        onLoadProducts()
     }
 
     override fun onCartSuccess(cart: CartQuery.Cart) {

@@ -11,10 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_list"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
+
         <ProgressBar
             android:id="@+id/product_listing_loader"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_below="@+id/category_list"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
             android:layout_marginTop="15dp"
@@ -27,6 +35,7 @@
             android:id="@+id/product_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@+id/category_list"
             android:paddingLeft="10dp"
             android:paddingRight="10dp" />
     </RelativeLayout>

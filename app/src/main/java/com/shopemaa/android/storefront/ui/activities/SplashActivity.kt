@@ -23,6 +23,15 @@ class SplashActivity : BaseActivity() {
         val c = CacheStorage(applicationContext)
         parseAndSaveStoreCredential(c)
 
+        c.save(
+            Constants.storeKeyLabel,
+            "779ab8d53c0c4de186a729b64dd160a580da51cc2e3b491391623a0c886762111257ca7ef455410d973926f77084b75d"
+        )
+        c.save(
+            Constants.storeSecretLabel,
+            "27f173af88b743018c507199688afb529bceb47f17214f8d9c72ee0b6bf4a20e"
+        )
+
         val key = c.get(Constants.storeKeyLabel)
         val secret = c.get(Constants.storeSecretLabel)
         if (key.isEmpty() || secret.isEmpty()) {

@@ -20,7 +20,7 @@ Shopemaa provides On-demand online store with headless API.
 
 * Home
 
-<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/home.png" alt="" width="500" />
+<img src="https://github.com/shopemaa/ShopemaaAndroidStorefront/raw/main/screens/home_new.png" alt="" width="500" />
 
 * Cart
 
