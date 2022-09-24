@@ -31,7 +31,7 @@ class CartItemListAdapter(
         val item = cartItems[position]
 
         holder.productName.text = item.product.name
-        holder.productPrice.text = Utils.formatAmount(item.purchasePrice)
+        holder.productPrice.text = Utils.formatAmount(ctx, item.purchasePrice)
 
         if (item.product.fullImages.isNotEmpty()) {
             Glide.with(ctx).load(item.product.fullImages[0]).into(holder.productImage)
@@ -44,7 +44,7 @@ class CartItemListAdapter(
         }
 
         holder.productPrice.text =
-            Utils.formatAmount(price, true)
+            Utils.formatAmount(ctx, price, true)
         holder.productQty.text = item.quantity.toString()
         holder.productQtyDown.setOnClickListener {
             qtyChangeListener.onChange(item.product.id, item.quantity - 1)

@@ -19,8 +19,11 @@ import com.shopemaa.android.storefront.api.graphql.type.AddressParams
 import com.shopemaa.android.storefront.api.graphql.type.GuestCheckoutPlaceOrderParams
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
+import com.shopemaa.android.storefront.storage.CacheStorage
 import com.shopemaa.android.storefront.ui.presenters.CheckoutPresenter
+import com.shopemaa.android.storefront.ui.presenters.DigitalPaymentPresenter
 import com.shopemaa.android.storefront.ui.views.CheckoutView
+import com.shopemaa.android.storefront.ui.views.DigitalPaymentView
 import com.shopemaa.android.storefront.utils.CartUtil
 import com.shopemaa.android.storefront.utils.Utils
 import kotlinx.coroutines.launch
@@ -50,6 +53,8 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     private lateinit var paymentMethodV: PaymentMethodsQuery.PaymentMethod
 
     private lateinit var cart: CartQuery.Cart
+
+    private lateinit var order: OrderGuestCheckoutMutation.OrderGuestCheckout
 
     @InjectPresenter
     lateinit var presenter: CheckoutPresenter
@@ -172,10 +177,10 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
                 it.purchasePrice * it.quantity
             }
         }
-        subtotal.text = Utils.formatAmount(st, true)
+        subtotal.text = Utils.formatAmount(applicationContext, st, true)
         calSubtotal = st
         calDiscount += calProductSpecificDiscount
-        discount.text = Utils.formatAmount(calDiscount, true)
+        discount.text = Utils.formatAmount(applicationContext, calDiscount, true)
 
         lifecycleScope.launch {
             presenter.checkShippingFee(applicationContext, cart.id, shippingMethodV.id)
@@ -278,7 +283,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     override fun onCheckShippingFeeSuccess(amount: Int) {
         calShippingFee = amount
         shippingFee.text = if (amount != 0) {
-            Utils.formatAmount(amount, true)
+            Utils.formatAmount(applicationContext, amount, true)
         } else {
             "Free"
         }
@@ -302,7 +307,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     override fun onCheckPaymentFeeSuccess(amount: Int) {
         calPaymentFee = amount
         paymentFee.text = if (amount != 0) {
-            Utils.formatAmount(amount, true)
+            Utils.formatAmount(applicationContext, amount, true)
         } else {
             "Free"
         }
@@ -322,7 +327,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
 
     override fun onCheckDiscountSuccess(amount: Int) {
         calDiscount = amount
-        discount.text = Utils.formatAmount(amount, true)
+        discount.text = Utils.formatAmount(applicationContext, amount, true)
         showMessage(applicationContext, "Coupon code applied")
 
         calculateOverview()
@@ -331,13 +336,14 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
     override fun onCheckDiscountFailure(err: ApiError) {
         showMessage(applicationContext, "Failed to apply coupon")
         calDiscount = 0
-        discount.text = Utils.formatAmount(calDiscount, true)
+        discount.text = Utils.formatAmount(applicationContext, calDiscount, true)
 
         calculateOverview()
     }
 
     private fun calculateGrandTotal() {
         grandTotal.text = Utils.formatAmount(
+            applicationContext,
             calSubtotal + calPaymentFee + calShippingFee + calProductSpecificDiscount - calDiscount,
             true
         )
@@ -364,7 +370,7 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
         }
 
         // TODO: Handle Online payment
-
+        initiateDigitalPayment(order)
     }
 
     override fun onPlaceOrderFailure(err: ApiError) {
@@ -374,6 +380,17 @@ class CheckoutCompleteActivity : BaseActivity(), CheckoutView {
 
     override fun onBackPressed() {
         startActivity(Intent(applicationContext, CheckoutActivity::class.java))
+        finish()
+    }
+
+    private fun initiateDigitalPayment(order: OrderGuestCheckoutMutation.OrderGuestCheckout) {
+        this.order = order
+
+        val i = Intent(applicationContext, DigitalPaymentActivity::class.java)
+        i.putExtra(Constants.orderHashLabel, order.hash)
+        i.putExtra(Constants.orderCustomerEmailLabel, order.customer.email)
+        i.putExtra(Constants.orderIdLabel, order.id)
+        startActivity(i)
         finish()
     }
 }

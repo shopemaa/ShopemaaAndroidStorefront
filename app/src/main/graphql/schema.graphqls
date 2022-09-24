@@ -1,2585 +1,2647 @@
 input AddAttributeParams {
-    name: String!
+  name: String!
 
-    values: [String!]!
+  values: [String!]!
 
-    isRequired: Boolean!
+  isRequired: Boolean!
 }
 
 type AddAttributeResponse {
-    attribute: ProductAttribute!
+  attribute: ProductAttribute!
 }
 
 input AddAttributeToProductParams {
-    productId: String!
+  productId: String!
 
-    attribute: AddAttributeParams!
+  attribute: AddAttributeParams!
 }
 
 input AddBlogPostComment {
-    content: String!
+  content: String!
 }
 
 type AddBlogPostCommentResponse {
-    comment: BlogPostComment!
+  comment: BlogPostComment!
 }
 
 type AddCouponCodeResponse {
-    coupon: CouponCode!
+  coupon: CouponCode!
 }
 
 input AddDigitalContentParams {
-    title: String!
+  title: String!
 
-    contentType: DigitalContentType!
+  contentType: DigitalContentType!
 
-    isTrialAllowed: Boolean!
+  isTrialAllowed: Boolean!
 
-    contentText: String
+  contentText: String
 
-    contentFile: Upload
+  contentFile: Upload
 
-    position: Int
+  position: Int
 }
 
 input AddDigitalItemParams {
-    title: String!
+  title: String!
 
-    description: String
+  description: String
 
-    position: Int
+  position: Int
 }
 
 input AddFeedbackParams {
-    rating: Int!
+  rating: Int!
 
-    comment: String
+  comment: String
 }
 
 input AddProductsToCollectionParams {
-    collectionId: String!
+  collectionId: String!
 
-    productIds: [String!]!
+  productIds: [String!]!
 }
 
 input AddVariationParams {
-    name: String!
+  name: String!
 
-    price: Int!
+  price: Int!
 
-    cost: Int!
+  cost: Int!
 
-    sku: String
+  sku: String
 
-    stock: Int
+  stock: Int
 
-    weight: Float
+  weight: Float
 
-    weightUnit: WeightUnit
+  weightUnit: WeightUnit
 }
 
 type AddVariationResponse {
-    variation: ProductVariation!
+  variation: ProductVariation!
 }
 
 input AddVariationToProductParams {
-    productId: String!
+  productId: String!
 
-    variation: AddVariationParams!
+  variation: AddVariationParams!
 }
 
 type Address {
-    id: String!
+  id: String!
 
-    street: String!
+  street: String!
 
-    streetTwo: String
+  streetTwo: String
 
-    city: String!
+  city: String!
 
-    state: String
+  state: String
 
-    postcode: String!
+  postcode: String!
 
-    email: String
+  email: String
 
-    phone: String
+  phone: String
 
-    location: Location!
+  location: Location!
 }
 
 input AddressParams {
-    street: String!
+  street: String!
 
-    streetTwo: String
+  streetTwo: String
 
-    city: String!
+  city: String!
 
-    state: String
+  state: String
 
-    postcode: String!
+  postcode: String!
 
-    email: String
+  email: String
 
-    phone: String
+  phone: String
 
-    locationId: String!
+  locationId: String!
 }
 
 type BlogPost {
-    id: String!
+  id: String!
 
-    title: String!
+  title: String!
 
-    slug: String
+  slug: String
 
-    bannerImage: String
+  bannerImage: String
 
-    content: String!
+  bannerImageFull: String
 
-    tags: [String!]
+  content: String!
 
-    isPublished: Boolean!
+  tags: [String!]
 
-    isFeatured: Boolean!
+  isPublished: Boolean!
 
-    views: Int!
+  isFeatured: Boolean!
 
-    favourites: Int!
+  views: Int!
 
-    comments("" page: Int, "" limit: Int): [BlogPostComment!]!
+  favourites: Int!
 
-    createdAt: String!
+  comments("" page: Int, "" limit: Int): [BlogPostComment!]!
 
-    updatedAt: String
+  createdAt: String!
+
+  updatedAt: String
 }
 
 type BlogPostComment {
-    id: String!
+  id: String!
 
-    content: String!
+  content: String!
 
-    customer: Customer!
+  customer: Customer!
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 }
 
 type Cart {
-    id: String!
+  id: String!
 
-    isShippingRequired: Boolean!
+  isShippingRequired: Boolean!
 
-    cartItems: [CartItem!]!
+  cartItems: [CartItem!]!
 }
 
 type CartItem {
-    id: Int!
+  id: Int!
 
-    product: Product!
+  product: Product!
 
-    quantity: Int!
+  quantity: Int!
 
-    purchasePrice: Int!
+  purchasePrice: Int!
 
-    purchaseTimeCost: Int!
+  purchaseTimeCost: Int!
 
-    attributes: [CartProductAttribute!]!
+  attributes: [CartProductAttribute!]!
 
-    variation: ProductVariation
+  variation: ProductVariation
 }
 
 input CartItemAttributeParams {
-    Id: String!
+  Id: String!
 
-    attributeSelectedValue: String!
+  attributeSelectedValue: String!
 }
 
 input CartItemParams {
-    productId: String!
+  productId: String!
 
-    productAttributes: [CartItemAttributeParams!]
+  productAttributes: [CartItemAttributeParams!]
 
-    productVariationId: String
+  productVariationId: String
 
-    quantity: Int!
+  quantity: Int!
 }
 
 type CartProductAttribute {
-    name: String!
+  name: String!
 
-    selectedValue: String!
+  selectedValue: String!
 }
 
 type Category {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    slug: String!
+  slug: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    fullImage: String
+  fullImage: String
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 
-    productCount: Int!
+  productCount: Int!
 
-    position: Int!
+  position: Int!
 }
 
 type Collection {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    slug: String!
+  slug: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    fullImage: String
+  fullImage: String
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 
-    products("" search: Search, "" sort: Sort!, "" pagination: Pagination!): [Product!]
+  products("" search: Search, "" sort: Sort!, "" pagination: Pagination!): [Product!]
 
-    productCount: Int!
+  productCount: Int!
 
-    position: Int!
+  position: Int!
 }
 
 type CouponCode {
-    id: String!
+  id: String!
 
-    code: String!
+  code: String!
 
-    amount: Int!
+  amount: Int!
 
-    minOrderAmount: Int
+  minOrderAmount: Int
 
-    maxDiscountAmount: Int
+  maxDiscountAmount: Int
 
-    isActive: Boolean!
+  isActive: Boolean!
 
-    isFlatDiscount: Boolean!
+  isFlatDiscount: Boolean!
 
-    isForNewUsersOnly: Boolean!
+  isForNewUsersOnly: Boolean!
 
-    isUserSpecific: Boolean!
+  isUserSpecific: Boolean!
 
-    maxUsage: Int
+  maxUsage: Int
 
-    maxUsagePerUser: Int
+  maxUsagePerUser: Int
 
-    discountType: DiscountType!
+  discountType: DiscountType!
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    startAt: String
+  startAt: String
 
-    endAt: String
+  endAt: String
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 
-    customers: [Customer!]
+  customers: [Customer!]
 }
 
 type CreateBlogPostResponse {
-    post: BlogPost!
+  post: BlogPost!
 }
 
 type CreateCartResponse {
-    cart: Cart!
+  cart: Cart!
 }
 
 type CreateCategoryResponse {
-    category: Category!
+  category: Category!
 }
 
 type CreateCollectionResponse {
-    collection: Collection!
+  collection: Collection!
 }
 
 type CreateProductResponse {
-    product: Product!
+  product: Product!
 }
 
 type CreateShippingMethodResponse {
-    method: ShippingMethod!
+  method: ShippingMethod!
 }
 
 type CreateShopResponse {
-    shop: Store!
+  shop: Store!
 }
 
 enum Currency {
-    USD
+  USD
 
-    BDT
+  BDT
 
-    EUR
+  EUR
 }
 
 type Customer {
-    email: String!
+  email: String!
 
-    phone: String
+  phone: String
 
-    firstName: String!
+  firstName: String!
 
-    lastName: String!
+  lastName: String!
 
-    profilePicture: String
+  profilePicture: String
+
+  profilePictureFull: String
 }
 
 input CustomerChangePasswordParams {
-    oldPassword: String!
+  oldPassword: String!
 
-    newPassword: String!
+  newPassword: String!
 }
 
 input CustomerResetPasswordParams {
-    email: String!
+  email: String!
 
-    resetToken: String!
+  resetToken: String!
 
-    newPassword: String!
+  newPassword: String!
 }
 
 input CustomerResetPasswordRequestParams {
-    email: String!
+  email: String!
 }
 
 type DigitalContent {
-    id: String!
+  id: String!
 
-    title: String!
+  title: String!
 
-    contentType: DigitalContentType!
+  contentType: DigitalContentType!
 
-    isTrialAllowed: Boolean!
+  isTrialAllowed: Boolean!
 
-    contentText: String
+  contentText: String
 
-    contentUrl: String
+  contentUrl: String
 
-    updatedAt: String!
+  updatedAt: String!
 
-    position: Int!
+  position: Int!
 }
 
 enum DigitalContentType {
-    File
+  File
 
-    Text
+  Text
 
-    Video
+  Video
 }
 
 type DigitalItem {
-    id: String!
+  id: String!
 
-    title: String!
+  title: String!
 
-    description: String
+  description: String
 
-    position: Int!
+  position: Int!
 
-    contents: [DigitalContent!]!
+  contents: [DigitalContent!]!
 }
 
 enum DiscountType {
-    Product
+  Product
 
-    Shipping
+  Shipping
 
-    Overall
+  Overall
 }
 
 type Feedback {
-    rating: Int!
+  rating: Int!
 
-    comment: String
+  comment: String
 
-    createdAt: String!
+  createdAt: String!
 }
 
 enum FilterKey {
-    collection
+  collection
 
-    category
+  category
 
-    email
+  email
 }
 
 input FilterQuery {
-    key: FilterKey!
+  key: FilterKey!
 
-    value: String!
+  value: String!
 }
 
 type GeneratePaymentNoneResponse {
-    PaymentGatewayName: String!
+  PaymentGatewayName: String!
 
-    Nonce: String!
+  Nonce: String!
 
-    StripePublishableKey: String
+  StripePublishableKey: String
 }
 
 type GenerateShopSecretResponse {
-    secret: StoreSecret!
+  secret: StoreSecret!
 }
 
 type GetAdminBlogPostResponse {
-    post: BlogPost!
+  post: BlogPost!
 }
 
 type GetAdminCategoryByIdResponse {
-    category: Category!
+  category: Category!
 }
 
 type GetAdminCollectionByIdResponse {
-    collection: Collection!
+  collection: Collection!
 }
 
 type GetAdminProductByIDResponse {
-    product: Product!
+  product: Product!
 }
 
 type GetBlogPostResponse {
-    post: PBlogPost!
+  post: PBlogPost!
 }
 
 type GetCartByIDResponse {
-    cart: Cart!
+  cart: Cart!
 }
 
 type GetCategoryByIdResponse {
-    category: PCategory!
+  category: PCategory!
 }
 
 type GetCollectionByIdResponse {
-    collection: PCollection!
+  collection: PCollection!
 }
 
 type GetCouponCodeByCodeResponse {
-    coupon: CouponCode!
+  coupon: CouponCode!
 }
 
 type GetCouponCodeByIdResponse {
-    coupon: CouponCode!
+  coupon: CouponCode!
 }
 
 type GetCustomerOrderByHashResponse {
-    order: Order!
+  order: Order!
 }
 
 type GetCustomerOrderByIdResponse {
-    order: Order!
+  order: Order!
 }
 
 type GetProductByIDResponse {
-    product: PProduct!
+  product: PProduct!
 }
 
 type GetShippingMethodByIdResponse {
-    method: ShippingMethod!
+  method: ShippingMethod!
 }
 
 input GuestCheckoutPlaceOrderParams {
-    cartId: String!
+  cartId: String!
 
-    billingAddress: AddressParams!
+  billingAddress: AddressParams!
 
-    shippingAddress: AddressParams
+  shippingAddress: AddressParams
 
-    paymentMethodId: String
+  paymentMethodId: String
 
-    shippingMethodId: String
+  shippingMethodId: String
 
-    couponCode: String
+  couponCode: String
 
-    firstName: String!
+  firstName: String!
 
-    lastName: String!
+  lastName: String!
 
-    email: String!
+  email: String!
+}
+
+type IsDigitalProductPurchasedByCustomerResp {
+  isPurchased: Boolean!
+
+  orderHash: String!
+
+  purchaseDate: String!
 }
 
 type ListAdminBlogPostResponse {
-    posts: [BlogPost!]!
+  posts: [BlogPost!]!
 }
 
 type ListAdminCategoryResponse {
-    categories: [Category!]!
+  categories: [Category!]!
 }
 
 type ListAdminCollectionResponse {
-    collections: [Collection!]!
+  collections: [Collection!]!
 }
 
 type ListAdminProductAttributeResponse {
-    attributes: [ProductAttribute!]!
+  attributes: [ProductAttribute!]!
 }
 
 type ListAdminProductResponse {
-    products: [Product!]!
+  products: [Product!]!
 }
 
 type ListAdminProductVariationResponse {
-    variations: [ProductVariation!]!
+  variations: [ProductVariation!]!
 }
 
 type ListBlogPostResponse {
-    posts: [PBlogPost!]!
+  posts: [PBlogPost!]!
 }
 
 type ListCategoryResponse {
-    categories: [PCategory!]!
+  categories: [PCategory!]!
 }
 
 type ListCollectionResponse {
-    collections: [PCollection!]!
+  collections: [PCollection!]!
 }
 
 type ListCouponCodesResponse {
-    coupons: [CouponCode!]!
+  coupons: [CouponCode!]!
 }
 
 type ListCustomerOrdersResponse {
-    orders: [Order!]!
+  orders: [Order!]!
 }
 
 type ListPaymentMethodResponse {
-    methods: [PaymentMethod!]!
+  methods: [PaymentMethod!]!
 }
 
 type ListProductAttributeResponse {
-    attributes: [ProductAttribute!]!
+  attributes: [ProductAttribute!]!
 }
 
 type ListProductResponse {
-    products: [PProduct!]!
+  products: [PProduct!]!
 }
 
 type ListProductVariationResponse {
-    variations: [PProductVariation!]!
+  variations: [PProductVariation!]!
 }
 
 type ListShippingMethodResponse {
-    methods: [ShippingMethod!]!
+  methods: [ShippingMethod!]!
 }
 
 type ListShopMediaResponse {
-    items: [ShopMedia!]!
+  items: [ShopMedia!]!
 }
 
 type Location {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    shortCode: String!
+  shortCode: String!
 }
 
 input LoginCustomerParams {
-    email: String!
+  email: String!
 
-    password: String!
+  password: String!
 }
 
 type LoginCustomerResponse {
-    accessToken: String!
+  accessToken: String!
 
-    refreshToken: String
+  refreshToken: String
 }
 
 input LoginUserParams {
-    email: String!
+  email: String!
 
-    password: String!
+  password: String!
 }
 
 type LoginUserResponse {
-    accessToken: String!
+  accessToken: String!
 
-    refreshToken: String!
+  refreshToken: String!
+}
+
+input MagicLoginCustomerParams {
+  token: String!
+}
+
+input MagicLoginCustomerRequestParams {
+  email: String!
+
+  storefrontUrl: String!
 }
 
 type Mutation {
-    newCart("" params: NewCartParams!): PCart!
+  newCart("" params: NewCartParams!): PCart!
 
-    updateCart("" id: String!, "" params: UpdateCartParams!): PCart!
+  updateCart("" id: String!, "" params: UpdateCartParams!): PCart!
 
-    newBlogPost("" params: NewBlogPostParams!): BlogPost!
+  newBlogPost("" params: NewBlogPostParams!): BlogPost!
 
-    updateBlogPost("" postId: String!, "" params: UpdateBlogPostParams!): BlogPost!
+  updateBlogPost("" postId: String!, "" params: UpdateBlogPostParams!): BlogPost!
 
-    deleteBlogPost("" postId: String!): Boolean!
+  deleteBlogPost("" postId: String!): Boolean!
 
-    blogPostAddComment("" postId: String!, "" params: AddBlogPostComment): BlogPostComment!
+  blogPostAddComment("" postId: String!, "" params: AddBlogPostComment): BlogPostComment!
 
-    blogPostUpdateComment("" postId: String!, "" commentId: String!, "" params: UpdateBlogPostComment): BlogPostComment!
+  blogPostUpdateComment("" postId: String!, "" commentId: String!, "" params: UpdateBlogPostComment): BlogPostComment!
 
-    blogPostDeleteComment("" postId: String!, "" commentId: String!): Boolean!
+  blogPostDeleteComment("" postId: String!, "" commentId: String!): Boolean!
 
-    newCategory("" params: NewCategoryParams!): Category!
+  newCategory("" params: NewCategoryParams!): Category!
 
-    updateCategory("" id: String!, "" params: UpdateCategoryParams!): Category!
+  updateCategory("" id: String!, "" params: UpdateCategoryParams!): Category!
 
-    deleteCategory("" id: String!): Boolean!
+  deleteCategory("" id: String!): Boolean!
 
-    newCollection("" params: NewCollectionParams!): Collection!
+  newCollection("" params: NewCollectionParams!): Collection!
 
-    updateCollection("" id: String!, "" params: UpdateCollectionParams!): Collection!
+  updateCollection("" id: String!, "" params: UpdateCollectionParams!): Collection!
 
-    deleteCollection("" id: String!): Boolean!
+  deleteCollection("" id: String!): Boolean!
 
-    collectionAddProducts("" collectionId: String!, "" productIds: [String!]!): Boolean!
+  collectionAddProducts("" collectionId: String!, "" productIds: [String!]!): Boolean!
 
-    collectionRemoveProducts("" collectionId: String!, "" productIds: [String!]!): Boolean!
+  collectionRemoveProducts("" collectionId: String!, "" productIds: [String!]!): Boolean!
 
-    newCouponCode("" params: NewCouponCodeParams!): CouponCode!
+  newCouponCode("" params: NewCouponCodeParams!): CouponCode!
 
-    updateCouponCode("" id: String!, "" params: UpdateCouponCodeParams!): CouponCode!
+  updateCouponCode("" id: String!, "" params: UpdateCouponCodeParams!): CouponCode!
 
-    deleteCouponCode("" id: String!): Boolean!
+  deleteCouponCode("" id: String!): Boolean!
 
-    customerRegister("" params: RegisterCustomerParams): RegisterCustomerResponse!
+  customerRegister("" params: RegisterCustomerParams): RegisterCustomerResponse!
 
-    customerLogin("" params: LoginCustomerParams): LoginCustomerResponse!
+  customerLogin("" params: LoginCustomerParams): LoginCustomerResponse!
 
-    customerResetPasswordRequest("" params: CustomerResetPasswordRequestParams!): Boolean!
+  customerMagicLoginRequest("" params: MagicLoginCustomerRequestParams): Boolean!
 
-    customerResetPassword("" params: CustomerResetPasswordParams!): Boolean!
+  customerMagicLogin("" params: MagicLoginCustomerParams): LoginCustomerResponse!
 
-    customerChangePassword("" params: CustomerChangePasswordParams!): Boolean!
+  customerResetPasswordRequest("" params: CustomerResetPasswordRequestParams!): Boolean!
 
-    customerUpdateProfile("" params: UpdateCustomerParams!): Customer!
+  customerResetPassword("" params: CustomerResetPasswordParams!): Boolean!
 
-    newMedia("" bucket: String!, "" contentFile: Upload!): String!
+  customerChangePassword("" params: CustomerChangePasswordParams!): Boolean!
 
-    deleteMedia("" path: String!): Boolean!
+  customerUpdateProfile("" params: UpdateCustomerParams!): Customer!
 
-    orderGuestCheckout("" params: GuestCheckoutPlaceOrderParams): POrder!
+  newMedia("" bucket: String!, "" contentFile: Upload!): String!
 
-    orderCheckout("" params: PlaceOrderParams): POrder!
+  deleteMedia("" path: String!): Boolean!
 
-    orderCheckoutByAdmin("" params: PlaceOrderByAdminParams): Order!
+  orderGuestCheckout("" params: GuestCheckoutPlaceOrderParams): POrder!
 
-    orderGeneratePaymentNonce("" orderId: String!, "" overrides: PaymentRequestOverrides): GeneratePaymentNoneResponse!
+  orderCheckout("" params: PlaceOrderParams): POrder!
 
-    orderGeneratePaymentNonceForGuest("" orderId: String!, "" customerEmail: String!, "" overrides: PaymentRequestOverrides): GeneratePaymentNoneResponse!
+  orderCheckoutByAdmin("" params: PlaceOrderByAdminParams): Order!
 
-    orderGenerateDigitalContent("" hash: String!, "" productId: String!, "" itemId: String!, "" contentId: String!): OrderGenerateDigitalContent!
+  orderGeneratePaymentNonce("" orderId: String!, "" overrides: PaymentRequestOverrides): GeneratePaymentNoneResponse!
 
-    orderAddFeedback("" hash: String!, "" params: AddFeedbackParams!): Feedback!
+  orderGeneratePaymentNonceForGuest("" orderId: String!, "" customerEmail: String!, "" overrides: PaymentRequestOverrides): GeneratePaymentNoneResponse!
 
-    orderUpdateByAdmin("" id: String!, "" params: OrderUpdateParams!): Order!
+  orderGenerateDigitalContent("" hash: String!, "" productId: String!, "" itemId: String!, "" contentId: String!): OrderGenerateDigitalContent!
 
-    userRegister("" params: RegisterUserParams!): RegisterUserResponse
+  orderAddFeedback("" hash: String!, "" params: AddFeedbackParams!): Feedback!
 
-    userLogin("" params: LoginUserParams!): LoginUserResponse
+  orderUpdateByAdmin("" id: String!, "" params: OrderUpdateParams!): Order!
 
-    newProduct("" params: NewProduct!): Product!
+  userRegister("" params: RegisterUserParams!): RegisterUserResponse
 
-    updateProduct("" productId: String!, "" params: UpdateProduct!): Product!
+  userLogin("" params: LoginUserParams!): LoginUserResponse
 
-    deleteProduct("" productId: String!): Boolean!
+  newProduct("" params: NewProduct!): Product!
 
-    productAddVariation("" productId: String!, "" params: AddVariationParams!): ProductVariation!
+  updateProduct("" productId: String!, "" params: UpdateProduct!): Product!
 
-    productUpdateVariation("" productId: String!, "" variationId: String!, "" params: UpdateVariationParams!): ProductVariation!
+  deleteProduct("" productId: String!): Boolean!
 
-    productRemoveVariation("" productId: String!, "" variationId: String!): Boolean!
+  productAddVariation("" productId: String!, "" params: AddVariationParams!): ProductVariation!
 
-    productAddAttribute("" productId: String!, "" params: AddAttributeParams!): ProductAttribute!
+  productUpdateVariation("" productId: String!, "" variationId: String!, "" params: UpdateVariationParams!): ProductVariation!
 
-    productUpdateAttribute("" productId: String!, "" attributeId: String!, "" params: UpdateAttributeParams!): ProductAttribute!
+  productRemoveVariation("" productId: String!, "" variationId: String!): Boolean!
 
-    productRemoveAttribute("" productId: String!, "" attributeId: String!): Boolean!
+  productAddAttribute("" productId: String!, "" params: AddAttributeParams!): ProductAttribute!
 
-    productAddDigitalItem("" productId: String!, "" params: AddDigitalItemParams!): DigitalItem!
+  productUpdateAttribute("" productId: String!, "" attributeId: String!, "" params: UpdateAttributeParams!): ProductAttribute!
 
-    productUpdateDigitalItem("" productId: String!, "" itemId: String!, "" params: UpdateDigitalItemParams!): DigitalItem!
+  productRemoveAttribute("" productId: String!, "" attributeId: String!): Boolean!
 
-    productRemoveDigitalItem("" productId: String!, "" itemId: String!): Boolean!
+  productAddDigitalItem("" productId: String!, "" params: AddDigitalItemParams!): DigitalItem!
 
-    productAddDigitalContent("" productId: String!, "" itemId: String!, "" params: AddDigitalContentParams!): DigitalContent!
+  productUpdateDigitalItem("" productId: String!, "" itemId: String!, "" params: UpdateDigitalItemParams!): DigitalItem!
 
-    productUpdateDigitalContent("" productId: String!, "" itemId: String!, "" contentId: String!, "" params: UpdateDigitalContentParams!): DigitalContent!
+  productRemoveDigitalItem("" productId: String!, "" itemId: String!): Boolean!
 
-    productRemoveDigitalContent("" productId: String!, "" itemId: String!, "" contentId: String!): Boolean!
+  productAddDigitalContent("" productId: String!, "" itemId: String!, "" params: AddDigitalContentParams!): DigitalContent!
 
-    newShippingMethod("" params: NewShippingMethodParams!): ShippingMethod!
+  productUpdateDigitalContent("" productId: String!, "" itemId: String!, "" contentId: String!, "" params: UpdateDigitalContentParams!): DigitalContent!
 
-    updateShippingMethod("" id: String!, "" params: UpdateShippingMethodParams!): ShippingMethod!
+  productRemoveDigitalContent("" productId: String!, "" itemId: String!, "" contentId: String!): Boolean!
 
-    deleteShippingMethod("" id: String!): Boolean!
+  newShippingMethod("" params: NewShippingMethodParams!): ShippingMethod!
 
-    newStore("" params: NewStoreParams!): Store!
+  updateShippingMethod("" id: String!, "" params: UpdateShippingMethodParams!): ShippingMethod!
 
-    updateStore("" id: String!, "" params: UpdateStoreParams!): Boolean!
+  deleteShippingMethod("" id: String!): Boolean!
 
-    updateStoreBySecret("" params: UpdateStoreParams!): Boolean!
+  newStore("" params: NewStoreParams!): Store!
 
-    deleteStore("" id: String!): Boolean!
+  updateStore("" id: String!, "" params: UpdateStoreParams!): Boolean!
 
-    newStoreSecret("" storeId: String!, "" params: NewStoreSecretParams): StoreSecret!
+  updateStoreBySecret("" params: UpdateStoreParams!): Boolean!
 
-    deleteStoreSecret("" secretId: String!): Boolean!
+  deleteStore("" id: String!): Boolean!
 
-    newStoreBanner("" params: NewStoreBanner!): StoreBanner!
+  newStoreSecret("" storeId: String!, "" params: NewStoreSecretParams): StoreSecret!
 
-    updateStoreBanner("" id: String!, "" params: UpdateStoreBanner!): StoreBanner!
+  deleteStoreSecret("" secretId: String!): Boolean!
 
-    deleteStoreBanner("" id: String!): Boolean!
+  newStoreBanner("" params: NewStoreBanner!): StoreBanner!
 
-    newStoreMenu("" params: NewStoreMenu!): StoreMenu!
+  updateStoreBanner("" id: String!, "" params: UpdateStoreBanner!): StoreBanner!
 
-    updateStoreMenu("" id: String!, "" params: UpdateStoreMenu!): StoreMenu!
+  deleteStoreBanner("" id: String!): Boolean!
 
-    deleteStoreMenu("" id: String!): Boolean!
+  newStoreMenu("" params: NewStoreMenu!): StoreMenu!
 
-    newStorePage("" params: NewStorePageParams!): StorePage!
+  updateStoreMenu("" id: String!, "" params: UpdateStoreMenu!): StoreMenu!
 
-    updateStorePage("" pageId: String!, "" params: UpdateStorePageParams!): StorePage!
+  deleteStoreMenu("" id: String!): Boolean!
 
-    deleteStorePage("" pageId: String!): Boolean!
+  newStorePage("" params: NewStorePageParams!): StorePage!
+
+  updateStorePage("" pageId: String!, "" params: UpdateStorePageParams!): StorePage!
+
+  deleteStorePage("" pageId: String!): Boolean!
 }
 
 input NewBlogPostParams {
-    title: String!
+  title: String!
 
-    slug: String
+  slug: String
 
-    bannerImage: String
+  bannerImage: String
 
-    content: String!
+  content: String!
 
-    tags: [String!]
+  tags: [String!]
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    isFeatured: Boolean!
+  isFeatured: Boolean!
 }
 
 input NewCartParams {
-    cartItems: [CartItemParams!]!
+  cartItems: [CartItemParams!]!
 }
 
 input NewCategoryParams {
-    name: String!
+  name: String!
 
-    slug: String
+  slug: String
 
-    isPublished: Boolean! = False
+  isPublished: Boolean! = False
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    position: Int
+  position: Int
 }
 
 input NewCollectionParams {
-    name: String!
+  name: String!
 
-    slug: String
+  slug: String
 
-    isPublished: Boolean! = False
+  isPublished: Boolean! = False
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    position: Int
+  position: Int
 }
 
 input NewCouponCodeParams {
-    code: String!
+  code: String!
 
-    amount: Int!
+  amount: Int!
 
-    minOrderAmount: Int
+  minOrderAmount: Int
 
-    maxDiscountAmount: Int
+  maxDiscountAmount: Int
 
-    isActive: Boolean!
+  isActive: Boolean!
 
-    isFlatDiscount: Boolean!
+  isFlatDiscount: Boolean!
 
-    isForNewUsersOnly: Boolean!
+  isForNewUsersOnly: Boolean!
 
-    isUserSpecific: Boolean!
+  isUserSpecific: Boolean!
 
-    maxUsage: Int
+  maxUsage: Int
 
-    maxUsagePerUser: Int
+  maxUsagePerUser: Int
 
-    discountType: DiscountType!
+  discountType: DiscountType!
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    startAt: String
+  startAt: String
 
-    endAt: String
+  endAt: String
 
-    customers: [String!]
+  customers: [String!]
 }
 
 input NewProduct {
-    name: String!
+  name: String!
 
-    slug: String
+  slug: String
 
-    description: String!
+  description: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    sku: String
+  sku: String
 
-    stock: Int
+  stock: Int
 
-    maxItemPerOrder: Int
+  maxItemPerOrder: Int
 
-    price: Int!
+  price: Int!
 
-    cost: Int!
+  cost: Int!
 
-    weight: Float
+  weight: Float
 
-    weightUnit: WeightUnit
+  weightUnit: WeightUnit
 
-    productUnit: ProductUnit
+  productUnit: ProductUnit
 
-    images: [String!]!
+  images: [String!]!
 
-    isDigitalProduct: Boolean!
+  isDigitalProduct: Boolean!
 
-    categoryId: String
+  categoryId: String
 
-    productSpecificDiscount: Int
+  productSpecificDiscount: Int
 }
 
 input NewShippingMethodParams {
-    displayName: String!
+  displayName: String!
 
-    deliveryCharge: Int!
+  deliveryCharge: Int!
 
-    deliveryTimeInDays: Int!
+  deliveryTimeInDays: Int!
 
-    WeightUnit: WeightUnit!
+  WeightUnit: WeightUnit!
 
-    isFlat: Boolean!
+  isFlat: Boolean!
 
-    isActive: Boolean!
+  isActive: Boolean!
 }
 
 input NewStoreBanner {
-    image: String!
+  image: String!
 
-    title: String
+  title: String
 
-    description: String
+  description: String
 
-    btnValue: String
+  btnValue: String
 
-    btnUrl: String
+  btnUrl: String
 
-    tag: String
+  tag: String
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    position: Int!
+  position: Int!
 }
 
 input NewStoreMenu {
-    name: String!
+  name: String!
 
-    url: String!
+  url: String!
 
-    tag: String
+  tag: String
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    position: Int!
+  position: Int!
 
-    parentMenuId: String
+  parentMenuId: String
 }
 
 input NewStorePageParams {
-    title: String!
+  title: String!
 
-    slug: String
+  slug: String
 
-    content: String!
+  content: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 }
 
 input NewStoreParams {
-    name: String!
+  name: String!
 
-    title: String
+  title: String
 
-    description: String
+  description: String
 
-    tags: [String!]
+  tags: [String!]
 
-    metaName: String
+  metaName: String
 
-    metaDescription: String
+  metaDescription: String
 
-    metaTags: [String!]
+  metaTags: [String!]
 
-    logo: Upload
+  logo: Upload
 
-    favicon: Upload
+  favicon: Upload
 
-    bannerImage: Upload
+  bannerImage: Upload
 
-    isOpen: Boolean
+  isOpen: Boolean
 
-    isCustomerLoyaltyEnabled: Boolean
+  isCustomerLoyaltyEnabled: Boolean
 
-    currency: Currency
+  currency: Currency
 
-    website: String
+  website: String
 
-    supportEmail: String
+  supportEmail: String
 
-    supportPhone: String
+  supportPhone: String
 
-    street: String
+  street: String
 
-    streetOptional: String
+  streetOptional: String
 
-    city: String
+  city: String
 
-    state: String
+  state: String
 
-    postcode: String
+  postcode: String
 
-    locationID: String
+  locationID: String
 }
 
 input NewStoreSecretParams {
-    secretType: SecretType!
+  secretType: SecretType!
 }
 
 type Order {
-    id: String!
+  id: String!
 
-    hash: String!
+  hash: String!
 
-    shippingCharge: Int!
+  shippingCharge: Int!
 
-    paymentProcessingFee: Int!
+  paymentProcessingFee: Int!
 
-    subtotal: Int!
+  subtotal: Int!
 
-    grandTotal: Int!
+  grandTotal: Int!
 
-    discountedAmount: Int!
+  discountedAmount: Int!
 
-    status: OrderStatus!
+  status: OrderStatus!
 
-    paymentStatus: OrderPaymentStatus!
+  paymentStatus: OrderPaymentStatus!
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 
-    billingAddress: Address!
+  billingAddress: Address!
 
-    shippingAddress: Address
+  shippingAddress: Address
 
-    cart: Cart!
+  cart: Cart!
 
-    customer: Customer!
+  customer: Customer!
 
-    shop: PStore!
+  shop: PStore!
 
-    paymentMethod: PaymentMethod
+  paymentMethod: PaymentMethod
 
-    shippingMethod: ShippingMethod
+  shippingMethod: ShippingMethod
 
-    couponCode: UserCouponCode
+  couponCode: UserCouponCode
 
-    payments: [Payment!]!
+  payments: [Payment!]!
 
-    feedback: Feedback
+  feedback: Feedback
 }
 
 enum OrderBy {
-    ID
+  ID
 
-    CreatedAt
+  CreatedAt
 
-    UpdatedAt
+  UpdatedAt
 
-    Price
+  Price
 
-    View
+  View
+
+  Stock
 }
 
 enum OrderDirection {
-    Asc
+  Asc
 
-    Desc
+  Desc
 }
 
 type OrderGenerateDigitalContent {
-    type: DigitalContentType!
+  type: DigitalContentType!
 
-    content: String
+  content: String
 
-    contentUrl: String
+  contentUrl: String
 }
 
 input OrderPaymentParams {
-    payableAmount: Int!
+  payableAmount: Int!
 }
 
 enum OrderPaymentStatus {
-    Pending
+  Pending
 
-    Paid
+  Paid
 
-    Failed
+  Failed
 
-    Refunded
+  Refunded
 
-    Lending
+  Lending
 }
 
 input OrderSearchParams {
-    customerEmail: String
+  customerEmail: String
 
-    orderHash: String
+  orderHash: String
 }
 
 enum OrderStatus {
-    Pending
+  Pending
 
-    Processing
+  Processing
 
-    Shipping
+  Shipping
 
-    Delivered
+  Delivered
 
-    Completed
+  Completed
 
-    Cancelled
+  Cancelled
 
-    Returned
+  Returned
 }
 
 input OrderUpdateParams {
-    status: OrderStatus
+  status: OrderStatus
 
-    paymentStatus: OrderPaymentStatus
+  paymentStatus: OrderPaymentStatus
 
-    payments: [OrderPaymentParams!]
+  payments: [OrderPaymentParams!]
 }
 
 type PBlogPost {
-    id: String!
+  id: String!
 
-    title: String!
+  title: String!
 
-    slug: String
+  slug: String
 
-    bannerImage: String
+  bannerImage: String
 
-    content: String!
+  bannerImageFull: String
 
-    tags: [String!]
+  content: String!
 
-    isPublished: Boolean!
+  tags: [String!]
 
-    isFeatured: Boolean!
+  isPublished: Boolean!
 
-    views: Int!
+  isFeatured: Boolean!
 
-    favourites: Int!
+  views: Int!
 
-    comments("" page: Int, "" limit: Int): [BlogPostComment!]!
+  favourites: Int!
 
-    createdAt: String!
+  comments("" page: Int, "" limit: Int): [BlogPostComment!]!
 
-    updatedAt: String
+  createdAt: String!
+
+  updatedAt: String
 }
 
 type PCart {
-    id: String!
+  id: String!
 
-    isShippingRequired: Boolean!
+  isShippingRequired: Boolean!
 
-    cartItems: [PCartItem!]!
+  cartItems: [PCartItem!]!
 }
 
 type PCartItem {
-    id: Int!
+  id: Int!
 
-    product: PProduct!
+  product: PProduct!
 
-    quantity: Int!
+  quantity: Int!
 
-    purchasePrice: Int!
+  purchasePrice: Int!
 
-    attributes: [CartProductAttribute!]!
+  attributes: [CartProductAttribute!]!
 
-    variation: PProductVariation
+  variation: PProductVariation
 }
 
 type PCategory {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    slug: String!
+  slug: String!
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    fullImage: String
+  fullImage: String
 
-    productCount: Int!
+  productCount: Int!
 
-    position: Int!
+  position: Int!
 }
 
 type PCollection {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    slug: String!
+  slug: String!
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    fullImage: String
+  fullImage: String
 
-    products("" search: Search, "" sort: Sort!, "" pagination: Pagination!): [Product!]
+  products("" search: Search, "" sort: Sort!, "" pagination: Pagination!): [Product!]
 
-    productCount: Int!
+  productCount: Int!
 
-    position: Int!
+  position: Int!
 }
 
 type PDigitalItem {
-    id: String!
+  id: String!
 
-    title: String!
+  title: String!
 
-    description: String
+  description: String
 
-    position: Int!
+  position: Int!
 
-    contents: [DigitalContent!]!
+  contents: [DigitalContent!]!
 }
 
 type POrder {
-    id: String!
+  id: String!
 
-    hash: String!
+  hash: String!
 
-    shippingCharge: Int!
+  shippingCharge: Int!
 
-    paymentProcessingFee: Int!
+  paymentProcessingFee: Int!
 
-    subtotal: Int!
+  subtotal: Int!
 
-    grandTotal: Int!
+  grandTotal: Int!
 
-    discountedAmount: Int!
+  discountedAmount: Int!
 
-    status: OrderStatus!
+  status: OrderStatus!
 
-    paymentStatus: OrderPaymentStatus!
+  paymentStatus: OrderPaymentStatus!
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 
-    billingAddress: Address!
+  billingAddress: Address!
 
-    shippingAddress: Address
+  shippingAddress: Address
 
-    cart: PCart!
+  cart: PCart!
 
-    customer: Customer!
+  customer: Customer!
 
-    shop: PStore!
+  shop: PStore!
 
-    paymentMethod: PaymentMethod
+  paymentMethod: PaymentMethod
 
-    shippingMethod: ShippingMethod
+  shippingMethod: ShippingMethod
 
-    couponCode: UserCouponCode
+  couponCode: UserCouponCode
 
-    payments: [Payment!]!
+  payments: [Payment!]!
 
-    feedback: Feedback
+  feedback: Feedback
 }
 
 input POrderSearchParams {
-    shopName: String
+  shopName: String
 
-    orderHash: String
+  orderHash: String
 }
 
 type PProduct {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    slug: String!
+  slug: String!
 
-    description: String!
+  description: String!
 
-    sku: String
+  sku: String
 
-    stock: Int
+  stock: Int
 
-    maxItemPerOrder: Int
+  maxItemPerOrder: Int
 
-    price: Int!
+  price: Int!
 
-    images: [String!]!
+  images: [String!]!
 
-    fullImages: [String!]!
+  fullImages: [String!]!
 
-    isDigitalProduct: Boolean!
+  isDigitalProduct: Boolean!
 
-    views: Int!
+  views: Int!
 
-    productUnit: ProductUnit
+  productUnit: ProductUnit
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 
-    category: PCategory
+  category: PCategory
 
-    attributes: [ProductAttribute!]!
+  attributes: [ProductAttribute!]!
 
-    variations: [PProductVariation!]!
+  variations: [PProductVariation!]!
 
-    digitalItems: [PDigitalItem!]!
+  digitalItems: [PDigitalItem!]!
 
-    feedbacks: [Feedback!]
+  feedbacks: [Feedback!]
 
-    productSpecificDiscount: Int!
+  productSpecificDiscount: Int!
 }
 
 type PProductVariation {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    price: Int!
+  price: Int!
 
-    sku: String
+  sku: String
 
-    stock: Int
+  stock: Int
 }
 
 type PStore {
-    name: String!
+  name: String!
 
-    title: String
+  title: String
 
-    description: String
+  description: String
 
-    tags: [String!]
+  tags: [String!]
 
-    metaName: String
+  metaName: String
 
-    metaDescription: String
+  metaDescription: String
 
-    metaTags: [String!]
+  metaTags: [String!]
 
-    logo: String
+  logo: String
 
-    favicon: String
+  logoPath: String
 
-    bannerImage: String
+  favicon: String
 
-    isOpen: Boolean!
+  faviconPath: String
 
-    currency: Currency!
+  bannerImage: String
 
-    website: String
+  bannerImagePath: String
 
-    supportEmail: String
+  isOpen: Boolean!
 
-    supportPhone: String
+  currency: Currency!
 
-    createdAt: String!
+  website: String
 
-    updatedAt: String
+  supportEmail: String
 
-    street: String
+  supportPhone: String
 
-    streetOptional: String
+  createdAt: String!
 
-    city: String
+  updatedAt: String
 
-    state: String
+  street: String
 
-    postcode: String
+  streetOptional: String
 
-    location: Location
+  city: String
+
+  state: String
+
+  postcode: String
+
+  location: Location
 }
 
 type PStoreBanner {
-    imagePath: String!
+  imagePath: String!
 
-    imageUrl: String!
+  imageUrl: String!
 
-    title: String
+  title: String
 
-    description: String
+  description: String
 
-    btnValue: String
+  btnValue: String
 
-    btnUrl: String
+  btnUrl: String
 
-    tag: String
+  tag: String
 
-    position: Int!
+  position: Int!
 }
 
 type PStoreMenu {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    url: String!
+  url: String!
 
-    tag: String
+  tag: String
 
-    position: Int!
+  position: Int!
 
-    parentMenu: StoreMenu
+  parentMenu: StoreMenu
 
-    subMenus: [PStoreMenu!]
+  subMenus: [PStoreMenu!]
 }
 
 type PStorePage {
-    title: String!
+  title: String!
 
-    slug: String
+  slug: String
 
-    content: String!
+  content: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    views: Int!
+  views: Int!
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 }
 
 input Pagination {
-    perPage: Int!
+  perPage: Int!
 
-    page: Int!
+  page: Int!
 }
 
 type Payment {
-    isPaid: Boolean!
+  isPaid: Boolean!
 
-    payableAmount: Int!
+  payableAmount: Int!
 
-    gatewayName: String!
+  gatewayName: String!
 }
 
 enum PaymentGateway {
-    Stripe
+  Stripe
 
-    SSLCommerz
+  SSLCommerz
 }
 
 type PaymentMethod {
-    id: String!
+  id: String!
 
-    displayName: String!
+  displayName: String!
 
-    currencyName: String!
+  currencyName: String!
 
-    currencySymbol: String!
+  currencySymbol: String!
 
-    isDigitalPayment: Boolean!
+  isDigitalPayment: Boolean!
 }
 
 input PaymentRequestOverrides {
-    SuccessCallback: String
+  SuccessCallback: String
 
-    FailureCallback: String
+  FailureCallback: String
 }
 
 input PlaceOrderByAdminParams {
-    cartId: String!
+  cartId: String!
 
-    billingAddress: AddressParams!
+  billingAddress: AddressParams!
 
-    shippingAddress: AddressParams
+  shippingAddress: AddressParams
 
-    paymentMethodId: String
+  paymentMethodId: String
 
-    shippingMethodId: String
+  shippingMethodId: String
 
-    couponCode: String
+  couponCode: String
 
-    customerId: String!
+  customerId: String!
 }
 
 input PlaceOrderParams {
-    cartId: String!
+  cartId: String!
 
-    billingAddress: AddressParams!
+  billingAddress: AddressParams!
 
-    shippingAddress: AddressParams
+  shippingAddress: AddressParams
 
-    paymentMethodId: String
+  paymentMethodId: String
 
-    shippingMethodId: String
+  shippingMethodId: String
 
-    couponCode: String
+  couponCode: String
 }
 
 type PlaceOrderResponse {
-    order: Order!
+  order: Order!
 }
 
 type Product {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    slug: String!
+  slug: String!
 
-    description: String!
+  description: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    sku: String
+  sku: String
 
-    stock: Int
+  stock: Int
 
-    maxItemPerOrder: Int
+  maxItemPerOrder: Int
 
-    price: Int!
+  price: Int!
 
-    cost: Int!
+  cost: Int!
 
-    images: [String!]!
+  images: [String!]!
 
-    fullImages: [String!]!
+  fullImages: [String!]!
 
-    isDigitalProduct: Boolean!
+  isDigitalProduct: Boolean!
 
-    views: Int!
+  views: Int!
 
-    createdAt: String!
+  createdAt: String!
 
-    weight: Float
+  weight: Float
 
-    weightUnit: WeightUnit
+  weightUnit: WeightUnit
 
-    productUnit: ProductUnit
+  productUnit: ProductUnit
 
-    updatedAt: String
+  updatedAt: String
 
-    category: Category
+  category: Category
 
-    attributes: [ProductAttribute!]!
+  attributes: [ProductAttribute!]!
 
-    variations: [ProductVariation!]!
+  variations: [ProductVariation!]!
 
-    digitalItems: [DigitalItem!]!
+  digitalItems: [DigitalItem!]!
 
-    feedbacks: [Feedback!]
+  feedbacks: [Feedback!]
 
-    productSpecificDiscount: Int!
+  productSpecificDiscount: Int!
+
+  histories: [ProductHistory!]!
 }
 
 type ProductAttribute {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    values: [String!]!
+  values: [String!]!
 
-    isRequired: Boolean!
+  isRequired: Boolean!
 
-    createdAt: String!
+  createdAt: String!
 
-    updateAt: String
+  updateAt: String
+}
+
+type ProductHistory {
+  message: String!
+
+  oldStock: Int!
+
+  newStock: Int!
+
+  variationID: String
+
+  orderHash: String
+
+  createdAt: String!
 }
 
 enum ProductUnit {
-    Piece
+  Piece
 
-    KG
+  KG
 
-    Liter
+  Liter
 }
 
 type ProductVariation {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    price: Int!
+  price: Int!
 
-    cost: Int!
+  cost: Int!
 
-    sku: String
+  sku: String
 
-    stock: Int
+  stock: Int
 }
 
 type Query {
-    cart("" cartId: String!): PCart!
-
-    paymentMethods: [PaymentMethod!]!
-
-    checkPaymentProcessingFee("" paymentMethodId: String!, "" cartId: String!, "" shippingMethodId: String): Int!
-
-    abandonedCarts("" pagination: Pagination = {
-        perPage: 20
-        page: 1
-    }
-    ): [Cart!]!
-
-    blogPostsByAdmin("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [BlogPost!]!
-
-    blogPostByAdmin("" id: String!): BlogPost!
-
-    blogPosts("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [PBlogPost!]!
-
-    blogPost("" id: String!): PBlogPost!
-
-    blogPostBySlug("" slug: String!): PBlogPost!
-
-    categoriesByAdmin("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [Category!]!
-
-    categoryByAdmin("" id: String!): Category!
-
-    categories("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [PCategory!]!
-
-    category("" id: String!): PCategory!
-
-    collectionsByAdmin("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [Collection!]!
-
-    collectionByAdmin("" id: String!): Collection!
-
-    collections("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [PCollection!]!
-
-    collection("" id: String!): PCollection!
-
-    couponCode("" id: String!): CouponCode!
-
-    couponCodes("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [CouponCode!]!
-
-    checkDiscount("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String): Int!
-
-    checkDiscountForGuests("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String): Int!
-
-    checkDiscountByAdmin("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String, "" customerId: String): Int!
-
-    customerProfile: Customer!
-
-    customersByAdmin("" params: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [SCustomer!]!
-
-    mediaByAdmin("" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [ShopMedia!]!
-
-    orderByAdmin("" id: String!): Order!
-
-    order("" hash: String!): POrder!
-
-    orderByCustomerEmail("" hash: String!, "" email: String!): POrder!
-
-    ordersByAdmin("" params: OrderSearchParams, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [Order!]!
-
-    orders("" params: POrderSearchParams, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [POrder!]!
-
-    locations: [Location!]!
-
-    locationById("" id: String!): Location!
-
-    productSearch("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [PProduct!]!
-
-    productSearchByAdmin("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [Product!]!
-
-    productsByAdmin("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [Product!]!
-
-    productByAdmin("" productId: String!): Product!
-
-    products("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [PProduct!]!
-
-    product("" productId: String!): PProduct!
-
-    productBySlug("" productSlug: String!): PProduct!
-
-    productDigitalContentsForPreview("" productId: String!, "" itemId: String!): [DigitalContent!]!
-
-    productDigitalContents("" productId: String!, "" itemId: String!): [DigitalContent!]!
-
-    productDigitalContentsByCustomer("" orderHash: String!, "" productId: String!, "" itemId: String!): [DigitalContent!]!
-
-    productDigitalContentByAdmin("" productId: String!, "" itemId: String!, "" contentId: String!): DigitalContent!
-
-    productDigitalItemsByCustomer("" orderHash: String!, "" productId: String!): [DigitalItem!]!
-
-    report("" params: ReportParams): Report!
-
-    shippingMethodsByAdmin("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [ShippingMethod!]!
-
-    shippingMethodByAdmin("" id: String!): ShippingMethod!
-
-    shippingMethods("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [ShippingMethod!]!
-
-    shippingMethod("" id: String!): ShippingMethod!
-
-    checkShippingCharge("" shippingMethodId: String!, "" cartId: String!): Int!
-
-    stores("" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [Store!]!
-
-    storeSecrets("" storeId: String!, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [StoreSecret!]!
-
-    storeById("" storeId: String!): Store!
-
-    storeBySecret: PStore!
-
-    storeBanners("" tag: String, "" sort: Sort = {
-        by: Position
-        direction: Desc
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [PStoreBanner!]!
-
-    storeBannersByAdmin("" tag: String, "" sort: Sort = {
-        by: Position
-        direction: Desc
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [StoreBanner!]!
-
-    storeBannerByAdmin("" id: String!): StoreBanner!
-
-    storeMenus("" tag: String, "" sort: Sort = {
-        by: Position
-        direction: Desc
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [PStoreMenu!]!
-
-    storeMenusByAdmin("" tag: String, "" sort: Sort = {
-        by: Position
-        direction: Desc
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [StoreMenu!]!
-
-    storeMenuByAdmin("" id: String!): StoreMenu!
-
-    storePagesByAdmin("" search: Search, "" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [StorePage!]!
-
-    storePageByAdmin("" id: String!): StorePage!
-
-    storePages("" sort: Sort = {
-        by: "CreatedAt"
-        direction: "Desc"
-    }
-        , "" pagination: Pagination = {
-            perPage: 20
-            page: 1
-        }
-    ): [PStorePage!]!
-
-    storePage("" id: String!): PStorePage!
-
-    storePageBySlug("" slug: String!): PStorePage!
+  cart("" cartId: String!): PCart!
+
+  paymentMethods: [PaymentMethod!]!
+
+  checkPaymentProcessingFee("" paymentMethodId: String!, "" cartId: String!, "" shippingMethodId: String): Int!
+
+  abandonedCarts("" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [Cart!]!
+
+  blogPostsByAdmin("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [BlogPost!]!
+
+  blogPostByAdmin("" id: String!): BlogPost!
+
+  blogPosts("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [PBlogPost!]!
+
+  blogPost("" id: String!): PBlogPost!
+
+  blogPostBySlug("" slug: String!): PBlogPost!
+
+  categoriesByAdmin("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [Category!]!
+
+  categoryByAdmin("" id: String!): Category!
+
+  categories("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [PCategory!]!
+
+  category("" id: String!): PCategory!
+
+  collectionsByAdmin("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [Collection!]!
+
+  collectionByAdmin("" id: String!): Collection!
+
+  collections("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [PCollection!]!
+
+  collection("" id: String!): PCollection!
+
+  couponCode("" id: String!): CouponCode!
+
+  couponCodes("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [CouponCode!]!
+
+  checkDiscount("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String): Int!
+
+  checkDiscountForGuests("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String): Int!
+
+  checkDiscountByAdmin("" couponCode: String!, "" cartId: String!, "" shippingMethodId: String, "" customerId: String): Int!
+
+  customerProfile: Customer!
+
+  customersByAdmin("" params: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [SCustomer!]!
+
+  mediaByAdmin("" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [ShopMedia!]!
+
+  orderByAdmin("" id: String!): Order!
+
+  order("" hash: String!): POrder!
+
+  orderByCustomerEmail("" hash: String!, "" email: String!): POrder!
+
+  ordersByAdmin("" params: OrderSearchParams, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [Order!]!
+
+  orders("" params: POrderSearchParams, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [POrder!]!
+
+  locations: [Location!]!
+
+  locationById("" id: String!): Location!
+
+  productSearch("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [PProduct!]!
+
+  productSearchByAdmin("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [Product!]!
+
+  productsByAdmin("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [Product!]!
+
+  productByAdmin("" productId: String!): Product!
+
+  products("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [PProduct!]!
+
+  product("" productId: String!): PProduct!
+
+  productBySlug("" productSlug: String!): PProduct!
+
+  productDigitalContentsForPreview("" productId: String!, "" itemId: String!): [DigitalContent!]!
+
+  productDigitalContents("" productId: String!, "" itemId: String!): [DigitalContent!]!
+
+  productDigitalContentsByCustomer("" orderHash: String!, "" productId: String!, "" itemId: String!): [DigitalContent!]!
+
+  productDigitalContentByAdmin("" productId: String!, "" itemId: String!, "" contentId: String!): DigitalContent!
+
+  productDigitalItemsByCustomer("" orderHash: String!, "" productId: String!): [DigitalItem!]!
+
+  isDigitalProductPurchasedByCustomer("" productId: String!): IsDigitalProductPurchasedByCustomerResp!
+
+  report("" params: ReportParams): Report!
+
+  shippingMethodsByAdmin("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [ShippingMethod!]!
+
+  shippingMethodByAdmin("" id: String!): ShippingMethod!
+
+  shippingMethods("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [ShippingMethod!]!
+
+  shippingMethod("" id: String!): ShippingMethod!
+
+  checkShippingCharge("" shippingMethodId: String!, "" cartId: String!): Int!
+
+  stores("" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [Store!]!
+
+  storeSecrets("" storeId: String!, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [StoreSecret!]!
+
+  storeById("" storeId: String!): Store!
+
+  storeBySecret: PStore!
+
+  storeBanners("" tag: String, "" sort: Sort = {
+    by: Position
+    direction: Desc
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [PStoreBanner!]!
+
+  storeBannersByAdmin("" tag: String, "" sort: Sort = {
+    by: Position
+    direction: Desc
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [StoreBanner!]!
+
+  storeBannerByAdmin("" id: String!): StoreBanner!
+
+  storeMenus("" tag: String, "" sort: Sort = {
+    by: Position
+    direction: Desc
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [PStoreMenu!]!
+
+  storeMenusByAdmin("" tag: String, "" sort: Sort = {
+    by: Position
+    direction: Desc
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [StoreMenu!]!
+
+  storeMenuByAdmin("" id: String!): StoreMenu!
+
+  storePagesByAdmin("" search: Search, "" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [StorePage!]!
+
+  storePageByAdmin("" id: String!): StorePage!
+
+  storePages("" sort: Sort = {
+    by: "CreatedAt"
+    direction: "Desc"
+  }
+  , "" pagination: Pagination = {
+    perPage: 20
+    page: 1
+  }
+  ): [PStorePage!]!
+
+  storePage("" id: String!): PStorePage!
+
+  storePageBySlug("" slug: String!): PStorePage!
 }
 
 input RegisterCustomerParams {
-    email: String!
+  email: String!
 
-    password: String!
+  password: String!
 
-    phone: String
+  phone: String
 
-    firstName: String!
+  firstName: String!
 
-    lastName: String!
+  lastName: String!
 
-    profilePicture: String
+  profilePicture: String
 }
 
 type RegisterCustomerResponse {
-    customer: Customer!
+  customer: Customer!
 
-    accessToken: String!
+  accessToken: String!
 }
 
 input RegisterUserParams {
-    firstName: String!
+  firstName: String!
 
-    lastName: String!
+  lastName: String!
 
-    email: String!
+  email: String!
 
-    password: String!
+  password: String!
 }
 
 type RegisterUserResponse {
-    user: User!
+  user: User!
 }
 
 input RemoveAttributeFromProductParams {
-    productId: String!
+  productId: String!
 
-    attributeId: String!
+  attributeId: String!
 }
 
 input RemoveProductsFromCollectionParams {
-    collectionId: String!
+  collectionId: String!
 
-    productIds: [String!]!
+  productIds: [String!]!
 }
 
 input RemoveVariationFromProductParams {
-    productId: String!
+  productId: String!
 
-    variationId: String!
+  variationId: String!
 }
 
 type Report {
-    totalSale: Int!
+  totalSale: Int!
 
-    totalSalePending: Int!
+  totalSalePending: Int!
 
-    totalCost: Int!
+  totalCost: Int!
 
-    totalOrders: Int!
+  totalOrders: Int!
 
-    totalOrdersPending: Int!
+  totalOrdersPending: Int!
 
-    totalCustomers: Int!
+  totalCustomers: Int!
 
-    totalDiscount: Int!
+  totalDiscount: Int!
 
-    totalDue: Int!
+  totalDue: Int!
 }
 
 input ReportParams {
-    startDate: String
+  startDate: String
 
-    endDate: String
+  endDate: String
 }
 
 type SCustomer {
-    id: String!
+  id: String!
 
-    email: String!
+  email: String!
 
-    phone: String
+  phone: String
 
-    firstName: String!
+  firstName: String!
 
-    lastName: String!
+  lastName: String!
 
-    profilePicture: String
+  profilePicture: String
 
-    due: Int!
+  profilePictureFull: String
+
+  due: Int!
 }
 
 input Search {
-    query: String
+  query: String
 
-    filters: [FilterQuery!]!
+  filters: [FilterQuery!]!
 }
 
 enum SecretType {
-    App
+  App
 
-    Admin
+  Admin
 
-    TelegramBot
+  TelegramBot
 }
 
 type ShippingMethod {
-    id: String!
+  id: String!
 
-    displayName: String!
+  displayName: String!
 
-    deliveryCharge: Int!
+  deliveryCharge: Int!
 
-    deliveryTimeInDays: Int!
+  deliveryTimeInDays: Int!
 
-    WeightUnit: WeightUnit!
+  WeightUnit: WeightUnit!
 
-    isFlat: Boolean!
+  isFlat: Boolean!
 
-    isActive: Boolean!
+  isActive: Boolean!
 }
 
 type ShopMedia {
-    path: String!
+  path: String!
 
-    url: String!
+  url: String!
 
-    permanentUrl: String!
+  permanentUrl: String!
 }
 
 type ShopSecretsResponse {
-    secrets: [StoreSecret!]!
+  secrets: [StoreSecret!]!
 }
 
 type ShopsResponse {
-    shops: [Store!]!
+  shops: [Store!]!
 }
 
 input Sort {
-    by: SortBy
+  by: SortBy
 
-    direction: SortDirection
+  direction: SortDirection
 }
 
 enum SortBy {
-    Id
+  Id
 
-    CreatedAt
+  CreatedAt
 
-    Price
+  Price
 
-    Total
+  Total
 
-    GrandTotal
+  GrandTotal
 
-    Quantity
+  Quantity
 
-    Stock
+  Stock
 
-    Position
+  Position
 }
 
 enum SortDirection {
-    Asc
+  Asc
 
-    Desc
+  Desc
 }
 
 type Store {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    title: String
+  title: String
 
-    description: String
+  description: String
 
-    tags: [String!]
+  tags: [String!]
 
-    metaName: String
+  metaName: String
 
-    metaDescription: String
+  metaDescription: String
 
-    metaTags: [String!]
+  metaTags: [String!]
 
-    logo: String
+  logo: String
 
-    favicon: String
+  logoPath: String
 
-    bannerImage: String
+  favicon: String
 
-    isOpen: Boolean!
+  faviconPath: String
 
-    isCustomerLoyaltyEnabled: Boolean!
+  bannerImage: String
 
-    currency: Currency!
+  bannerImagePath: String
 
-    website: String
+  isOpen: Boolean!
 
-    supportEmail: String
+  isCustomerLoyaltyEnabled: Boolean!
 
-    supportPhone: String
+  currency: Currency!
 
-    createdAt: String!
+  website: String
 
-    updatedAt: String
+  supportEmail: String
 
-    street: String
+  supportPhone: String
 
-    streetOptional: String
+  createdAt: String!
 
-    city: String
+  updatedAt: String
 
-    state: String
+  street: String
 
-    postcode: String
+  streetOptional: String
 
-    location: Location
+  city: String
+
+  state: String
+
+  postcode: String
+
+  location: Location
 }
 
 type StoreBanner {
-    id: String!
+  id: String!
 
-    imagePath: String!
+  imagePath: String!
 
-    imageUrl: String!
+  imageUrl: String!
 
-    title: String
+  title: String
 
-    description: String
+  description: String
 
-    btnValue: String
+  btnValue: String
 
-    btnUrl: String
+  btnUrl: String
 
-    tag: String
+  tag: String
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    position: Int!
+  position: Int!
 }
 
 type StoreMenu {
-    id: String!
+  id: String!
 
-    name: String!
+  name: String!
 
-    url: String!
+  url: String!
 
-    tag: String
+  tag: String
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    position: Int!
+  position: Int!
 
-    parentMenu: StoreMenu
+  parentMenu: StoreMenu
 
-    subMenus: [StoreMenu!]
+  subMenus: [StoreMenu!]
 }
 
 type StorePage {
-    id: String!
+  id: String!
 
-    title: String!
+  title: String!
 
-    slug: String
+  slug: String
 
-    content: String!
+  content: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    views: Int!
+  views: Int!
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 }
 
 type StoreSecret {
-    id: String!
+  id: String!
 
-    key: String!
+  key: String!
 
-    secret: String!
+  secret: String!
 
-    secretType: SecretType!
+  secretType: SecretType!
 }
 
 type Subscription {
-    productCreated("" key: String!, "" secret: String!): Product!
+  productCreated("" key: String!, "" secret: String!): Product!
 
-    productUpdated("" key: String!, "" secret: String!): Product!
+  productUpdated("" key: String!, "" secret: String!): Product!
 
-    cartCreated("" key: String!, "" secret: String!): Cart!
+  cartCreated("" key: String!, "" secret: String!): Cart!
 
-    cartUpdated("" key: String!, "" secret: String!): Cart!
+  cartUpdated("" key: String!, "" secret: String!): Cart!
 
-    orderCreated("" key: String!, "" secret: String!): Order!
+  orderCreated("" key: String!, "" secret: String!): Order!
 
-    orderUpdated("" key: String!, "" secret: String!): Order!
+  orderUpdated("" key: String!, "" secret: String!): Order!
 }
 
 input UpdateAttributeParams {
-    name: String!
+  name: String!
 
-    values: [String!]!
+  values: [String!]!
 
-    isRequired: Boolean!
+  isRequired: Boolean!
 }
 
 type UpdateAttributeResponse {
-    attribute: ProductAttribute!
+  attribute: ProductAttribute!
 }
 
 input UpdateBlogPostComment {
-    content: String!
+  content: String!
 }
 
 type UpdateBlogPostCommentResponse {
-    comment: BlogPostComment!
+  comment: BlogPostComment!
 }
 
 input UpdateBlogPostParams {
-    title: String!
+  title: String!
 
-    slug: String
+  slug: String
 
-    bannerImage: String
+  bannerImage: String
 
-    content: String!
+  content: String!
 
-    tags: [String!]
+  tags: [String!]
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    isFeatured: Boolean!
+  isFeatured: Boolean!
 }
 
 type UpdateBlogPostResponse {
-    post: BlogPost!
+  post: BlogPost!
 }
 
 input UpdateCartParams {
-    cartItems: [CartItemParams!]!
+  cartItems: [CartItemParams!]!
 }
 
 type UpdateCartResponse {
-    cart: Cart!
+  cart: Cart!
 }
 
 input UpdateCategoryParams {
-    name: String!
+  name: String!
 
-    slug: String
+  slug: String
 
-    isPublished: Boolean! = False
+  isPublished: Boolean! = False
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    position: Int
+  position: Int
 }
 
 type UpdateCategoryResponse {
-    category: Category!
+  category: Category!
 }
 
 input UpdateCollectionParams {
-    name: String!
+  name: String!
 
-    slug: String
+  slug: String
 
-    isPublished: Boolean! = False
+  isPublished: Boolean! = False
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    position: Int
+  position: Int
 }
 
 type UpdateCollectionResponse {
-    collection: Collection!
+  collection: Collection!
 }
 
 input UpdateCouponCodeParams {
-    code: String!
+  code: String!
 
-    amount: Int!
+  amount: Int!
 
-    minOrderAmount: Int
+  minOrderAmount: Int
 
-    maxDiscountAmount: Int
+  maxDiscountAmount: Int
 
-    isActive: Boolean!
+  isActive: Boolean!
 
-    isFlatDiscount: Boolean!
+  isFlatDiscount: Boolean!
 
-    isForNewUsersOnly: Boolean!
+  isForNewUsersOnly: Boolean!
 
-    isUserSpecific: Boolean!
+  isUserSpecific: Boolean!
 
-    maxUsage: Int
+  maxUsage: Int
 
-    maxUsagePerUser: Int
+  maxUsagePerUser: Int
 
-    discountType: DiscountType!
+  discountType: DiscountType!
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    startAt: String
+  startAt: String
 
-    endAt: String
+  endAt: String
 
-    customers: [String!]
+  customers: [String!]
 }
 
 type UpdateCouponCodeResponse {
-    coupon: CouponCode!
+  coupon: CouponCode!
 }
 
 input UpdateCustomerParams {
-    phone: String
+  phone: String
 
-    firstName: String!
+  firstName: String!
 
-    lastName: String!
+  lastName: String!
 
-    profilePicture: String
+  profilePicture: String
 }
 
 input UpdateDigitalContentParams {
-    title: String!
+  title: String!
 
-    contentType: DigitalContentType!
+  contentType: DigitalContentType!
 
-    isTrialAllowed: Boolean!
+  isTrialAllowed: Boolean!
 
-    contentText: String
+  contentText: String
 
-    contentFile: Upload
+  contentFile: Upload
 
-    position: Int
+  position: Int
 }
 
 input UpdateDigitalItemParams {
-    title: String!
+  title: String!
 
-    description: String
+  description: String
 
-    position: Int
+  position: Int
 }
 
 input UpdateProduct {
-    name: String!
+  name: String!
 
-    slug: String
+  slug: String
 
-    description: String!
+  description: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    sku: String
+  sku: String
 
-    stock: Int
+  stock: Int
 
-    maxItemPerOrder: Int
+  maxItemPerOrder: Int
 
-    price: Int!
+  price: Int!
 
-    cost: Int!
+  cost: Int!
 
-    weight: Float
+  weight: Float
 
-    weightUnit: WeightUnit
+  weightUnit: WeightUnit
 
-    productUnit: ProductUnit
+  productUnit: ProductUnit
 
-    images: [String!]!
+  images: [String!]!
 
-    isDigitalProduct: Boolean!
+  isDigitalProduct: Boolean!
 
-    categoryId: String
+  categoryId: String
 
-    productSpecificDiscount: Int
+  productSpecificDiscount: Int
 }
 
 type UpdateProductResponse {
-    product: Product!
+  product: Product!
 }
 
 input UpdateShippingMethodParams {
-    displayName: String!
+  displayName: String!
 
-    deliveryCharge: Int!
+  deliveryCharge: Int!
 
-    deliveryTimeInDays: Int!
+  deliveryTimeInDays: Int!
 
-    WeightUnit: WeightUnit!
+  WeightUnit: WeightUnit!
 
-    isFlat: Boolean!
+  isFlat: Boolean!
 
-    isActive: Boolean!
+  isActive: Boolean!
 }
 
 type UpdateShippingMethodResponse {
-    method: ShippingMethod!
+  method: ShippingMethod!
 }
 
 input UpdateStoreBanner {
-    image: String!
+  image: String!
 
-    title: String
+  title: String
 
-    description: String
+  description: String
 
-    btnValue: String
+  btnValue: String
 
-    btnUrl: String
+  btnUrl: String
 
-    tag: String
+  tag: String
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    position: Int!
+  position: Int!
 }
 
 input UpdateStoreMenu {
-    name: String!
+  name: String!
 
-    url: String!
+  url: String!
 
-    tag: String
+  tag: String
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 
-    position: Int!
+  position: Int!
 
-    parentMenuId: String
+  parentMenuId: String
 }
 
 input UpdateStorePageParams {
-    title: String!
+  title: String!
 
-    slug: String
+  slug: String
 
-    content: String!
+  content: String!
 
-    isPublished: Boolean!
+  isPublished: Boolean!
 }
 
 input UpdateStoreParams {
-    name: String!
+  name: String!
 
-    title: String
+  title: String
 
-    description: String
+  description: String
 
-    tags: [String!]
+  tags: [String!]
 
-    metaName: String
+  metaName: String
 
-    metaDescription: String
+  metaDescription: String
 
-    metaTags: [String!]
+  metaTags: [String!]
 
-    logo: String
+  logo: String
 
-    favicon: String
+  favicon: String
 
-    bannerImage: String
+  bannerImage: String
 
-    isOpen: Boolean
+  isOpen: Boolean
 
-    isCustomerLoyaltyEnabled: Boolean
+  isCustomerLoyaltyEnabled: Boolean
 
-    currency: Currency
+  currency: Currency
 
-    website: String
+  website: String
 
-    supportEmail: String
+  supportEmail: String
 
-    supportPhone: String
+  supportPhone: String
 
-    street: String
+  street: String
 
-    streetOptional: String
+  streetOptional: String
 
-    city: String
+  city: String
 
-    state: String
+  state: String
 
-    postcode: String
+  postcode: String
 
-    locationID: String
+  locationID: String
 }
 
 input UpdateVariationParams {
-    name: String!
+  name: String!
 
-    price: Int!
+  price: Int!
 
-    cost: Int!
+  cost: Int!
 
-    sku: String
+  sku: String
 
-    stock: Int
+  stock: Int
 
-    weight: Float
+  weight: Float
 
-    weightUnit: WeightUnit
+  weightUnit: WeightUnit
 }
 
 type UpdateVariationResponse {
-    variation: ProductVariation!
+  variation: ProductVariation!
 }
 
 scalar Upload
 
 type User {
-    firstName: String!
+  firstName: String!
 
-    lastName: String!
+  lastName: String!
 
-    email: String!
+  email: String!
 
-    createdAt: String!
+  createdAt: String!
 
-    updatedAt: String
+  updatedAt: String
 }
 
 type UserCouponCode {
-    code: String!
+  code: String!
 
-    amount: Int!
+  amount: Int!
 
-    minOrderAmount: Int
+  minOrderAmount: Int
 
-    maxDiscountAmount: Int
+  maxDiscountAmount: Int
 
-    isFlatDiscount: Boolean!
+  isFlatDiscount: Boolean!
 
-    isForNewUsersOnly: Boolean!
+  isForNewUsersOnly: Boolean!
 
-    maxUsagePerUser: Int
+  maxUsagePerUser: Int
 
-    discountType: DiscountType!
+  discountType: DiscountType!
 
-    description: String
+  description: String
 
-    image: String
+  image: String
 
-    startAt: String
+  startAt: String
 
-    endAt: String
+  endAt: String
 }
 
 enum UserStatus {
-    Registered
+  Registered
 
-    Active
+  Active
 
-    Banned
+  Banned
 
-    Suspended
+  Suspended
 }
 
 enum WeightUnit {
-    Gram
+  Gram
 }
 
 schema {
-    query: Query
-    mutation: Mutation
-    subscription: Subscription
+  query: Query
+  mutation: Mutation
+  subscription: Subscription
 }

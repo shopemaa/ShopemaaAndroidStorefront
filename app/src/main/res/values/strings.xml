@@ -31,4 +31,5 @@
     <string name="dummy_shipping_method">DHL</string>
 
     <string name="dummy_txt">~~~~~~~</string>
+    <string name="payment">Payment</string>
 </resources>

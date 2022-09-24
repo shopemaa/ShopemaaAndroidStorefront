@@ -9,6 +9,8 @@ object Constants {
     const val cartLabel = "customerCart"
     const val cartIdLabel = "customerCartId"
 
+    const val shopLabel = "shopInfo"
+
     const val firstNameLabel = "firstName"
     const val lastNameLabel = "lastName"
     const val emailLabel = "email"
@@ -23,5 +25,7 @@ object Constants {
     const val paymentMethodLabel = "paymentMethod"
 
     const val orderHashLabel = "orderHash"
+    const val orderIdLabel = "orderId"
     const val orderCustomerEmailLabel = "orderCustomerEmail"
+    const val paymentGatewayLabel = "paymentGateway"
 }

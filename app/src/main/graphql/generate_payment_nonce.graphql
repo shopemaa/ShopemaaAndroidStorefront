@@ -1,0 +1,7 @@
+mutation orderGeneratePaymentNonceForGuest($orderId: String!, $customerEmail: String!, $overrides: PaymentRequestOverrides)  {
+    orderGeneratePaymentNonceForGuest(orderId: $orderId, customerEmail: $customerEmail, overrides: $overrides) {
+        PaymentGatewayName
+        Nonce
+        StripePublishableKey
+    }
+}

@@ -36,7 +36,7 @@ class ProductListAdapter(
         val p = products[position]
 
         holder.productName.text = p.name
-        holder.productPrice.text = Utils.formatAmount(p.price)
+        holder.productPrice.text = Utils.formatAmount(ctx, p.price)
 
         if (p.fullImages.isNotEmpty()) {
             Glide.with(ctx).load(p.fullImages[0]).into(holder.productImage)
@@ -55,8 +55,8 @@ class ProductListAdapter(
             holder.productStockOrDiscount.text =
                 String.format("%d%% off", p.productSpecificDiscount)
             holder.productPrice.text =
-                Utils.formatAmount(Utils.discountedPrice(p.productSpecificDiscount, p.price))
-            holder.productDiscountedPrice.text = Utils.formatAmount(p.price)
+                Utils.formatAmount(ctx, Utils.discountedPrice(p.productSpecificDiscount, p.price))
+            holder.productDiscountedPrice.text = Utils.formatAmount(ctx, p.price)
             holder.productDiscountedPrice.paintFlags =
                 holder.productDiscountedPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             holder.productDiscountedPrice.visibility = View.VISIBLE

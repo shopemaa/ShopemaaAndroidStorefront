@@ -121,7 +121,7 @@ class CartActivity : BaseActivity(), CartItemQuantityListener, CartView {
         }
 
         itemCounter.text = "Items: $count"
-        this.total.text = "Total: ${Utils.formatAmount(total, true)}"
+        this.total.text = "Total: ${Utils.formatAmount(applicationContext, total, true)}"
     }
 
     override fun onBackPressed() {

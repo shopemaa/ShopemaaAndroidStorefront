@@ -262,7 +262,12 @@ class CheckoutActivity : BaseActivity(), CheckoutView {
             PowerSpinnerModel(
                 it.id,
                 it.displayName,
-                "${Utils.formatAmount(it.deliveryCharge)} - Approx. delivery in ${it.deliveryTimeInDays} days"
+                "${
+                    Utils.formatAmount(
+                        applicationContext,
+                        it.deliveryCharge
+                    )
+                } - Approx. delivery in ${it.deliveryTimeInDays} days"
             )
         }
         shippingMethodsAdapter.setItems(items)

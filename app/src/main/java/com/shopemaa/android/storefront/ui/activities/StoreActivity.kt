@@ -9,9 +9,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
+import com.google.gson.Gson
 import com.shopemaa.android.storefront.R
 import com.shopemaa.android.storefront.api.graphql.StoreBySecretQuery
+import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
+import com.shopemaa.android.storefront.storage.CacheStorage
 import com.shopemaa.android.storefront.ui.presenters.StorePresenter
 import com.shopemaa.android.storefront.ui.views.StoreView
 import kotlinx.coroutines.launch
@@ -47,6 +50,9 @@ class StoreActivity : BaseActivity(), StoreView {
 
     override fun onStoreSuccess(store: StoreBySecretQuery.StoreBySecret) {
         alertDialog.dismiss()
+
+        val c = CacheStorage(applicationContext)
+        c.save(Constants.shopLabel, Gson().toJson(store))
 
         Glide.with(this).load(store.logo).into(storeLogo)
 

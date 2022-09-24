@@ -35,8 +35,8 @@ class OrderItemListAdapter(
         }
 
         holder.productPriceWithQuantity.text =
-            "${Utils.formatAmount(item.purchasePrice, true)} x ${item.quantity}"
-        holder.productTotal.text = Utils.formatAmount(item.purchasePrice * item.quantity, true)
+            "${Utils.formatAmount(ctx, item.purchasePrice, true)} x ${item.quantity}"
+        holder.productTotal.text = Utils.formatAmount(ctx, item.purchasePrice * item.quantity, true)
 
         if (item.attributes.isEmpty()) {
             holder.attributes.visibility = View.GONE

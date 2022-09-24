@@ -120,11 +120,11 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
             coupon.visibility = View.INVISIBLE
         }
 
-        subtotal.text = Utils.formatAmount(order.subtotal, true)
-        shippingFee.text = Utils.formatAmount(order.shippingCharge, true)
-        paymentFee.text = Utils.formatAmount(order.paymentProcessingFee, true)
-        discount.text = Utils.formatAmount(order.discountedAmount, true)
-        grandTotal.text = Utils.formatAmount(order.grandTotal, true)
+        subtotal.text = Utils.formatAmount(applicationContext, order.subtotal, true)
+        shippingFee.text = Utils.formatAmount(applicationContext, order.shippingCharge, true)
+        paymentFee.text = Utils.formatAmount(applicationContext, order.paymentProcessingFee, true)
+        discount.text = Utils.formatAmount(applicationContext, order.discountedAmount, true)
+        grandTotal.text = Utils.formatAmount(applicationContext, order.grandTotal, true)
 
         orderItemsList.addAll(order.cart.cartItems)
         orderItemsAdapter.notifyDataSetChanged()
