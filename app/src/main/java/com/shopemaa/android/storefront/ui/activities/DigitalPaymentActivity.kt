@@ -107,9 +107,24 @@ class DigitalPaymentActivity : BaseActivity(), DigitalPaymentView, DigitalPaymen
         webView.visibility = View.VISIBLE
     }
 
+    private fun loadSSLCommerzView() {
+        webView.loadUrl(
+            gatewayResult.Nonce
+        )
+        alertDialog.dismiss()
+        webView.visibility = View.VISIBLE
+    }
+
     override fun generatePaymentNonceSuccess(result: OrderGeneratePaymentNonceForGuestMutation.OrderGeneratePaymentNonceForGuest) {
         this.gatewayResult = result
-        loadView()
+
+        if (this.gatewayResult.PaymentGatewayName == "SSLCommerz") {
+            loadSSLCommerzView()
+        } else if (this.gatewayResult.PaymentGatewayName == "Stripe") {
+            loadView()
+        } else {
+            showMessage(applicationContext, "Unsupported payment gateway")
+        }
     }
 
     override fun generatePaymentNonceFailure(err: ApiError) {
