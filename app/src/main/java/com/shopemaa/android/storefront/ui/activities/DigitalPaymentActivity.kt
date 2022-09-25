@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebView
+import android.widget.ImageView
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.apollographql.apollo3.api.Optional
@@ -28,6 +29,7 @@ class DigitalPaymentActivity : BaseActivity(), DigitalPaymentView, DigitalPaymen
     private lateinit var orderId: String
 
     private lateinit var webView: WebView
+    private lateinit var goBackView: ImageView
 
     lateinit var alertDialog: SweetAlertDialog
     lateinit var gatewayResult: OrderGeneratePaymentNonceForGuestMutation.OrderGeneratePaymentNonceForGuest
@@ -44,6 +46,11 @@ class DigitalPaymentActivity : BaseActivity(), DigitalPaymentView, DigitalPaymen
         alertDialog.show()
 
         CookieManager.getInstance().setAcceptCookie(true)
+
+        goBackView = findViewById(R.id.payment_view_back)
+        goBackView.setOnClickListener {
+            gotoOrderDetails()
+        }
 
         webView = findViewById(R.id.payment_view)
         webView.webViewClient = CustomWebViewClient(this)
@@ -107,10 +114,19 @@ class DigitalPaymentActivity : BaseActivity(), DigitalPaymentView, DigitalPaymen
 
     override fun generatePaymentNonceFailure(err: ApiError) {
         showMessage(applicationContext, "Failed to generate nonce")
+        alertDialog.show()
     }
 
     override fun onSuccess() {
         showMessage(applicationContext, "Payment successful")
+        gotoOrderDetails()
+    }
+
+    private fun gotoOrderDetails() {
+        if (::orderHash.isInitialized.not() || ::customerEmail.isInitialized.not()) {
+            return
+        }
+
         val i = Intent(applicationContext, OrderDetailsActivity::class.java)
         i.putExtra(Constants.orderHashLabel, orderHash)
         i.putExtra(Constants.orderCustomerEmailLabel, customerEmail)
@@ -123,5 +139,9 @@ class DigitalPaymentActivity : BaseActivity(), DigitalPaymentView, DigitalPaymen
         showMessage(applicationContext, "Payment failed")
         generateNonce()
         alertDialog.show()
+    }
+
+    override fun onBackPressed() {
+        gotoOrderDetails()
     }
 }

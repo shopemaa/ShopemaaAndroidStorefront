@@ -1,6 +1,7 @@
 package com.shopemaa.android.storefront.ui.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -9,9 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.apollographql.apollo3.api.or
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.google.android.material.button.MaterialButton
 import com.shopemaa.android.storefront.R
 import com.shopemaa.android.storefront.api.graphql.OrderByCustomerEmailQuery
+import com.shopemaa.android.storefront.api.graphql.type.OrderPaymentStatus
 import com.shopemaa.android.storefront.contants.Constants
 import com.shopemaa.android.storefront.errors.ApiError
 import com.shopemaa.android.storefront.ui.adapters.OrderItemListAdapter
@@ -49,6 +53,10 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
     private lateinit var orderItemsList: MutableList<OrderByCustomerEmailQuery.CartItem>
     private lateinit var orderItemsAdapter: OrderItemListAdapter
 
+    private lateinit var payNowBtn: MaterialButton
+
+    private lateinit var order: OrderByCustomerEmailQuery.OrderByCustomerEmail
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_details)
@@ -72,6 +80,19 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
         paymentFee = findViewById(R.id.payment_fee)
         discount = findViewById(R.id.discount)
         grandTotal = findViewById(R.id.grand_total)
+
+        payNowBtn = findViewById(R.id.order_details_pay_btn)
+        payNowBtn.visibility = View.GONE
+        payNowBtn.setOnClickListener {
+            if (::order.isInitialized) {
+                val i = Intent(applicationContext, DigitalPaymentActivity::class.java)
+                i.putExtra(Constants.orderHashLabel, order.hash)
+                i.putExtra(Constants.orderCustomerEmailLabel, order.customer.email)
+                i.putExtra(Constants.orderIdLabel, order.id)
+                startActivity(i)
+                finish()
+            }
+        }
 
         orderItems = findViewById(R.id.order_items)
         orderItemsList = mutableListOf()
@@ -100,6 +121,8 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
 
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     override fun onOrderDetailsSuccess(order: OrderByCustomerEmailQuery.OrderByCustomerEmail) {
+        this.order = order
+
         orderHash.text = "#${order.hash}"
         orderStatus.text = "Order is ${order.status}"
         orderDate.text = order.createdAt
@@ -128,6 +151,10 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
 
         orderItemsList.addAll(order.cart.cartItems)
         orderItemsAdapter.notifyDataSetChanged()
+
+        if (order.paymentStatus != OrderPaymentStatus.Paid) {
+            payNowBtn.visibility = View.VISIBLE
+        }
 
         alertDialog.dismiss()
     }

@@ -433,8 +433,16 @@
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/order_details_pay_btn"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/grand_total_box"
+            android:text="Pay Now"
+            android:textAllCaps="false"
+            android:textSize="18sp" />
     </RelativeLayout>
 
 </RelativeLayout>
