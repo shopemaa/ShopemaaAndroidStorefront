@@ -2,6 +2,7 @@ package com.shopemaa.android.storefront.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +24,7 @@ class StoreActivity : BaseActivity(), StoreView {
     private lateinit var storeLogo: ImageView
     private lateinit var storeName: TextView
     private lateinit var storeBrowseBtn: MaterialButton
+    private lateinit var storeRescanBtn: Button
 
     private lateinit var alertDialog: SweetAlertDialog
 
@@ -39,6 +41,10 @@ class StoreActivity : BaseActivity(), StoreView {
         storeBrowseBtn.setOnClickListener {
             startActivity(Intent(applicationContext, HomeActivity::class.java))
             finish()
+        }
+        storeRescanBtn = findViewById(R.id.store_rescan_btn)
+        storeRescanBtn.setOnClickListener {
+            startActivity(Intent(this, BarcodeScannerActivity::class.java))
         }
 
         alertDialog = createLoader(this, "Loading...")

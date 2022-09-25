@@ -94,6 +94,8 @@ class BarcodeScannerActivity : BaseActivity(), PermissionListener {
                             && secret.key!!.isNotEmpty() && secret.secret!!.isNotEmpty()
                         ) {
                             val c = getCacheStorage(applicationContext)
+                            c.cleanAll()
+
                             c.save(Constants.storeKeyLabel, secret.key!!)
                             c.save(Constants.storeSecretLabel, secret.secret!!)
 

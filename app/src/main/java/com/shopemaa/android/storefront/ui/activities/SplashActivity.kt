@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Base64
-import android.util.Log
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.gson.Gson
 import com.shopemaa.android.storefront.R

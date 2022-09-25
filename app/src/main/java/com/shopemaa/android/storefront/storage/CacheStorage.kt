@@ -21,4 +21,8 @@ class CacheStorage(ctx: Context) : ICacheStorage {
         editor.remove(key)
         return editor.commit()
     }
+
+    override fun cleanAll(): Boolean {
+        return store.edit().clear().commit()
+    }
 }

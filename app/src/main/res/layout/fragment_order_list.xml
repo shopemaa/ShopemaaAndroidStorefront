@@ -38,6 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_below="@+id/customer_email"
+        android:background="@drawable/primary_btn"
         android:text="Order Details"
         android:textAllCaps="false"
         android:textSize="18sp" />

@@ -31,7 +31,7 @@
         android:layout_below="@id/store_welcome"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Welcome"
+        android:text=""
         android:textSize="32sp"
         android:textStyle="bold" />
 
@@ -39,9 +39,22 @@
         android:id="@+id/store_browse_btn"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/store_name"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
+        android:background="@drawable/primary_btn"
         android:text="Browse" />
+
+    <Button
+        android:id="@+id/store_rescan_btn"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="60dp"
+        android:background="@drawable/alternative_btn"
+        android:text="Rescan QR" />
 
 </RelativeLayout>
