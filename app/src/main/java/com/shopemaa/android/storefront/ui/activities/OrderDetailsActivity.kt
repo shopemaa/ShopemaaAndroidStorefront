@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.apollographql.apollo3.api.or
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -57,6 +58,8 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
 
     private lateinit var order: OrderByCustomerEmailQuery.OrderByCustomerEmail
 
+    private lateinit var swipeLayout: SwipeRefreshLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_details)
@@ -91,6 +94,21 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
                 i.putExtra(Constants.orderIdLabel, order.id)
                 startActivity(i)
                 finish()
+            }
+        }
+
+        swipeLayout = findViewById(R.id.order_details_layout)
+        swipeLayout.setOnRefreshListener {
+            if (::order.isInitialized) {
+                alertDialog.show()
+
+                lifecycleScope.launch {
+                    presenter.requestOrderDetails(
+                        applicationContext,
+                        order.hash,
+                        order.customer.email
+                    )
+                }
             }
         }
 
@@ -149,6 +167,7 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
         discount.text = Utils.formatAmount(applicationContext, order.discountedAmount, true)
         grandTotal.text = Utils.formatAmount(applicationContext, order.grandTotal, true)
 
+        orderItemsList.clear()
         orderItemsList.addAll(order.cart.cartItems)
         orderItemsAdapter.notifyDataSetChanged()
 
@@ -157,12 +176,14 @@ class OrderDetailsActivity : BaseActivity(), OrderView {
         }
 
         alertDialog.dismiss()
+        swipeLayout.isRefreshing = false
     }
 
     override fun onOrderDetailsFailure(err: ApiError) {
         alertDialog.dismiss()
         showMessage(applicationContext, "Order not found")
         finish()
+        swipeLayout.isRefreshing = false
     }
 
     override fun onBackPressed() {
