@@ -1,6 +1,7 @@
 package com.shopemaa.android.storefront.ui.presenters
 
 import android.content.Context
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.shopemaa.android.storefront.api.ApiHelper
@@ -18,20 +19,27 @@ class StorePresenter : MvpPresenter<StoreView>() {
         val storeKey = c.get(Constants.storeKeyLabel)
         val storeSecret = c.get(Constants.storeSecretLabel)
 
-        val resp = ApiHelper
-            .apolloClient(
-                mutableMapOf(
-                    "store-key" to storeKey,
-                    "store-secret" to storeSecret
+        try {
+            val resp = ApiHelper
+                .apolloClient(
+                    mutableMapOf(
+                        "store-key" to storeKey,
+                        "store-secret" to storeSecret
+                    )
                 )
-            )
-            .query(StoreBySecretQuery())
-            .execute()
-        if (resp.hasErrors()) {
-            viewState.onStoreFailure(ApiError())
-            return
-        }
+                .query(StoreBySecretQuery())
+                .execute()
+            if (resp.hasErrors()) {
+                viewState.onStoreFailure(ApiError())
+                return
+            }
 
-        viewState.onStoreSuccess(resp.data!!.storeBySecret)
+            viewState.onStoreSuccess(resp.data!!.storeBySecret)
+        } catch (e: Exception) {
+            Log.d("Exception", e.message!!)
+            if ("Failed to execute GraphQL http network request" == e.message) {
+                viewState.internetUnavailable()
+            }
+        }
     }
 }

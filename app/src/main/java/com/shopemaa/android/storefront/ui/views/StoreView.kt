@@ -7,4 +7,5 @@ import com.shopemaa.android.storefront.errors.ApiError
 interface StoreView : MvpView {
     fun onStoreSuccess(store: StoreBySecretQuery.StoreBySecret)
     fun onStoreFailure(err: ApiError)
+    fun internetUnavailable()
 }

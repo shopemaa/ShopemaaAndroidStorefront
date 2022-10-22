@@ -71,7 +71,8 @@ class HomeActivity : BaseActivity(), TextWatcher {
 
         homeMenu.setOnClickListener {
             if (selectedIndex == Constants.indexHome) {
-
+                startActivity(Intent(this, StoreActivity::class.java))
+                finish()
             }
         }
         cartIcon.setOnClickListener {

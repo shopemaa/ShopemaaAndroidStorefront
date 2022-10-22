@@ -2,6 +2,7 @@ package com.shopemaa.android.storefront.ui.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -42,6 +43,7 @@ class StoreActivity : BaseActivity(), StoreView {
             startActivity(Intent(applicationContext, HomeActivity::class.java))
             finish()
         }
+        storeBrowseBtn.visibility = View.INVISIBLE
         storeRescanBtn = findViewById(R.id.store_rescan_btn)
         storeRescanBtn.setOnClickListener {
             startActivity(Intent(this, BarcodeScannerActivity::class.java))
@@ -63,11 +65,16 @@ class StoreActivity : BaseActivity(), StoreView {
         Glide.with(this).load(store.logo).into(storeLogo)
 
         storeName.text = store.name
+        storeBrowseBtn.visibility = View.VISIBLE
     }
 
     override fun onStoreFailure(err: ApiError) {
         alertDialog.dismiss()
         startActivity(Intent(applicationContext, SplashActivity::class.java))
         finish()
+    }
+
+    override fun internetUnavailable() {
+        showMessage(applicationContext, "No internet connection")
     }
 }
