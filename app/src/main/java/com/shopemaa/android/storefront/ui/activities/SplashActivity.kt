@@ -41,7 +41,7 @@ class SplashActivity : BaseActivity() {
         if (key.isEmpty() || secret.isEmpty()) {
             val alert = SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
             alert.titleText = "Attention"
-            alert.contentText = "No store connected. Scan QR code to connect to your desired store."
+            alert.contentText = "No store connected. Use QR code to connect to your store."
             alert.confirmText = "Scan QR"
             alert.cancelText = "Read QR"
 
