@@ -103,8 +103,7 @@ class SplashActivity : BaseActivity() {
                 throw Exception("Invalid QR code")
             }
         } catch (e: Exception) {
-            Log.d("QRRead", e.message!!)
-            showMessage(applicationContext, "Invalid QR code selected")
+            showMessage(applicationContext, "Select a valid QR code")
         }
     }
 
