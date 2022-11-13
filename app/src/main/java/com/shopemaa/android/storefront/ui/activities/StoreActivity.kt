@@ -36,6 +36,8 @@ class StoreActivity : BaseActivity(), StoreView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_store)
 
+        val c = CacheStorage(applicationContext)
+
         storeLogo = findViewById(R.id.store_logo)
         storeName = findViewById(R.id.store_name)
         storeBrowseBtn = findViewById(R.id.store_browse_btn)
@@ -46,7 +48,8 @@ class StoreActivity : BaseActivity(), StoreView {
         storeBrowseBtn.visibility = View.INVISIBLE
         storeRescanBtn = findViewById(R.id.store_rescan_btn)
         storeRescanBtn.setOnClickListener {
-            startActivity(Intent(this, BarcodeScannerActivity::class.java))
+            c.cleanAll()
+            startActivity(Intent(this, SplashActivity::class.java))
         }
 
         alertDialog = createLoader(this, "Loading...")

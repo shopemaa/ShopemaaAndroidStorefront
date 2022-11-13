@@ -38,7 +38,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/store_browse_btn"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/store_name"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
@@ -50,11 +50,11 @@
         android:id="@+id/store_rescan_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/store_browse_btn"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="60dp"
         android:background="@drawable/alternative_btn"
-        android:text="Rescan QR" />
+        android:text="Re-Scan QR" />
 
 </RelativeLayout>
